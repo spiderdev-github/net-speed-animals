@@ -261,5 +261,8 @@
       <summary>Show disk I/O graph</summary>
       <description>Display a disk I/O history graph in the popup menu</description>
     </key>
+    <key name="prefs-start-page" type="s">
+      <default>'general'</default>
+    </key>
   </schema>
 </schemalist>

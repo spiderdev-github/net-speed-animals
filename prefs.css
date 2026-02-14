@@ -1,0 +1,40 @@
+/* About page look (GTK4/Libadwaita prefs) */
+
+.about-hero {
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.about-title {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.about-subtitle {
+  opacity: 0.8;
+}
+
+.pills {
+  margin-top: 6px;
+  spacing: 6px;
+}
+
+.pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* Variant that looks like a badge */
+.pill.badge {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Donate buttons */
+.donate-btn {
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 600;
+}

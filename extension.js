@@ -449,7 +449,7 @@ export default class NetSpeedAnimalsExtension extends Extension {
     this._memoryItem = new PopupMenu.PopupMenuItem(this._('Memory: --'), { reactive: false });
     this._cpuItem = new PopupMenu.PopupMenuItem(this._('CPU: --'), { reactive: false });
     this._temperatureItem = new PopupMenu.PopupMenuItem(this._('Temperature: --'), { reactive: false });
-    this._diskItem = new PopupMenu.PopupMenuItem(this._('Disk I/O: --'), { reactive: false });
+    this._diskItem = new PopupMenu.PopupMenuItem(this._('Disk I/O: --'), { reactive: false })
 
     this._indicator.menu.addMenuItem(this._speedItem);
     this._indicator.menu.addMenuItem(this._ifaceItem);
@@ -707,10 +707,18 @@ export default class NetSpeedAnimalsExtension extends Extension {
 
     const prefsItem = new PopupMenu.PopupMenuItem(this._('Preferences'));
     prefsItem.connect('activate', () => {
+      this._settings.set_string('prefs-start-page', 'general');
       this.openPreferences();
     });
     this._indicator.menu.addMenuItem(prefsItem);
 
+    const aboutItem = new PopupMenu.PopupMenuItem(_('About'));
+    aboutItem.connect('activate', () => {
+      // Set requested start page then open prefs
+      this._settings.set_string('prefs-start-page', 'about');
+      this.openPreferences();
+    });
+    this._indicator.menu.addMenuItem(aboutItem);
     // const disableItem = new PopupMenu.PopupMenuItem(_("Desactiver l'extension"));
     // disableItem.connect('activate', () => {
     //   Main.extensionManager.disableExtension(this.uuid);
