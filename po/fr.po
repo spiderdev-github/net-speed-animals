@@ -1,0 +1,579 @@
+# French translation for net-speed-animals
+# Copyright (C) 2024
+# This file is distributed under the same license as the net-speed-animals package.
+# Traduction française pour net-speed-animals
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: net-speed-animals 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-14 12:00+0100\n"
+"PO-Revision-Date: 2024-02-14 12:00+0100\n"
+"Last-Translator: Claude AI\n"
+"Language-Team: French <fr@li.org>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+# extension.js - Menu items
+msgid "Speed"
+msgstr "Débit"
+
+msgid "Interface"
+msgstr "Interface"
+
+msgid "Memory"
+msgstr "Mémoire"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "Session"
+msgstr "Session"
+
+msgid "Daily"
+msgstr "Quotidien"
+
+msgid "Weekly"
+msgstr "Hebdomadaire"
+
+msgid "Monthly"
+msgstr "Mensuel"
+
+msgid "Network Statistics"
+msgstr "Statistiques Réseau"
+
+msgid "Reset Session Stats"
+msgstr "Réinitialiser les stats de session"
+
+msgid "Preferences"
+msgstr "Préférences"
+
+# prefs.js - General page
+msgid "General"
+msgstr "Général"
+
+msgid "Animal Speed Thresholds"
+msgstr "Seuils de vitesse des animaux"
+
+msgid "Change the network speed thresholds for switching animals"
+msgstr "Modifier les seuils de vitesse réseau pour changer d'animal"
+
+msgid "Turtle Threshold"
+msgstr "Seuil Tortue"
+
+msgid "Switch to turtle when above (Mbit/s)"
+msgstr "Passer à la tortue au-dessus de (Mbit/s)"
+
+msgid "Rabbit Threshold"
+msgstr "Seuil Lapin"
+
+msgid "Switch to rabbit when above (Mbit/s)"
+msgstr "Passer au lapin au-dessus de (Mbit/s)"
+
+msgid "Network Interface"
+msgstr "Interface Réseau"
+
+msgid "Select which network interface to monitor"
+msgstr "Sélectionner l'interface réseau à surveiller"
+
+msgid "Interface Selection Mode"
+msgstr "Mode de sélection d'interface"
+
+msgid "How to choose the network interface"
+msgstr "Comment choisir l'interface réseau"
+
+msgid "Automatic (highest traffic)"
+msgstr "Automatique (trafic le plus élevé)"
+
+msgid "Manual (select below)"
+msgstr "Manuel (sélectionner ci-dessous)"
+
+msgid "Interface Name"
+msgstr "Nom de l'interface"
+
+msgid "Memory Level Thresholds"
+msgstr "Seuils de niveaux de mémoire"
+
+msgid "Change the memory usage thresholds for switching blob levels"
+msgstr "Modifier les seuils d'utilisation de mémoire pour changer de niveau de blob"
+
+msgid "Memory Level 1 Threshold"
+msgstr "Seuil de mémoire niveau 1"
+
+msgid "Switch to blob level 1 when above (%)"
+msgstr "Passer au blob niveau 1 au-dessus de (%)"
+
+msgid "Memory Level 2 Threshold"
+msgstr "Seuil de mémoire niveau 2"
+
+msgid "Switch to blob level 2 when above (%)"
+msgstr "Passer au blob niveau 2 au-dessus de (%)"
+
+msgid "Memory Level 3 Threshold"
+msgstr "Seuil de mémoire niveau 3"
+
+msgid "Switch to blob level 3 when above (%)"
+msgstr "Passer au blob niveau 3 au-dessus de (%)"
+
+msgid "CPU Level Thresholds"
+msgstr "Seuils de niveaux CPU"
+
+msgid "Change the CPU usage thresholds for switching CPU icon levels"
+msgstr "Modifier les seuils d'utilisation CPU pour changer de niveau d'icône"
+
+msgid "CPU Level 1 Threshold"
+msgstr "Seuil CPU niveau 1"
+
+msgid "Switch to CPU level 1 when above (%)"
+msgstr "Passer au CPU niveau 1 au-dessus de (%)"
+
+msgid "CPU Level 2 Threshold"
+msgstr "Seuil CPU niveau 2"
+
+msgid "Switch to CPU level 2 when above (%)"
+msgstr "Passer au CPU niveau 2 au-dessus de (%)"
+
+msgid "CPU Level 3 Threshold"
+msgstr "Seuil CPU niveau 3"
+
+msgid "Switch to CPU level 3 when above (%)"
+msgstr "Passer au CPU niveau 3 au-dessus de (%)"
+
+msgid "Animation"
+msgstr "Animation"
+
+msgid "Adjust animation speed"
+msgstr "Ajuster la vitesse d'animation"
+
+msgid "Min Animation Speed"
+msgstr "Vitesse d'animation minimale"
+
+msgid "Fastest animation interval (ms) at high speed"
+msgstr "Intervalle d'animation le plus rapide (ms) à haute vitesse"
+
+msgid "Max Animation Speed"
+msgstr "Vitesse d'animation maximale"
+
+msgid "Slowest animation interval (ms) at low speed"
+msgstr "Intervalle d'animation le plus lent (ms) à basse vitesse"
+
+msgid "Display Options"
+msgstr "Options d'affichage"
+
+msgid "Choose which elements to show in the panel"
+msgstr "Choisir les éléments à afficher dans le panneau"
+
+msgid "Show Animal Icon"
+msgstr "Afficher l'icône d'animal"
+
+msgid "Display the animated animal icon (snail/turtle/rabbit)"
+msgstr "Afficher l'icône d'animal animée (escargot/tortue/lapin)"
+
+msgid "Show Memory Icon"
+msgstr "Afficher l'icône de mémoire"
+
+msgid "Display the memory blob icon"
+msgstr "Afficher l'icône de blob de mémoire"
+
+msgid "Show CPU Icon"
+msgstr "Afficher l'icône CPU"
+
+msgid "Display the CPU icon"
+msgstr "Afficher l'icône CPU"
+
+msgid "Show Speed Label"
+msgstr "Afficher l'étiquette de vitesse"
+
+msgid "Display network speed text value"
+msgstr "Afficher la valeur textuelle de vitesse réseau"
+
+msgid "Speed Display Mode"
+msgstr "Mode d'affichage de vitesse"
+
+msgid "How to display network speed"
+msgstr "Comment afficher la vitesse réseau"
+
+msgid "Combined (Total Speed)"
+msgstr "Combiné (Vitesse totale)"
+
+msgid "Separate (Download/Upload)"
+msgstr "Séparé (Téléchargement/Envoi)"
+
+msgid "Download Only"
+msgstr "Téléchargement uniquement"
+
+msgid "Upload Only"
+msgstr "Envoi uniquement"
+
+msgid "Show Memory Label"
+msgstr "Afficher l'étiquette de mémoire"
+
+msgid "Display memory usage percentage text"
+msgstr "Afficher le pourcentage d'utilisation de mémoire"
+
+msgid "Show CPU Label"
+msgstr "Afficher l'étiquette CPU"
+
+msgid "Display CPU usage percentage text"
+msgstr "Afficher le pourcentage d'utilisation CPU"
+
+msgid "Enable Color Themes"
+msgstr "Activer les thèmes de couleur"
+
+msgid "Apply color coding to labels (green/yellow/red) based on thresholds"
+msgstr "Appliquer un code couleur aux étiquettes (vert/jaune/rouge) selon les seuils"
+
+msgid "Track and display network traffic statistics"
+msgstr "Suivre et afficher les statistiques de trafic réseau"
+
+msgid "Track Statistics"
+msgstr "Suivre les statistiques"
+
+msgid "Record network traffic data (session/daily/weekly/monthly)"
+msgstr "Enregistrer les données de trafic réseau (session/quotidien/hebdomadaire/mensuel)"
+
+msgid "Show Statistics in Menu"
+msgstr "Afficher les statistiques dans le menu"
+
+msgid "Display traffic statistics in the popup menu"
+msgstr "Afficher les statistiques de trafic dans le menu contextuel"
+
+msgid "About"
+msgstr "À propos"
+
+msgid "Net Speed Animals"
+msgstr "Net Speed Animals"
+
+msgid "Display internet speed with animated animals"
+msgstr "Afficher la vitesse internet avec des animaux animés"
+
+# Additional strings for labels and descriptions
+msgid "Speed: --"
+msgstr "Débit : --"
+
+msgid "Interface: --"
+msgstr "Interface : --"
+
+msgid "Memory: --"
+msgstr "Mémoire : --"
+
+msgid "CPU: --"
+msgstr "CPU : --"
+
+msgid "Session: --"
+msgstr "Session : --"
+
+msgid "Daily: --"
+msgstr "Quotidien : --"
+
+msgid "Weekly: --"
+msgstr "Hebdomadaire : --"
+
+msgid "Monthly: --"
+msgstr "Mensuel : --"
+
+# Label descriptions for preferences
+msgid "Show speed label text"
+msgstr "Afficher le texte de l'étiquette de vitesse"
+
+msgid "Show memory label text"
+msgstr "Afficher le texte de l'étiquette de mémoire"
+
+msgid "Show CPU label text"
+msgstr "Afficher le texte de l'étiquette CPU"
+
+msgid "Network speed label"
+msgstr "Étiquette de vitesse réseau"
+
+msgid "Memory usage label"
+msgstr "Étiquette d'utilisation de mémoire"
+
+msgid "CPU usage label"
+msgstr "Étiquette d'utilisation CPU"
+
+# Settings page titles
+msgid "Thresholds"
+msgstr "Seuils"
+
+msgid "Network"
+msgstr "Réseau"
+
+msgid "System Monitor"
+msgstr "Moniteur système"
+
+msgid "Statistics"
+msgstr "Statistiques"
+
+msgid "Appearance"
+msgstr "Apparence"
+
+# Units
+msgid "Mbit/s"
+msgstr "Mbit/s"
+
+msgid "KB/s"
+msgstr "Ko/s"
+
+msgid "B/s"
+msgstr "o/s"
+
+msgid "MB"
+msgstr "Mo"
+
+msgid "GB"
+msgstr "Go"
+
+msgid "TB"
+msgstr "To"
+
+# Additional descriptive strings
+msgid "Download"
+msgstr "Téléchargement"
+
+msgid "Upload"
+msgstr "Envoi"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Current"
+msgstr "Actuel"
+
+msgid "Average"
+msgstr "Moyenne"
+
+# Temperature monitoring strings
+msgid "Temperature"
+msgstr "Température"
+
+msgid "Temperature: --"
+msgstr "Température : --"
+
+msgid "Temperature Thresholds"
+msgstr "Seuils de température"
+
+msgid "Change the temperature thresholds for switching thermometer levels"
+msgstr "Modifier les seuils de température pour changer de niveau de thermomètre"
+
+msgid "Warm Temperature Threshold"
+msgstr "Seuil de température tiède"
+
+msgid "Switch to warm (yellow) when above (°C)"
+msgstr "Passer au tiède (jaune) au-dessus de (°C)"
+
+msgid "Hot Temperature Threshold"
+msgstr "Seuil de température chaude"
+
+msgid "Switch to hot (orange) when above (°C)"
+msgstr "Passer au chaud (orange) au-dessus de (°C)"
+
+msgid "Critical Temperature Threshold"
+msgstr "Seuil de température critique"
+
+msgid "Switch to critical (red) when above (°C)"
+msgstr "Passer au critique (rouge) au-dessus de (°C)"
+
+msgid "Show Temperature Icon"
+msgstr "Afficher l'icône de température"
+
+msgid "Display the temperature thermometer icon"
+msgstr "Afficher l'icône thermomètre de température"
+
+msgid "Show Temperature Label"
+msgstr "Afficher l'étiquette de température"
+
+msgid "Display temperature value text"
+msgstr "Afficher la valeur textuelle de température"
+
+# Click actions notification strings
+msgid "Speed Display"
+msgstr "Affichage du débit"
+
+# Speed graph strings
+msgid "Show Speed Graph"
+msgstr "Afficher le graphique de débit"
+
+msgid "Display a historical speed graph in the popup menu"
+msgstr "Afficher un graphique historique du débit dans le menu contextuel"
+
+# Notifications page strings
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "Configure desktop notifications for system alerts"
+msgstr "Configurer les notifications de bureau pour les alertes système"
+
+msgid "Enable Notifications"
+msgstr "Activer les notifications"
+
+msgid "Show desktop notifications for alerts and warnings"
+msgstr "Afficher les notifications de bureau pour les alertes et avertissements"
+
+msgid "Network Alerts"
+msgstr "Alertes réseau"
+
+msgid "Network Dropout Alert"
+msgstr "Alerte de perte de réseau"
+
+msgid "Notify when network speed drops below threshold"
+msgstr "Notifier lorsque le débit réseau tombe en dessous du seuil"
+
+msgid "Network Dropout Threshold"
+msgstr "Seuil de perte de réseau"
+
+msgid "Minimum speed to trigger alert (Mbit/s)"
+msgstr "Débit minimum pour déclencher l'alerte (Mbit/s)"
+
+msgid "System Alerts"
+msgstr "Alertes système"
+
+msgid "High CPU Usage Alert"
+msgstr "Alerte d'utilisation élevée du CPU"
+
+msgid "Notify when CPU usage exceeds threshold"
+msgstr "Notifier lorsque l'utilisation du CPU dépasse le seuil"
+
+msgid "CPU Alert Threshold"
+msgstr "Seuil d'alerte CPU"
+
+msgid "CPU usage percentage to trigger alert (%)"
+msgstr "Pourcentage d'utilisation du CPU pour déclencher l'alerte (%)"
+
+msgid "High Memory Usage Alert"
+msgstr "Alerte d'utilisation élevée de la mémoire"
+
+msgid "Notify when memory usage exceeds threshold"
+msgstr "Notifier lorsque l'utilisation de la mémoire dépasse le seuil"
+
+msgid "Memory Alert Threshold"
+msgstr "Seuil d'alerte mémoire"
+
+msgid "Memory usage percentage to trigger alert (%)"
+msgstr "Pourcentage d'utilisation de la mémoire pour déclencher l'alerte (%)"
+
+msgid "High Temperature Alert"
+msgstr "Alerte de température élevée"
+
+msgid "Notify when temperature exceeds threshold"
+msgstr "Notifier lorsque la température dépasse le seuil"
+
+msgid "Temperature Alert Threshold"
+msgstr "Seuil d'alerte température"
+
+msgid "Temperature to trigger alert (°C)"
+msgstr "Température pour déclencher l'alerte (°C)"
+
+msgid "Bandwidth Quota Alerts"
+msgstr "Alertes de quota de bande passante"
+
+msgid "Monthly Bandwidth Quota"
+msgstr "Quota mensuel de bande passante"
+
+msgid "Monthly bandwidth limit in GB (0 = disabled)"
+msgstr "Limite mensuelle de bande passante en Go (0 = désactivé)"
+
+msgid "Bandwidth Quota Alert"
+msgstr "Alerte de quota de bande passante"
+
+msgid "Notify when approaching bandwidth quota limit"
+msgstr "Notifier lors de l'approche de la limite du quota de bande passante"
+
+msgid "Warning Threshold"
+msgstr "Seuil d'avertissement"
+
+msgid "Show warning at percentage of quota (%)"
+msgstr "Afficher l'avertissement au pourcentage du quota (%)"
+
+msgid "Critical Threshold"
+msgstr "Seuil critique"
+
+msgid "Show critical alert at percentage of quota (%)"
+msgstr "Afficher l'alerte critique au pourcentage du quota (%)"
+
+# Graph toggles
+msgid "Show Memory Graph"
+msgstr "Afficher le graphique de mémoire"
+
+msgid "Display a memory usage history graph in the popup menu"
+msgstr "Afficher un graphique historique de l'utilisation de la mémoire dans le menu contextuel"
+
+msgid "Show CPU Graph"
+msgstr "Afficher le graphique CPU"
+
+msgid "Display a CPU usage history graph in the popup menu"
+msgstr "Afficher un graphique historique de l'utilisation du CPU dans le menu contextuel"
+
+msgid "Show Temperature Graph"
+msgstr "Afficher le graphique de température"
+
+msgid "Display a temperature history graph in the popup menu"
+msgstr "Afficher un graphique historique de la température dans le menu contextuel"
+
+# Click actions
+msgid "Click Actions"
+msgstr "Actions de clic"
+
+msgid "Configure mouse click and scroll interactions"
+msgstr "Configurer les interactions de clic et de défilement de la souris"
+
+msgid "Left-Click to Cycle Speed Display"
+msgstr "Clic gauche pour parcourir l'affichage du débit"
+
+msgid "Click the panel icon to cycle through speed display modes"
+msgstr "Cliquer sur l'icône du panneau pour parcourir les modes d'affichage du débit"
+
+msgid "Scroll to Switch Network Interface"
+msgstr "Défiler pour changer d'interface réseau"
+
+msgid "Scroll on the panel icon to switch network interfaces"
+msgstr "Défiler sur l'icône du panneau pour changer d'interface réseau"
+
+# Disk I/O monitoring strings
+msgid "Disk I/O"
+msgstr "E/S Disque"
+
+msgid "Disk I/O Display"
+msgstr "Affichage E/S Disque"
+
+msgid "Show Disk Icon"
+msgstr "Afficher l'icône disque"
+
+msgid "Display the disk I/O activity icon"
+msgstr "Afficher l'icône d'activité E/S du disque"
+
+msgid "Show Disk Label"
+msgstr "Afficher l'étiquette disque"
+
+msgid "Display disk I/O speed text"
+msgstr "Afficher le texte de vitesse E/S du disque"
+
+msgid "Disk I/O Display Mode"
+msgstr "Mode d'affichage E/S disque"
+
+msgid "How to display disk I/O speed"
+msgstr "Comment afficher la vitesse E/S du disque"
+
+msgid "Combined (Total I/O)"
+msgstr "Combiné (E/S Total)"
+
+msgid "Separate (Read/Write)"
+msgstr "Séparé (Lecture/Écriture)"
+
+msgid "Read Only"
+msgstr "Lecture seule"
+
+msgid "Write Only"
+msgstr "Écriture seule"
+
+msgid "Show Disk I/O Graph"
+msgstr "Afficher le graphique E/S disque"
+
+msgid "Display a disk I/O history graph in the popup menu"
+msgstr "Afficher un graphique historique E/S du disque dans le menu contextuel"
+
+# Bandwidth quota bar
+msgid "Bandwidth Quota"
+msgstr "Quota de bande passante"

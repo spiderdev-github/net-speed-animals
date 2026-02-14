@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.net-speed-animals" path="/org/gnome/shell/extensions/net-speed-animals/">
+    <key type="d" name="turtle-threshold">
+      <default>2.0</default>
+      <summary>Turtle threshold</summary>
+      <description>Network speed threshold (Mbit/s) to switch to turtle animation</description>
+    </key>
+    <key type="d" name="rabbit-threshold">
+      <default>20.0</default>
+      <summary>Rabbit threshold</summary>
+      <description>Network speed threshold (Mbit/s) to switch to rabbit animation</description>
+    </key>
+    <key type="i" name="min-anim-speed">
+      <default>90</default>
+      <summary>Minimum animation speed</summary>
+      <description>Fastest animation interval in milliseconds at high network speed</description>
+    </key>
+    <key type="i" name="max-anim-speed">
+      <default>450</default>
+      <summary>Maximum animation speed</summary>
+      <description>Slowest animation interval in milliseconds at low network speed</description>
+    </key>
+    <key type="b" name="show-animal-icon">
+      <default>true</default>
+      <summary>Show animal icon</summary>
+      <description>Display the animated animal icon in the panel</description>
+    </key>
+    <key type="b" name="show-memory-icon">
+      <default>true</default>
+      <summary>Show memory icon</summary>
+      <description>Display the memory blob icon in the panel</description>
+    </key>
+    <key type="b" name="show-cpu-icon">
+      <default>true</default>
+      <summary>Show CPU icon</summary>
+      <description>Display the CPU icon in the panel</description>
+    </key>
+    <key type="s" name="speed-display-mode">
+      <default>'combined'</default>
+      <summary>Speed display mode</summary>
+      <description>Display mode for network speed: 'combined' (total), 'separate' (download/upload), or 'download-only' or 'upload-only'</description>
+    </key>
+    <key type="b" name="show-speed-label">
+      <default>true</default>
+      <summary>Show speed label</summary>
+      <description>Display the network speed label in the panel</description>
+    </key>
+    <key type="b" name="show-memory-label">
+      <default>true</default>
+      <summary>Show memory label</summary>
+      <description>Display the memory usage label in the panel</description>
+    </key>
+    <key type="d" name="memory-level-1">
+      <default>25.0</default>
+      <summary>Memory level 1 threshold</summary>
+      <description>Memory usage percentage (%) to switch to blob level 1 (low usage)</description>
+    </key>
+    <key type="d" name="memory-level-2">
+      <default>50.0</default>
+      <summary>Memory level 2 threshold</summary>
+      <description>Memory usage percentage (%) to switch to blob level 2 (medium usage)</description>
+    </key>
+    <key type="d" name="memory-level-3">
+      <default>75.0</default>
+      <summary>Memory level 3 threshold</summary>
+      <description>Memory usage percentage (%) to switch to blob level 3 (high usage)</description>
+    </key>
+    <key type="b" name="show-cpu-label">
+      <default>true</default>
+      <summary>Show CPU label</summary>
+      <description>Display the CPU usage label in the panel</description>
+    </key>
+    <key type="d" name="cpu-level-1">
+      <default>25.0</default>
+      <summary>CPU level 1 threshold</summary>
+      <description>CPU usage percentage (%) to switch to CPU icon level 1 (low usage)</description>
+    </key>
+    <key type="d" name="cpu-level-2">
+      <default>50.0</default>
+      <summary>CPU level 2 threshold</summary>
+      <description>CPU usage percentage (%) to switch to CPU icon level 2 (medium usage)</description>
+    </key>
+    <key type="d" name="cpu-level-3">
+      <default>75.0</default>
+      <summary>CPU level 3 threshold</summary>
+      <description>CPU usage percentage (%) to switch to CPU icon level 3 (high usage)</description>
+    </key>
+    <key type="s" name="interface-mode">
+      <default>'auto'</default>
+      <summary>Interface selection mode</summary>
+      <description>Either 'auto' for automatic detection or 'manual' for user-selected interface</description>
+    </key>
+    <key type="s" name="pinned-interface">
+      <default>''</default>
+      <summary>Manually selected interface</summary>
+      <description>The network interface to monitor when in manual mode (e.g., 'eth0', 'wlan0')</description>
+    </key>
+    <key type="b" name="enable-color-themes">
+      <default>true</default>
+      <summary>Enable color themes</summary>
+      <description>Apply color coding to labels based on usage thresholds (green/yellow/red)</description>
+    </key>
+    <key type="b" name="track-statistics">
+      <default>true</default>
+      <summary>Track network statistics</summary>
+      <description>Track and save network traffic statistics (session/daily/weekly/monthly)</description>
+    </key>
+    <key type="b" name="show-statistics">
+      <default>true</default>
+      <summary>Show statistics in menu</summary>
+      <description>Display network traffic statistics in the popup menu</description>
+    </key>
+    <key type="b" name="show-speed-graph">
+      <default>true</default>
+      <summary>Show speed graph</summary>
+      <description>Display a speed history graph in the popup menu</description>
+    </key>
+    <key type="b" name="show-temperature-icon">
+      <default>true</default>
+      <summary>Show temperature icon</summary>
+      <description>Display the temperature thermometer icon in the panel</description>
+    </key>
+    <key type="b" name="show-temperature-label">
+      <default>true</default>
+      <summary>Show temperature label</summary>
+      <description>Display the temperature value text in the panel</description>
+    </key>
+    <key type="s" name="temperature-zone">
+      <default>''</default>
+      <summary>Temperature zone</summary>
+      <description>The thermal zone to monitor (e.g., 'x86_pkg_temp', 'acpitz'). Empty string means auto-detect first available zone.</description>
+    </key>
+    <key type="d" name="temperature-threshold-warm">
+      <default>50.0</default>
+      <summary>Warm temperature threshold</summary>
+      <description>Temperature (°C) to switch to warm (yellow) indicator</description>
+    </key>
+    <key type="d" name="temperature-threshold-hot">
+      <default>70.0</default>
+      <summary>Hot temperature threshold</summary>
+      <description>Temperature (°C) to switch to hot (orange) indicator</description>
+    </key>
+    <key type="d" name="temperature-threshold-critical">
+      <default>85.0</default>
+      <summary>Critical temperature threshold</summary>
+      <description>Temperature (°C) to switch to critical (red) indicator</description>
+    </key>
+    <key type="b" name="enable-notifications">
+      <default>true</default>
+      <summary>Enable notifications</summary>
+      <description>Enable desktop notifications for alerts and warnings</description>
+    </key>
+    <key type="b" name="notify-network-dropout">
+      <default>true</default>
+      <summary>Notify on network dropout</summary>
+      <description>Show notification when network speed drops below threshold</description>
+    </key>
+    <key type="d" name="network-dropout-threshold">
+      <default>1.0</default>
+      <summary>Network dropout threshold</summary>
+      <description>Network speed threshold (Mbit/s) to trigger dropout notification</description>
+    </key>
+    <key type="b" name="notify-cpu-high">
+      <default>true</default>
+      <summary>Notify on high CPU usage</summary>
+      <description>Show notification when CPU usage exceeds threshold</description>
+    </key>
+    <key type="d" name="cpu-alert-threshold">
+      <default>90.0</default>
+      <summary>CPU alert threshold</summary>
+      <description>CPU usage percentage (%) to trigger high usage notification</description>
+    </key>
+    <key type="b" name="notify-memory-high">
+      <default>true</default>
+      <summary>Notify on high memory usage</summary>
+      <description>Show notification when memory usage exceeds threshold</description>
+    </key>
+    <key type="d" name="memory-alert-threshold">
+      <default>90.0</default>
+      <summary>Memory alert threshold</summary>
+      <description>Memory usage percentage (%) to trigger high usage notification</description>
+    </key>
+    <key type="b" name="notify-temperature-high">
+      <default>true</default>
+      <summary>Notify on high temperature</summary>
+      <description>Show notification when temperature exceeds threshold</description>
+    </key>
+    <key type="d" name="temperature-alert-threshold">
+      <default>85.0</default>
+      <summary>Temperature alert threshold</summary>
+      <description>Temperature (°C) to trigger high temperature notification</description>
+    </key>
+    <key type="b" name="notify-quota-warning">
+      <default>true</default>
+      <summary>Notify on bandwidth quota warning</summary>
+      <description>Show notification when approaching bandwidth quota limit</description>
+    </key>
+    <key type="d" name="quota-warning-threshold">
+      <default>75.0</default>
+      <summary>Quota warning threshold</summary>
+      <description>Bandwidth quota percentage (%) to trigger warning notification</description>
+    </key>
+    <key type="d" name="quota-critical-threshold">
+      <default>90.0</default>
+      <summary>Quota critical threshold</summary>
+      <description>Bandwidth quota percentage (%) to trigger critical notification</description>
+    </key>
+    <key type="d" name="bandwidth-quota-gb">
+      <default>0.0</default>
+      <summary>Monthly bandwidth quota</summary>
+      <description>Monthly bandwidth quota in GB (0 = disabled)</description>
+    </key>
+    <key type="b" name="enable-left-click-cycle">
+      <default>false</default>
+      <summary>Enable left-click to cycle speed display</summary>
+      <description>Allow left-clicking the panel icon to cycle through speed display modes</description>
+    </key>
+    <key type="b" name="enable-scroll-interface-switch">
+      <default>false</default>
+      <summary>Enable scroll to switch network interface</summary>
+      <description>Allow scrolling on the panel icon to switch network interfaces</description>
+    </key>
+    <key type="b" name="show-memory-graph">
+      <default>true</default>
+      <summary>Show memory graph</summary>
+      <description>Display a memory usage history graph in the popup menu</description>
+    </key>
+    <key type="b" name="show-cpu-graph">
+      <default>true</default>
+      <summary>Show CPU graph</summary>
+      <description>Display a CPU usage history graph in the popup menu</description>
+    </key>
+    <key type="b" name="show-temperature-graph">
+      <default>true</default>
+      <summary>Show temperature graph</summary>
+      <description>Display a temperature history graph in the popup menu</description>
+    </key>
+    <key type="b" name="show-disk-icon">
+      <default>true</default>
+      <summary>Show disk icon</summary>
+      <description>Display the disk I/O activity icon in the panel</description>
+    </key>
+    <key type="b" name="show-disk-label">
+      <default>true</default>
+      <summary>Show disk label</summary>
+      <description>Display the disk I/O speed label in the panel</description>
+    </key>
+    <key type="s" name="disk-device">
+      <default>''</default>
+      <summary>Disk device to monitor</summary>
+      <description>The disk device to monitor (e.g., 'sda', 'nvme0n1'). Empty string means auto-detect first available device.</description>
+    </key>
+    <key type="s" name="disk-display-mode">
+      <default>'combined'</default>
+      <summary>Disk I/O display mode</summary>
+      <description>Display mode for disk I/O: 'combined' (total), 'separate' (read/write), 'read-only', or 'write-only'</description>
+    </key>
+    <key type="b" name="show-disk-graph">
+      <default>true</default>
+      <summary>Show disk I/O graph</summary>
+      <description>Display a disk I/O history graph in the popup menu</description>
+    </key>
+  </schema>
+</schemalist>

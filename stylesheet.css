@@ -1,0 +1,218 @@
+/* Root container of the extension button */
+.netspeed-button {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+/* Custom icon size */
+.netspeed-icon {
+  /* icon-size: 30px;   /* change to 28, 32, 36 if needed */
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  margin-left: 1px;
+  margin-right: 3px;
+}
+
+/* separate label in panel */
+.separate-label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-right: 0px;
+  vertical-align: middle;
+  padding-top:8px;
+}
+
+/* Speed label in panel */
+.netspeed-label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-right: 0px;
+  vertical-align: middle;
+  padding-top:8px;
+}
+
+/* Blob icon for memory usage */
+.netspeed-blob-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  margin-left: 3px;
+}
+
+
+
+/* Memory label in panel */
+.netspeed-memory-label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-right: 0px;
+  vertical-align: middle;
+  padding-top:8px;
+}
+
+/* CPU icon */
+.netspeed-cpu-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  margin-left: 3px;
+  padding-top: 5px;
+  padding-bottom: 3px;
+  
+}
+
+/* CPU label in panel */
+.netspeed-cpu-label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-right: 0px;
+  vertical-align: middle;
+  padding-top:8px;
+}
+
+/* Optional hover effect */
+.netspeed-button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+}
+
+/* Better alignment in top panel */
+.netspeed-button StIcon {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+/* Popup menu tweaks */
+.netspeed-menu-item {
+    font-size: 13px;
+}
+
+/* Speed value highlight */
+.netspeed-speed-value {
+    font-weight: bold;
+}
+
+/* Color themes for network speed */
+.netspeed-label.speed-low {
+    color: #4ade80; /* green */
+}
+
+.netspeed-label.speed-medium {
+    color: #fbbf24; /* yellow */
+}
+
+.netspeed-label.speed-high {
+    color: #f87171; /* red */
+}
+
+/* Color themes for CPU usage */
+.netspeed-cpu-label.cpu-idle {
+    color: #4ade80; /* green */
+}
+
+.netspeed-cpu-label.cpu-low {
+    color: #a3e635; /* yellow-green */
+}
+
+.netspeed-cpu-label.cpu-medium {
+    color: #fbbf24; /* yellow */
+}
+
+.netspeed-cpu-label.cpu-high {
+    color: #f87171; /* red */
+}
+
+/* Color themes for memory usage */
+.netspeed-memory-label.mem-low {
+    color: #4ade80; /* green */
+}
+
+.netspeed-memory-label.mem-medium {
+    color: #fbbf24; /* yellow */
+}
+
+.netspeed-memory-label.mem-high {
+    color: #f87171; /* red */
+}
+
+/* Temperature icon */
+.netspeed-temperature-icon {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  margin-left: 0px;
+  padding-top: 4px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+}
+
+/* Temperature label in panel */
+.netspeed-temperature-label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-right: 0px;
+  vertical-align: middle;
+  padding-top:8px;
+}
+
+/* Color themes for temperature */
+.netspeed-temperature-label.temp-cool {
+    color: #60a5fa; /* blue */
+}
+
+.netspeed-temperature-label.temp-warm {
+    color: #fbbf24; /* yellow */
+}
+
+.netspeed-temperature-label.temp-hot {
+    color: #fb923c; /* orange */
+}
+
+.netspeed-temperature-label.temp-critical {
+    color: #ef4444; /* red */
+}
+
+/* Disk icon */
+.netspeed-disk-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  margin-left: 3px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+/* Disk label in panel */
+.netspeed-disk-label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-right: 0px;
+  vertical-align: middle;
+  padding-top:8px;
+}
+
+/* Speed graph */
+.speed-graph {
+  margin: 8px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* System graphs (memory, CPU, temperature) */
+.system-graph {
+  margin: 8px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Bandwidth quota bar */
+.quota-bar {
+  margin: 8px;
+  border-radius: 6px;
+}

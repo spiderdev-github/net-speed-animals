@@ -1,0 +1,6 @@
+*.compiled
+*.mo
+*~
+.builddir/
+_build/
+.claude/

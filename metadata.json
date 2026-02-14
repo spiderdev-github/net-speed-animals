@@ -1,0 +1,9 @@
+{
+  "uuid": "net-speed-animals@spiderdev.fr",
+  "name": "Net Speed Animals",
+  "description": "Affiche un animal animé (escargot/tortue/lapin) selon le débit internet.",
+  "shell-version": ["45", "46", "47"],
+  "version": 1,
+  "settings-schema": "org.gnome.shell.extensions.net-speed-animals",
+  "gettext-domain": "net-speed-animals"
+}

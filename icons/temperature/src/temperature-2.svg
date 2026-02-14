@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Normal Frog">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect x="24" y="24" width="208" height="208" rx="40" fill="#ECFFF3"/>
+  <g filter="url(#shadow)">
+    <circle cx="128" cy="144" r="78" fill="#3CBF73"/>
+    <circle cx="92" cy="96" r="28" fill="#3CBF73"/>
+    <circle cx="164" cy="96" r="28" fill="#3CBF73"/>
+    <circle cx="92" cy="96" r="16" fill="#FFFFFF"/>
+    <circle cx="164" cy="96" r="16" fill="#FFFFFF"/>
+    <circle cx="92" cy="96" r="7" fill="#111827"/>
+    <circle cx="164" cy="96" r="7" fill="#111827"/>
+    <path d="M86 156c14 18 28 26 42 26s28-8 42-26" fill="none" stroke="#0B3D1E" stroke-width="10" stroke-linecap="round"/>
+    <ellipse cx="128" cy="160" rx="48" ry="40" fill="#77E0A2" opacity="0.9"/>
+    <circle cx="80" cy="150" r="10" fill="#77E0A2" opacity="0.9"/>
+    <circle cx="176" cy="150" r="10" fill="#77E0A2" opacity="0.9"/>
+    <path d="M76 190c18 18 38 28 52 30-4-16-10-32-16-46-12 2-24 8-36 16z" fill="#2FA762"/>
+    <path d="M180 190c-18 18-38 28-52 30 4-16 10-32 16-46 12 2 24 8 36 16z" fill="#2FA762"/>
+  </g>
+  <circle cx="54" cy="64" r="10" fill="#45C97A" opacity="0.45"/>
+  <circle cx="206" cy="70" r="8" fill="#45C97A" opacity="0.35"/>
+  <circle cx="200" cy="188" r="10" fill="#45C97A" opacity="0.25"/>
+</svg>

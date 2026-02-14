@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "session": {
+    "rxBytes": 21555722,
+    "txBytes": 180868,
+    "startTime": "2026-02-14T21:01:57.062Z"
+  },
+  "daily": {
+    "rxBytes": 12513188201,
+    "txBytes": 1844069308,
+    "date": "2026-02-14"
+  },
+  "weekly": {
+    "rxBytes": 12513188201,
+    "txBytes": 1844069308,
+    "weekStart": "2026-02-09"
+  },
+  "monthly": {
+    "rxBytes": 12513188201,
+    "txBytes": 1844069308,
+    "month": "2026-02"
+  }
+}
