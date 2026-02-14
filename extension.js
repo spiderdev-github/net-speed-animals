@@ -472,7 +472,16 @@ export default class NetSpeedAnimalsExtension extends Extension {
       reactive: false,
       can_focus: false,
     });
-    this._graphMenuItem.add_child(this._speedGraph);
+    const speedGraphBox = new St.BoxLayout({ vertical: true, x_expand: true });
+    speedGraphBox.add_child(this._speedGraph);
+    const speedGraphLabel = new St.Label({
+      text: 'Network',
+      style: 'font-size: 9px; color: #4ade80; text-align: right; margin-top: 2px;',
+      x_align: 2, // Clutter.ActorAlign.END
+      x_expand: true,
+    });
+    speedGraphBox.add_child(speedGraphLabel);
+    this._graphMenuItem.add_child(speedGraphBox);
 
     // Initially hide graph if disabled
     const showGraph = this._settings.get_boolean('show-speed-graph');
@@ -502,7 +511,16 @@ export default class NetSpeedAnimalsExtension extends Extension {
       reactive: false,
       can_focus: false,
     });
-    this._memoryGraphMenuItem.add_child(this._memoryGraph);
+    const memoryGraphBox = new St.BoxLayout({ vertical: true, x_expand: true });
+    memoryGraphBox.add_child(this._memoryGraph);
+    const memoryGraphLabel = new St.Label({
+      text: 'Memory',
+      style: 'font-size: 9px; color: #fbbf24; text-align: right; margin-top: 2px;',
+      x_align: 2,
+      x_expand: true,
+    });
+    memoryGraphBox.add_child(memoryGraphLabel);
+    this._memoryGraphMenuItem.add_child(memoryGraphBox);
 
     const showMemoryGraph = this._settings.get_boolean('show-memory-graph');
     this._memoryGraphMenuItem.visible = showMemoryGraph;
@@ -530,7 +548,16 @@ export default class NetSpeedAnimalsExtension extends Extension {
       reactive: false,
       can_focus: false,
     });
-    this._cpuGraphMenuItem.add_child(this._cpuGraph);
+    const cpuGraphBox = new St.BoxLayout({ vertical: true, x_expand: true });
+    cpuGraphBox.add_child(this._cpuGraph);
+    const cpuGraphLabel = new St.Label({
+      text: 'CPU',
+      style: 'font-size: 9px; color: #60a5fa; text-align: right; margin-top: 2px;',
+      x_align: 2,
+      x_expand: true,
+    });
+    cpuGraphBox.add_child(cpuGraphLabel);
+    this._cpuGraphMenuItem.add_child(cpuGraphBox);
 
     const showCpuGraph = this._settings.get_boolean('show-cpu-graph');
     this._cpuGraphMenuItem.visible = showCpuGraph;
@@ -558,7 +585,16 @@ export default class NetSpeedAnimalsExtension extends Extension {
       reactive: false,
       can_focus: false,
     });
-    this._temperatureGraphMenuItem.add_child(this._temperatureGraph);
+    const tempGraphBox = new St.BoxLayout({ vertical: true, x_expand: true });
+    tempGraphBox.add_child(this._temperatureGraph);
+    const tempGraphLabel = new St.Label({
+      text: 'Temperature',
+      style: 'font-size: 9px; color: #f87171; text-align: right; margin-top: 2px;',
+      x_align: 2,
+      x_expand: true,
+    });
+    tempGraphBox.add_child(tempGraphLabel);
+    this._temperatureGraphMenuItem.add_child(tempGraphBox);
 
     const showTemperatureGraph = this._settings.get_boolean('show-temperature-graph');
     this._temperatureGraphMenuItem.visible = showTemperatureGraph;
@@ -586,7 +622,16 @@ export default class NetSpeedAnimalsExtension extends Extension {
       reactive: false,
       can_focus: false,
     });
-    this._diskGraphMenuItem.add_child(this._diskGraph);
+    const diskGraphBox = new St.BoxLayout({ vertical: true, x_expand: true });
+    diskGraphBox.add_child(this._diskGraph);
+    const diskGraphLabel = new St.Label({
+      text: 'Disk I/O',
+      style: 'font-size: 9px; color: #a78bfa; text-align: right; margin-top: 2px;',
+      x_align: 2,
+      x_expand: true,
+    });
+    diskGraphBox.add_child(diskGraphLabel);
+    this._diskGraphMenuItem.add_child(diskGraphBox);
 
     const showDiskGraph = this._settings.get_boolean('show-disk-graph');
     this._diskGraphMenuItem.visible = showDiskGraph;
