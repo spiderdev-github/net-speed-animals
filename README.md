@@ -71,6 +71,26 @@ chmod +x install.sh
 - **Clic molette** : ouvrir les préférences
 - **Défilement** : changer d'interface réseau
 
+---
+
+## 📸 Screenshots
+
+- Tooltip
+  ![general](assets/screen-tooltip.png)
+
+- General  
+  ![general](assets/screen-general-1.png)
+  ![general](assets/screen-general-2.png)
+
+- Display  
+  ![display](assets/screen-display-1.png)
+  ![display](assets/screen-display-2.png)
+
+- Notificationns  
+  ![geoloc](assets/screen-notification.png)
+
+---
+
 ## Configuration
 
 Ouvrir les préférences :
