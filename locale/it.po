@@ -2,134 +2,139 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Net Speed Animals\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-14 23:18+0100\n"
+"POT-Creation-Date: 2026-02-15 02:16+0100\n"
 "Language: it\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:446
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1288
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:448
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1298
 msgid "Speed: --"
 msgstr "Velocità: --"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:447
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:449
 msgid "Interface: --"
 msgstr "Interfaccia: --"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:449
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:451
 msgid "Memory: --"
 msgstr "Memoria: --"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:450
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:452
 msgid "CPU: --"
 msgstr "CPU: --"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:451
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:453
 msgid "Temperature: --"
 msgstr "Temperatura: --"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:452
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:454
 msgid "Disk I/O: --"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:648
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:376
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:650
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:332
 msgid "Network Statistics"
 msgstr "Statistiche di rete"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:651
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:653
 msgid "Session: --"
 msgstr "Sessione: --"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:652
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:654
 msgid "Daily: --"
 msgstr "Giornaliero: --"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:653
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:655
 msgid "Weekly: --"
 msgstr "Settimanale: --"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:654
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:656
 msgid "Monthly: --"
 msgstr "Mensile: --"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:663
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:665
 msgid "Reset Session Stats"
 msgstr "Reimposta statistiche sessione"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:708
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:710
 msgid "Preferences"
 msgstr "Preferenze"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1291
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:717
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:982
+msgid "About"
+msgstr "Informazioni"
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1301
 msgid "Speed"
 msgstr "Velocità"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1296
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1306
 msgid "Memory"
 msgstr "Memoria"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1305
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1307
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1315
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1317
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1314
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1316
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1324
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1326
 msgid "Disk I/O"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1321
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1481
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1331
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1491
 msgid "Interface"
 msgstr "Interfaccia"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1400
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1410
 #, fuzzy
 msgid "Session"
 msgstr "Sessione"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1404
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1414
 #, fuzzy
 msgid "Daily"
 msgstr "Giornaliero"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1408
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1418
 #, fuzzy
 msgid "Weekly"
 msgstr "Settimanale"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1412
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1422
 #, fuzzy
 msgid "Monthly"
 msgstr "Mensile"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1438
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:329
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1448
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:478
 msgid "Combined (Total Speed)"
 msgstr "Combinato (velocità totale)"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1439
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:330
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1449
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:479
 msgid "Separate (Download/Upload)"
 msgstr "Separato (Download/Upload)"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1440
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:331
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1450
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:480
 msgid "Download Only"
 msgstr "Solo download"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1441
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:332
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1451
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:481
 msgid "Upload Only"
 msgstr "Solo upload"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1445
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1480
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1021
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1455
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1490
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1033
 msgid "Net Speed Animals"
 msgstr "Net Speed Animals"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1446
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1456
 #, fuzzy
 msgid "Speed Display"
 msgstr "Modalità di visualizzazione della velocità"
@@ -321,470 +326,474 @@ msgstr "Velocità massima dell’animazione"
 msgid "Slowest animation interval (ms) at low speed"
 msgstr "Intervallo di animazione più lento (ms) a bassa velocità"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:335
-msgid "Speed Display Mode"
-msgstr "Modalità di visualizzazione della velocità"
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:336
-msgid "How to display network speed"
-msgstr "Come mostrare la velocità di rete"
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:365
-msgid "Enable Color Themes"
-msgstr "Abilita temi a colori"
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:366
-msgid "Apply color coding to labels (green/yellow/red) based on thresholds"
-msgstr ""
-"Applica una codifica a colori alle etichette (verde/giallo/rosso) in base "
-"alle soglie"
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:377
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:333
 msgid "Track and display network traffic statistics"
 msgstr "Traccia e mostra le statistiche del traffico di rete"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:387
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:343
 #, fuzzy
 msgid "Track Statistics"
 msgstr "Traccia statistiche"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:388
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:344
 msgid "Record network traffic data (session/daily/weekly/monthly)"
 msgstr ""
 "Registra i dati di traffico di rete (sessione/giornaliero/settimanale/"
 "mensile)"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:402
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:358
 msgid "Show Statistics in Menu"
 msgstr "Mostra statistiche nel menu"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:403
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:359
 msgid "Display traffic statistics in the popup menu"
 msgstr "Mostra le statistiche del traffico nel menu a comparsa"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:413
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:369
 msgid "Click Actions"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:414
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:370
 msgid "Configure mouse click and scroll interactions"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:424
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:380
 msgid "Left-Click to Cycle Speed Display"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:425
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:381
 msgid "Click the panel icon to cycle through speed display modes"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:439
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:395
 #, fuzzy
 msgid "Scroll to Switch Network Interface"
 msgstr "Interfaccia di rete"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:440
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:396
 #, fuzzy
 msgid "Scroll on the panel icon to switch network interfaces"
 msgstr "Come scegliere l’interfaccia di rete"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:450
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:410
+msgid "Middle-Click to Open Preferences"
+msgstr ""
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:411
+msgid "Middle-click the panel icon to open preferences (off = open popup menu)"
+msgstr ""
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:421
 #, fuzzy
 msgid "Display"
 msgstr "Opzioni di visualizzazione"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:456
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:427
 #, fuzzy
 msgid "Network speed options"
 msgstr "Statistiche di rete"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:457
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:508
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:559
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:610
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:428
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:507
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:558
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:609
 #, fuzzy
 msgid "Choose which elements to show"
 msgstr "Scegli quali elementi mostrare nel pannello"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:467
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:438
 msgid "Show Animal Icon"
 msgstr "Mostra icona animale"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:468
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:439
 msgid "Display the animated animal icon (snail/turtle/rabbit)"
 msgstr "Mostra l’icona animata dell’animale (lumaca/tartaruga/coniglio)"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:482
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:453
 msgid "Show Speed Label"
 msgstr "Mostra valore velocità"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:483
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:454
 #, fuzzy
 msgid "Display network speed text value"
 msgstr "Mostra il valore testuale della velocità di rete"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:497
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:468
 #, fuzzy
 msgid "Show Speed Graph"
 msgstr "Mostra valore velocità"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:498
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:469
 #, fuzzy
 msgid "Display a historical speed graph in the popup menu"
 msgstr "Mostra le statistiche del traffico nel menu a comparsa"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:507
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:484
+msgid "Speed Display Mode"
+msgstr "Modalità di visualizzazione della velocità"
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:485
+msgid "How to display network speed"
+msgstr "Come mostrare la velocità di rete"
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:506
 #, fuzzy
 msgid "Memory options"
 msgstr "Mostra icona memoria"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:518
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:517
 msgid "Show Memory Icon"
 msgstr "Mostra icona memoria"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:519
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:518
 msgid "Display the memory blob icon"
 msgstr "Mostra l’icona del blob di memoria"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:533
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:532
 msgid "Show Memory Label"
 msgstr "Mostra valore memoria"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:534
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:533
 msgid "Display memory usage percentage text"
 msgstr "Mostra il testo della percentuale di utilizzo della memoria"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:548
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:547
 #, fuzzy
 msgid "Show Memory Graph"
 msgstr "Mostra valore memoria"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:549
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:548
 #, fuzzy
 msgid "Display a memory usage history graph in the popup menu"
 msgstr "Mostra le statistiche del traffico nel menu a comparsa"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:558
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:557
 msgid "CPU options"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:569
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:568
 msgid "Show CPU Icon"
 msgstr "Mostra icona CPU"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:570
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:569
 #, fuzzy
 msgid "Display the CPU icon"
 msgstr "Mostra l’icona della CPU"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:584
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:583
 msgid "Show CPU Label"
 msgstr "Mostra valore CPU"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:585
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:584
 msgid "Display CPU usage percentage text"
 msgstr "Mostra il testo della percentuale di utilizzo della CPU"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:599
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:598
 #, fuzzy
 msgid "Show CPU Graph"
 msgstr "Mostra valore CPU"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:600
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:599
 #, fuzzy
 msgid "Display a CPU usage history graph in the popup menu"
 msgstr "Mostra le statistiche del traffico nel menu a comparsa"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:609
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:608
 #, fuzzy
 msgid "Temperture options"
 msgstr "Temperatura"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:620
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:619
 msgid "Show Temperature Icon"
 msgstr "Mostra icona temperatura"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:621
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:620
 msgid "Display the temperature thermometer icon"
 msgstr "Mostra l’icona del termometro della temperatura"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:635
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:634
 msgid "Show Temperature Label"
 msgstr "Mostra valore temperatura"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:636
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:635
 msgid "Display temperature value text"
 msgstr "Mostra il valore testuale della temperatura"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:650
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:649
 #, fuzzy
 msgid "Show Temperature Graph"
 msgstr "Mostra valore temperatura"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:651
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:650
 #, fuzzy
 msgid "Display a temperature history graph in the popup menu"
 msgstr "Mostra le statistiche del traffico nel menu a comparsa"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:660
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:659
 msgid "Disk I/O Display"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:670
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:669
 #, fuzzy
 msgid "Show Disk Icon"
 msgstr "Mostra icona CPU"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:671
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:670
 #, fuzzy
 msgid "Display the disk I/O activity icon"
 msgstr "Mostra l’icona della CPU"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:685
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:684
 #, fuzzy
 msgid "Show Disk Label"
 msgstr "Mostra valore CPU"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:686
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:685
 #, fuzzy
 msgid "Display disk I/O speed text"
 msgstr "Mostra il valore testuale della velocità di rete"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:695
-#, fuzzy
-msgid "Combined (Total I/O)"
-msgstr "Combinato (velocità totale)"
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:696
-msgid "Separate (Read/Write)"
-msgstr ""
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:697
-#, fuzzy
-msgid "Read Only"
-msgstr "Solo upload"
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:698
-msgid "Write Only"
-msgstr ""
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:701
-#, fuzzy
-msgid "Disk I/O Display Mode"
-msgstr "Modalità di visualizzazione della velocità"
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:702
-#, fuzzy
-msgid "How to display disk I/O speed"
-msgstr "Come mostrare la velocità di rete"
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:728
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:699
 msgid "Show Disk I/O Graph"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:729
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:700
 #, fuzzy
 msgid "Display a disk I/O history graph in the popup menu"
 msgstr "Mostra le statistiche del traffico nel menu a comparsa"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:739
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:745
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:709
+#, fuzzy
+msgid "Combined (Total I/O)"
+msgstr "Combinato (velocità totale)"
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:710
+msgid "Separate (Read/Write)"
+msgstr ""
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:711
+#, fuzzy
+msgid "Read Only"
+msgstr "Solo upload"
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:712
+msgid "Write Only"
+msgstr ""
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:715
+#, fuzzy
+msgid "Disk I/O Display Mode"
+msgstr "Modalità di visualizzazione della velocità"
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:716
+#, fuzzy
+msgid "How to display disk I/O speed"
+msgstr "Come mostrare la velocità di rete"
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:747
+msgid "Enable Color Themes"
+msgstr "Abilita temi a colori"
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:748
+msgid "Apply color coding to labels (green/yellow/red) based on thresholds"
+msgstr ""
+"Applica una codifica a colori alle etichette (verde/giallo/rosso) in base "
+"alle soglie"
+
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:758
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:764
 msgid "Notifications"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:746
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:765
 msgid "Configure desktop notifications for system alerts"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:756
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:775
 msgid "Enable Notifications"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:757
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:776
 msgid "Show desktop notifications for alerts and warnings"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:765
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:784
 #, fuzzy
 msgid "Network Alerts"
 msgstr "Interfaccia di rete"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:774
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:793
 msgid "Network Dropout Alert"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:775
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:794
 msgid "Notify when network speed drops below threshold"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:784
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:803
 msgid "Network Dropout Threshold"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:785
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:804
 msgid "Minimum speed to trigger alert (Mbit/s)"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:799
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:818
 msgid "System Alerts"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:808
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:827
 msgid "High CPU Usage Alert"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:809
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:828
 msgid "Notify when CPU usage exceeds threshold"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:818
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:837
 #, fuzzy
 msgid "CPU Alert Threshold"
 msgstr "Soglie dei livelli di CPU"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:819
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:838
 #, fuzzy
 msgid "CPU usage percentage to trigger alert (%)"
 msgstr "Mostra il testo della percentuale di utilizzo della CPU"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:839
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:858
 #, fuzzy
 msgid "High Memory Usage Alert"
 msgstr "Mostra valore memoria"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:840
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:859
 msgid "Notify when memory usage exceeds threshold"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:849
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:868
 #, fuzzy
 msgid "Memory Alert Threshold"
 msgstr "Soglie dei livelli di memoria"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:850
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:869
 #, fuzzy
 msgid "Memory usage percentage to trigger alert (%)"
 msgstr "Mostra il testo della percentuale di utilizzo della memoria"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:870
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:889
 #, fuzzy
 msgid "High Temperature Alert"
 msgstr "Mostra valore temperatura"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:871
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:890
 #, fuzzy
 msgid "Notify when temperature exceeds threshold"
 msgstr "Soglia di temperatura alta"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:880
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:899
 #, fuzzy
 msgid "Temperature Alert Threshold"
 msgstr "Soglie di temperatura"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:881
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:900
 msgid "Temperature to trigger alert (°C)"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:895
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:914
 msgid "Bandwidth Quota Alerts"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:899
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:918
 msgid "Monthly Bandwidth Quota"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:900
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:919
 msgid "Monthly bandwidth limit in GB (0 = disabled)"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:920
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:939
 msgid "Bandwidth Quota Alert"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:921
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:940
 msgid "Notify when approaching bandwidth quota limit"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:930
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:949
 #, fuzzy
 msgid "Warning Threshold"
 msgstr "Soglia del coniglio"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:931
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:950
 msgid "Show warning at percentage of quota (%)"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:946
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:965
 #, fuzzy
 msgid "Critical Threshold"
 msgstr "Soglia della tartaruga"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:947
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:966
 msgid "Show critical alert at percentage of quota (%)"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:963
-msgid "About"
-msgstr "Informazioni"
-
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:969
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:988
 msgid "Display internet speed with animated animals"
 msgstr "Mostra la velocità Internet con animali animati"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:994
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1006
 #, fuzzy
 msgid "Version"
 msgstr "Sessione"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:995
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1007
 msgid "License MIT"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:996
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1008
 msgid "GNOME"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1005
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1017
 msgid "Author"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1012
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1024
 msgid "spiderdev.fr"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1017
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1029
 msgid "Description"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1022
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1034
 msgid ""
 "Shows network speed (and more) in the top bar using fun animated icons and "
 "optional statistics."
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1029
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1041
 #, fuzzy
 msgid "Donations"
 msgstr "Animazione"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1030
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1042
 msgid ""
 "If this extension helps you, a small donation supports development and "
 "future updates."
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1035
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1047
 msgid "PayPal"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1036
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1048
 msgid "Support the project via PayPal"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1043
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1055
 msgid "Buy Me a Coffee"
 msgstr ""
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1044
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:1056
 msgid "Support the project via Buy Me a Coffee"
 msgstr ""

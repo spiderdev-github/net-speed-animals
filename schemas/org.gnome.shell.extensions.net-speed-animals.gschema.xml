@@ -221,6 +221,11 @@
       <summary>Enable scroll to switch network interface</summary>
       <description>Allow scrolling on the panel icon to switch network interfaces</description>
     </key>
+    <key type="b" name="enable-middle-click-preference">
+      <default>true</default>
+      <summary>Enable middle-click to open preferences</summary>
+      <description>Allow middle-clicking the panel icon to open preferences (off = open popup menu)</description>
+    </key>
     <key type="b" name="show-memory-graph">
       <default>true</default>
       <summary>Show memory graph</summary>

@@ -401,6 +401,21 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     settings.bind('enable-scroll-interface-switch', enableScrollSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     clickActionsGroup.add(enableScrollRow);
 
+    const enableMiddleClickSwitch = new Gtk.Switch({
+      active: settings.get_boolean('enable-middle-click-preference'),
+      valign: Gtk.Align.CENTER,
+    });
+
+    const enableMiddleClickRow = new Adw.ActionRow({
+      title: _('Middle-Click to Open Preferences'),
+      subtitle: _('Middle-click the panel icon to open preferences (off = open popup menu)'),
+      activatable_widget: enableMiddleClickSwitch,
+    });
+    enableMiddleClickRow.add_suffix(enableMiddleClickSwitch);
+
+    settings.bind('enable-middle-click-preference', enableMiddleClickSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    clickActionsGroup.add(enableMiddleClickRow);
+
     // ========== Display Page ==========
     const displayPage = new Adw.PreferencesPage({
       title: _('Display'),

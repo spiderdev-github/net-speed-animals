@@ -416,8 +416,10 @@ export default class NetSpeedAnimalsExtension extends Extension {
           return true; // Event handled
         }
       } else if (button === 2) { // Middle-click
-        this.openPreferences();
-        return true; // Event handled
+        if (this._settings.get_boolean('enable-middle-click-preference')) {
+          this.openPreferences();
+          return true; // Event handled
+        }
       }
 
       return false; // Let other handlers process
@@ -729,9 +731,9 @@ export default class NetSpeedAnimalsExtension extends Extension {
 
     // Load frames
     this._frames = {
-      snail: this._loadFrames('snail', 7),
-      turtle: this._loadFrames('turtle', 7),
-      rabbit: this._loadFrames('rabbit', 7),
+      snail: this._loadFrames('snail', 8),
+      turtle: this._loadFrames('turtle', 8),
+      rabbit: this._loadFrames('rabbit', 8),
     };
 
     // Load blob icons for memory usage (4 levels: 0-25%, 25-50%, 50-75%, 75-100%)
