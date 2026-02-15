@@ -20,7 +20,7 @@ chmod +x install.sh
 
 ## 📖 Documentation
 
-🇬🇧 Read in English : [README.md](README.md)  
+🇬🇧 Read in English : [README.md](../README.md)  
 
 ------------------------------------------------------------------------
 
