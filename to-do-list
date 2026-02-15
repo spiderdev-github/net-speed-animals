@@ -4,14 +4,8 @@
 # n => do nothing
 #############################################
 
-[x] add midle click in click action preference (if off action default action)
-[p] update all language and add new var if not seted
-[ ] add icon meteo, geoloc if activate
-[ ] tab general -> add choose language in preference like => [flag] - label
 [n] tab general -> create tab limits (seuil) and place it all limits prefs
 [n] tab display -> remove description label from blocs
-[ ] panel menu -> add left label for each charts
 [n] tab display -> add label for enable color theme
 [n] tab general -> action click bloc -> move middle mouse click to top
-[ ] add switch option in prefs to disable moving speed icon (if disbale fixe icon fixed-snail.svg)
 [n] add code label in readme.md

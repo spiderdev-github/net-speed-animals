@@ -178,12 +178,19 @@ function readCpuPercent(prevStats) {
 
 export default class NetSpeedAnimalsExtension extends Extension {
   enable() {
+    // Load settings first (needed for language override)
+    this._settings = this.getSettings();
+
+    // Apply language override before any gettext calls
+    const lang = this._settings.get_string('language');
+    this._origLanguage = GLib.getenv('LANGUAGE') || '';
+    if (lang) {
+      GLib.setenv('LANGUAGE', lang, true);
+    }
+
     // Initialize gettext
     const domain = this.metadata['gettext-domain'] || this.metadata.uuid;
     this._ = this.gettext.bind(this);
-
-    // Load settings
-    this._settings = this.getSettings();
 
     // Indicator with built-in popup menu (left click)
     this._indicator = new PanelMenu.Button(0.0, this.metadata.name, false);
@@ -361,6 +368,11 @@ export default class NetSpeedAnimalsExtension extends Extension {
       }
     });
 
+    // Listen for changes to disable-animation setting
+    this._settings.connect('changed::disable-animation', () => {
+      this._applyFrame(true);
+    });
+
     this._sepLabelSpped = new St.Label({
       text: '  ',
       style_class: 'separate-label',
@@ -475,14 +487,20 @@ export default class NetSpeedAnimalsExtension extends Extension {
       can_focus: false,
     });
     const speedGraphBox = new St.BoxLayout({ vertical: true, x_expand: true });
-    speedGraphBox.add_child(this._speedGraph);
-    const speedGraphLabel = new St.Label({
-      text: 'Network',
-      style: 'font-size: 9px; color: #4ade80; text-align: right; margin-top: 2px;',
-      x_align: 2, // Clutter.ActorAlign.END
+    const speedGraphTopLabel = new St.Label({
+      text: 'Mbit/s',
+      style: 'font-size: 9px; color: #4ade80; margin-bottom: 2px;',
+      x_align: 1, // Clutter.ActorAlign.START
       x_expand: true,
     });
-    speedGraphBox.add_child(speedGraphLabel);
+    speedGraphBox.add_child(speedGraphTopLabel);
+    speedGraphBox.add_child(this._speedGraph);
+    speedGraphBox.add_child(new St.Label({
+      text: 'Network',
+      style: 'font-size: 9px; color: #4ade80; text-align: right; margin-top: 2px;',
+      x_align: 2,
+      x_expand: true,
+    }));
     this._graphMenuItem.add_child(speedGraphBox);
 
     // Initially hide graph if disabled
@@ -514,14 +532,19 @@ export default class NetSpeedAnimalsExtension extends Extension {
       can_focus: false,
     });
     const memoryGraphBox = new St.BoxLayout({ vertical: true, x_expand: true });
+    memoryGraphBox.add_child(new St.Label({
+      text: '%',
+      style: 'font-size: 9px; color: #fbbf24; margin-bottom: 2px;',
+      x_align: 1,
+      x_expand: true,
+    }));
     memoryGraphBox.add_child(this._memoryGraph);
-    const memoryGraphLabel = new St.Label({
+    memoryGraphBox.add_child(new St.Label({
       text: 'Memory',
       style: 'font-size: 9px; color: #fbbf24; text-align: right; margin-top: 2px;',
       x_align: 2,
       x_expand: true,
-    });
-    memoryGraphBox.add_child(memoryGraphLabel);
+    }));
     this._memoryGraphMenuItem.add_child(memoryGraphBox);
 
     const showMemoryGraph = this._settings.get_boolean('show-memory-graph');
@@ -551,14 +574,19 @@ export default class NetSpeedAnimalsExtension extends Extension {
       can_focus: false,
     });
     const cpuGraphBox = new St.BoxLayout({ vertical: true, x_expand: true });
+    cpuGraphBox.add_child(new St.Label({
+      text: '%',
+      style: 'font-size: 9px; color: #60a5fa; margin-bottom: 2px;',
+      x_align: 1,
+      x_expand: true,
+    }));
     cpuGraphBox.add_child(this._cpuGraph);
-    const cpuGraphLabel = new St.Label({
+    cpuGraphBox.add_child(new St.Label({
       text: 'CPU',
       style: 'font-size: 9px; color: #60a5fa; text-align: right; margin-top: 2px;',
       x_align: 2,
       x_expand: true,
-    });
-    cpuGraphBox.add_child(cpuGraphLabel);
+    }));
     this._cpuGraphMenuItem.add_child(cpuGraphBox);
 
     const showCpuGraph = this._settings.get_boolean('show-cpu-graph');
@@ -588,14 +616,19 @@ export default class NetSpeedAnimalsExtension extends Extension {
       can_focus: false,
     });
     const tempGraphBox = new St.BoxLayout({ vertical: true, x_expand: true });
+    tempGraphBox.add_child(new St.Label({
+      text: '°C',
+      style: 'font-size: 9px; color: #f87171; margin-bottom: 2px;',
+      x_align: 1,
+      x_expand: true,
+    }));
     tempGraphBox.add_child(this._temperatureGraph);
-    const tempGraphLabel = new St.Label({
+    tempGraphBox.add_child(new St.Label({
       text: 'Temperature',
       style: 'font-size: 9px; color: #f87171; text-align: right; margin-top: 2px;',
       x_align: 2,
       x_expand: true,
-    });
-    tempGraphBox.add_child(tempGraphLabel);
+    }));
     this._temperatureGraphMenuItem.add_child(tempGraphBox);
 
     const showTemperatureGraph = this._settings.get_boolean('show-temperature-graph');
@@ -625,14 +658,19 @@ export default class NetSpeedAnimalsExtension extends Extension {
       can_focus: false,
     });
     const diskGraphBox = new St.BoxLayout({ vertical: true, x_expand: true });
+    diskGraphBox.add_child(new St.Label({
+      text: 'MB/s',
+      style: 'font-size: 9px; color: #a78bfa; margin-bottom: 2px;',
+      x_align: 1,
+      x_expand: true,
+    }));
     diskGraphBox.add_child(this._diskGraph);
-    const diskGraphLabel = new St.Label({
+    diskGraphBox.add_child(new St.Label({
       text: 'Disk I/O',
       style: 'font-size: 9px; color: #a78bfa; text-align: right; margin-top: 2px;',
       x_align: 2,
       x_expand: true,
-    });
-    diskGraphBox.add_child(diskGraphLabel);
+    }));
     this._diskGraphMenuItem.add_child(diskGraphBox);
 
     const showDiskGraph = this._settings.get_boolean('show-disk-graph');
@@ -721,10 +759,17 @@ export default class NetSpeedAnimalsExtension extends Extension {
       this.openPreferences();
     });
     this._indicator.menu.addMenuItem(aboutItem);
-    // const disableItem = new PopupMenu.PopupMenuItem(_("Desactiver l'extension"));
-    // disableItem.connect('activate', () => {
-    //   Main.extensionManager.disableExtension(this.uuid);
-    // });
+
+    const restartItem = new PopupMenu.PopupMenuItem(this._('Restart Extension'));
+    restartItem.connect('activate', () => {
+      const uuid = this.uuid;
+      Main.extensionManager.disableExtension(uuid);
+      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, () => {
+        Main.extensionManager.enableExtension(uuid);
+        return GLib.SOURCE_REMOVE;
+      });
+    });
+    this._indicator.menu.addMenuItem(restartItem);
     // this._indicator.menu.addMenuItem(disableItem);
 
     Main.panel.addToStatusArea(this.uuid, this._indicator, 0, 'right');
@@ -747,6 +792,13 @@ export default class NetSpeedAnimalsExtension extends Extension {
 
     // Load disk icons (4 levels: idle, low, medium, high)
     this._diskFrames = this._loadFrames('disk', 4);
+
+    // Load fixed (static) icons for each animal
+    this._fixedFrames = {
+      snail: this._loadFixedIcon('snail'),
+      turtle: this._loadFixedIcon('turtle'),
+      rabbit: this._loadFixedIcon('rabbit'),
+    };
 
     this._animal = 'snail';
     this._frameIndex = 0;
@@ -810,6 +862,13 @@ export default class NetSpeedAnimalsExtension extends Extension {
   }
 
   disable() {
+    // Restore original LANGUAGE env
+    if (this._origLanguage) {
+      GLib.setenv('LANGUAGE', this._origLanguage, true);
+    } else {
+      GLib.unsetenv('LANGUAGE');
+    }
+
     // Clean timers
     if (this._measureTimerId) {
       GLib.source_remove(this._measureTimerId);
@@ -845,6 +904,7 @@ export default class NetSpeedAnimalsExtension extends Extension {
     this._temperatureItem = null;
     this._diskItem = null;
     this._frames = null;
+    this._fixedFrames = null;
     this._blobFrames = null;
     this._cpuFrames = null;
     this._temperatureFrames = null;
@@ -936,6 +996,15 @@ export default class NetSpeedAnimalsExtension extends Extension {
     return arr;
   }
 
+  _loadFixedIcon(animal) {
+    const filePath = `${this.path}/icons/${animal}/fixed-${animal}.svg`;
+    const file = Gio.File.new_for_path(filePath);
+    if (file.query_exists(null)) {
+      return new Gio.FileIcon({ file });
+    }
+    return null;
+  }
+
   _startAnimTimer(intervalMs) {
     if (this._animTimerId) GLib.source_remove(this._animTimerId);
     return GLib.timeout_add(GLib.PRIORITY_DEFAULT, intervalMs, () => {
@@ -946,6 +1015,7 @@ export default class NetSpeedAnimalsExtension extends Extension {
 
   _tickAnim() {
     if (!this._icon || !this._frames) return;
+    if (this._settings && this._settings.get_boolean('disable-animation')) return;
 
     const frames = this._frames[this._animal] ?? [];
     if (frames.length === 0) return;
@@ -957,9 +1027,19 @@ export default class NetSpeedAnimalsExtension extends Extension {
   _applyFrame(forceFirst = false) {
     if (!this._icon || !this._frames) return;
 
+    // Static icon mode: use fixed-<animal>.svg if available, otherwise system icon
+    if (this._settings && this._settings.get_boolean('disable-animation')) {
+      const fixedIcon = this._fixedFrames?.[this._animal];
+      if (fixedIcon) {
+        this._icon.gicon = fixedIcon;
+      } else {
+        this._icon.gicon = new Gio.ThemedIcon({ name: 'network-transmit-receive-symbolic' });
+      }
+      return;
+    }
+
     const frames = this._frames[this._animal] ?? [];
     if (frames.length === 0) {
-      // Fallback: use a built-in symbolic icon if no frames found
       this._icon.gicon = new Gio.ThemedIcon({ name: 'network-transmit-receive-symbolic' });
       return;
     }

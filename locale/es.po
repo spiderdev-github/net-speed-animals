@@ -66,6 +66,9 @@ msgstr "Preferencias"
 msgid "About"
 msgstr "Acerca de"
 
+msgid "Restart Extension"
+msgstr "Reiniciar extensión"
+
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:1301
 msgid "Speed"
 msgstr "Velocidad"
@@ -313,6 +316,30 @@ msgstr "Velocidad máxima de animación"
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:314
 msgid "Slowest animation interval (ms) at low speed"
 msgstr "Intervalo de animación más lento (ms) a baja velocidad"
+
+msgid "Disable Animation"
+msgstr "Desactivar animación"
+
+msgid "Show a static icon instead of animated frames (uses fixed-animal.svg if available)"
+msgstr "Mostrar un icono estático en lugar de fotogramas animados (usa fixed-animal.svg si está disponible)"
+
+msgid "System Default"
+msgstr "Idioma del sistema"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Choose the extension language"
+msgstr "Elegir el idioma de la extensión"
+
+msgid "Extension Language"
+msgstr "Idioma de la extensión"
+
+msgid "Select language for this extension (requires reload)"
+msgstr "Seleccionar idioma para esta extensión (requiere recarga)"
+
+msgid "Language changed. Reopen preferences to apply."
+msgstr "Idioma cambiado. Reabrir preferencias para aplicar."
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:333
 msgid "Track and display network traffic statistics"

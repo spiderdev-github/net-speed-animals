@@ -21,6 +21,11 @@
       <summary>Maximum animation speed</summary>
       <description>Slowest animation interval in milliseconds at low network speed</description>
     </key>
+    <key type="b" name="disable-animation">
+      <default>false</default>
+      <summary>Disable animation</summary>
+      <description>Use a static icon instead of animated frames. Uses fixed-{animal}.svg if available, otherwise falls back to system icon.</description>
+    </key>
     <key type="b" name="show-animal-icon">
       <default>true</default>
       <summary>Show animal icon</summary>
@@ -268,6 +273,11 @@
     </key>
     <key name="prefs-start-page" type="s">
       <default>'general'</default>
+    </key>
+    <key type="s" name="language">
+      <default>''</default>
+      <summary>Extension language</summary>
+      <description>Override system language for this extension. Empty string means use system language.</description>
     </key>
   </schema>
 </schemalist>

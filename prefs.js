@@ -1,6 +1,7 @@
 import Adw from 'gi://Adw';
 import Gtk from 'gi://Gtk';
 import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
 
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
@@ -19,8 +20,33 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
       // Ignore CSS errors
     }
 
-    const _ = this.gettext.bind(this);
     const settings = this.getSettings();
+
+    // Apply language override before any gettext calls
+    const lang = settings.get_string('language');
+    if (lang) {
+      GLib.setenv('LANGUAGE', lang, true);
+    }
+
+    const _ = this.gettext.bind(this);
+
+    // Available languages with flags and native names
+    const LANGUAGES = [
+      { code: '', label: `🌐  ${_('System Default')}` },
+      { code: 'en', label: '🇬🇧  English' },
+      { code: 'fr', label: '🇫🇷  Français' },
+      { code: 'de', label: '🇩🇪  Deutsch' },
+      { code: 'es', label: '🇪🇸  Español' },
+      { code: 'it', label: '🇮🇹  Italiano' },
+    ];
+
+    // Filter to only show languages that have compiled .mo files
+    const availableLanguages = LANGUAGES.filter(l => {
+      if (l.code === '') return true; // Always show "System Default"
+      const moPath = `${this.path}/locale/${l.code}/LC_MESSAGES/net-speed-animals.mo`;
+      const file = Gio.File.new_for_path(moPath);
+      return file.query_exists(null);
+    });
 
     const makePill = (text) => {
       const l = new Gtk.Label({
@@ -43,6 +69,49 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
       icon_name: 'preferences-system-symbolic',
     });
     window.add(page);
+
+    // Language group
+    const languageGroup = new Adw.PreferencesGroup({
+      title: _('Language'),
+      description: _('Choose the extension language'),
+    });
+    page.add(languageGroup);
+
+    const languageModel = new Gtk.StringList();
+    for (const l of availableLanguages) {
+      languageModel.append(l.label);
+    }
+
+    const languageRow = new Adw.ComboRow({
+      title: _('Extension Language'),
+      subtitle: _('Select language for this extension (requires reload)'),
+      model: languageModel,
+    });
+
+    // Set current selection
+    const currentLang = settings.get_string('language');
+    const currentIndex = availableLanguages.findIndex(l => l.code === currentLang);
+    languageRow.selected = currentIndex >= 0 ? currentIndex : 0;
+
+    languageRow.connect('notify::selected', () => {
+      const selectedLang = availableLanguages[languageRow.selected];
+      if (!selectedLang) return;
+
+      const prevLang = settings.get_string('language');
+      if (selectedLang.code === prevLang) return;
+
+      settings.set_string('language', selectedLang.code);
+
+      // Show info banner that prefs need to be reopened
+      const banner = new Adw.Banner({
+        title: _('Language changed. Reopen preferences to apply.'),
+        revealed: true,
+      });
+      banner.add_css_class('warning');
+      window.add(banner);
+    });
+
+    languageGroup.add(languageRow);
 
     // Animal thresholds group
     const thresholdGroup = new Adw.PreferencesGroup({
@@ -325,7 +394,31 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     settings.bind('max-anim-speed', maxAnimRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
     animGroup.add(maxAnimRow);
 
-    
+    const disableAnimSwitch = new Gtk.Switch({
+      active: settings.get_boolean('disable-animation'),
+      valign: Gtk.Align.CENTER,
+    });
+
+    const disableAnimRow = new Adw.ActionRow({
+      title: _('Disable Animation'),
+      subtitle: _('Show a static icon instead of animated frames (uses fixed-animal.svg if available)'),
+      activatable_widget: disableAnimSwitch,
+    });
+    disableAnimRow.add_suffix(disableAnimSwitch);
+
+    settings.bind('disable-animation', disableAnimSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    animGroup.add(disableAnimRow);
+
+    // Grey out animation speed rows when animation is disabled
+    const updateAnimSensitivity = () => {
+      const disabled = settings.get_boolean('disable-animation');
+      minAnimRow.sensitive = !disabled;
+      maxAnimRow.sensitive = !disabled;
+    };
+    updateAnimSensitivity();
+    settings.connect('changed::disable-animation', updateAnimSensitivity);
+
+
 
     // Statistics group
     const statisticsGroup = new Adw.PreferencesGroup({
