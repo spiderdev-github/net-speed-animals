@@ -1,3 +1,4 @@
 - add midle click in click action preference (if off action default action)
 - update all language and add new var if not seted
+- add icon meteo from service wallpaper-smart.service if exist if not redirect to https://github.com/spiderdev-github/wallpaper-smart
 
