@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Linux-blue)
-![Desktop](https://img.shields.io/badge/desktop-GNOME%20%7C%20KDE-orange)
+![Desktop](https://img.shields.io/badge/desktop-GNOME-orange)
 ![GTK](https://img.shields.io/badge/GTK-3.x-purple)
 
 A complete GNOME Shell system monitoring extension featuring animated
