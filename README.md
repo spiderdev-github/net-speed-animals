@@ -1,173 +1,216 @@
-# Net Speed Animals - Extension GNOME Shell
+# Net Speed Animals -- GNOME Shell Extension
 
-Extension GNOME Shell complète de monitoring système avec des animations d'animaux (escargot 🐌, tortue 🐢, lapin 🐰) qui changent selon la vitesse du réseau, et des indicateurs visuels pour CPU, mémoire, température et disque.
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-Linux-blue)
+![Desktop](https://img.shields.io/badge/desktop-GNOME%20%7C%20KDE-orange)
+![GTK](https://img.shields.io/badge/GTK-3.x-purple)
 
-## Installation rapide
+A complete GNOME Shell system monitoring extension featuring animated
+animals (snail 🐌, turtle 🐢, rabbit 🐰) that change according to
+network speed, along with visual indicators for CPU, memory,
+temperature, and disk activity.
 
-```bash
+------------------------------------------------------------------------
+
+## Quick Installation
+
+``` bash
 chmod +x install.sh
 ./install.sh
 ```
 
-## Fonctionnalités
+------------------------------------------------------------------------
 
-### 🌐 Réseau
-- **Animation animée** selon la vitesse réseau (escargot → tortue → lapin)
-- **Affichage de la vitesse** en Mbit/s, KB/s ou B/s (adaptatif)
-- **Modes d'affichage** : combiné, séparé (↓/↑), téléchargement seul, envoi seul
-- **Sélection d'interface** : automatique ou manuelle (eth0, wlan0, etc.)
-- **Graphique de débit** en temps réel dans le menu (60s d'historique)
+## 📖 Documentation
 
-### 🧠 Mémoire
-- **Icône blob** à 4 niveaux selon l'utilisation mémoire
-- **Étiquette %** affichée dans le panneau
-- **Seuils configurables** (25%, 50%, 75% par défaut)
-- **Graphique mémoire** (jaune) dans le menu
+🇫🇷 Lire en français : [README FR](README.fr.md)  
+
+-----------------------------------------------------------------------
+
+## Features
+
+### 🌐 Network
+
+-   **Animated animal** based on network speed (snail → turtle → rabbit)
+-   **Speed display** in Mbit/s, KB/s, or B/s (adaptive)
+-   **Display modes**: combined, separate (↓/↑), download only, upload
+    only
+-   **Interface selection**: automatic or manual (eth0, wlan0, etc.)
+-   **Real-time bandwidth graph** in the menu (60s history)
+
+### 🧠 Memory
+
+-   **4-level blob icon** based on memory usage
+-   **% label** displayed in the panel
+-   **Configurable thresholds** (25%, 50%, 75% by default)
+-   **Memory graph** (yellow) in the menu
 
 ### ⚡ CPU
-- **Icône CPU** à 4 niveaux d'activité
-- **Étiquette %** affichée dans le panneau
-- **Seuils configurables** (25%, 50%, 75% par défaut)
-- **Graphique CPU** (bleu) dans le menu
 
-### 🌡️ Température
-- **Icône thermomètre** à 4 niveaux (froid, tiède, chaud, critique)
-- **Étiquette °C** affichée dans le panneau
-- **Détection automatique** des zones thermiques
-- **Seuils configurables** (50°C, 70°C, 85°C par défaut)
-- **Graphique température** (rouge) dans le menu
+-   **4-level CPU activity icon**
+-   **% label** displayed in the panel
+-   **Configurable thresholds** (25%, 50%, 75% by default)
+-   **CPU graph** (blue) in the menu
 
-### 💾 Disque (E/S)
-- **Icône disque** à 4 niveaux d'activité (inactif, faible, moyen, élevé)
-- **Étiquette vitesse** en Mbit/s, KB/s ou B/s (adaptatif)
-- **Modes d'affichage** : combiné, séparé (R:/W:), lecture seule, écriture seule
-- **Détection automatique** des périphériques (sda, nvme0n1, etc.)
-- **Graphique E/S disque** (violet) dans le menu
+### 🌡️ Temperature
 
-### 📊 Statistiques réseau
-- **Suivi du trafic** : session, journalier, hebdomadaire, mensuel
-- **Sauvegarde automatique** toutes les 60 secondes
-- **Réinitialisation** des stats de session
+-   **4-level thermometer icon** (cold, warm, hot, critical)
+-   **°C label** displayed in the panel
+-   **Automatic thermal zone detection**
+-   **Configurable thresholds** (50°C, 70°C, 85°C by default)
+-   **Temperature graph** (red) in the menu
 
-### 📈 Quota de bande passante
-- **Barre de progression** dans le menu (vert → jaune → orange → rouge)
-- **Quota mensuel configurable** en Go
-- **Notifications** à 75% (avertissement) et 90% (critique)
+### 💾 Disk (I/O)
+
+-   **4-level disk activity icon** (idle, low, medium, high)
+-   **Speed label** in Mbit/s, KB/s, or B/s (adaptive)
+-   **Display modes**: combined, separate (R:/W:), read only, write only
+-   **Automatic device detection** (sda, nvme0n1, etc.)
+-   **Disk I/O graph** (purple) in the menu
+
+### 📊 Network Statistics
+
+-   **Traffic tracking**: session, daily, weekly, monthly
+-   **Automatic save** every 60 seconds
+-   **Session stats reset**
+
+### 📈 Bandwidth Quota
+
+-   **Progress bar** in the menu (green → yellow → orange → red)
+-   **Configurable monthly quota** in GB
+-   **Notifications** at 75% (warning) and 90% (critical)
 
 ### 🔔 Notifications
-- **Alerte réseau** : vitesse sous le seuil
-- **Alerte CPU** : utilisation > 90% (configurable)
-- **Alerte mémoire** : utilisation > 90% (configurable)
-- **Alerte température** : température > 85°C (configurable)
-- **Alerte quota** : avertissement et critique
-- **Anti-spam** : délai de 5 minutes entre les mêmes alertes
 
-### 🎨 Thèmes de couleur
-- **Couleurs adaptatives** sur les étiquettes selon les seuils (vert/jaune/rouge)
-- Applicable à la vitesse réseau, mémoire, CPU et température
+-   **Network alert**: speed below threshold
+-   **CPU alert**: usage \> 90% (configurable)
+-   **Memory alert**: usage \> 90% (configurable)
+-   **Temperature alert**: temperature \> 85°C (configurable)
+-   **Quota alert**: warning and critical levels
+-   **Anti-spam protection**: 5-minute delay between identical alerts
 
-### 🖱️ Actions de clic (désactivées par défaut)
-- **Clic gauche** : parcourir les modes d'affichage de vitesse
-- **Clic molette** : ouvrir les préférences
-- **Défilement** : changer d'interface réseau
+### 🎨 Color Themes
 
----
+-   **Adaptive label colors** based on thresholds (green/yellow/red)
+-   Applies to network speed, memory, CPU, and temperature
+
+### 🖱️ Click Actions (disabled by default)
+
+-   **Left click**: cycle through speed display modes
+-   **Middle click**: open preferences
+-   **Scroll**: change network interface
+
+------------------------------------------------------------------------
 
 ## 📸 Screenshots
 
-- Tooltip
-  ![general](assets/screen-tooltip.png)
+-   Menu\
+    ![general](assets/screen-menu.png)
 
-- General  
-  ![general](assets/screen-general-1.png)
-  ![general](assets/screen-general-2.png)
+-   General\
+    ![general](assets/screen-general-part1.png)\
+    ![general](assets/screen-general-part2.png)
 
-- Display  
-  ![display](assets/screen-display-1.png)
-  ![display](assets/screen-display-2.png)
+-   Display\
+    ![display](assets/screen-display-partt1.png)\
+    ![display](assets/screen-display-part2.png)
 
-- Notificationns  
-  ![geoloc](assets/screen-notification.png)
+-   Thresholds\
+    ![display](assets/screen-thresholds.png)
 
----
+-   Notifications\
+    ![notifications](assets/screen-notifications.png)
+
+-   About\
+    ![about](assets/screen-about.png)
+
+------------------------------------------------------------------------
 
 ## Configuration
 
-Ouvrir les préférences :
-```bash
+Open preferences:
+
+``` bash
 gnome-extensions prefs net-speed-animals@spiderdev.fr
 ```
 
-### Pages de préférences
+### Preferences Pages
 
-#### Général
-- Seuils de vitesse des animaux (tortue/lapin)
-- Vitesse d'animation (min/max)
-- Seuils mémoire et CPU (4 niveaux)
-- Seuils température (tiède/chaud/critique)
-- Mode d'affichage de la vitesse réseau
-- Sélection d'interface réseau
-- Thèmes de couleur
-- Actions de clic (clic gauche, défilement)
-- Statistiques et graphiques (vitesse, mémoire, CPU, température, disque)
+#### General
 
-#### Affichage
-- Activer/désactiver chaque icône et étiquette
-- Graphiques individuels pour chaque métrique
-- Mode d'affichage E/S disque
+-   Animal speed thresholds (turtle/rabbit)
+-   Animation speed (min/max)
+-   Memory and CPU thresholds (4 levels)
+-   Temperature thresholds (warm/hot/critical)
+-   Network speed display mode
+-   Network interface selection
+-   Color themes
+-   Click actions (left click, scroll)
+-   Statistics and graphs (speed, memory, CPU, temperature, disk)
+
+#### Display
+
+-   Enable/disable each icon and label
+-   Individual graphs for each metric
+-   Disk I/O display mode
 
 #### Notifications
-- Activation/désactivation globale
-- Alertes réseau avec seuil configurable
-- Alertes CPU avec seuil configurable
-- Alertes mémoire avec seuil configurable
-- Alertes température avec seuil configurable
-- Quota de bande passante mensuel avec seuils d'avertissement/critique
 
-## Structure du projet
+-   Global enable/disable
+-   Network alerts with configurable threshold
+-   CPU alerts with configurable threshold
+-   Memory alerts with configurable threshold
+-   Temperature alerts with configurable threshold
+-   Monthly bandwidth quota with warning/critical thresholds
 
-```
-net-speed-animals@spiderdev.fr/
-├── extension.js           # Code principal de l'extension
-├── prefs.js               # Interface de préférences
-├── metadata.json          # Métadonnées de l'extension
-├── stylesheet.css         # Styles CSS
-├── install.sh             # Script d'installation
-├── icons/
-│   ├── snail/             # Animations escargot (7 frames)
-│   ├── turtle/            # Animations tortue (7 frames)
-│   ├── rabbit/            # Animations lapin (7 frames)
-│   ├── blob/              # Icônes mémoire (4 niveaux)
-│   ├── cpu/               # Icônes CPU (4 niveaux)
-│   ├── temperature/       # Icônes température (4 niveaux)
-│   └── disk/              # Icônes disque (4 niveaux)
-├── monitors/
-│   ├── temperatureMonitor.js  # Lecture /sys/class/thermal/
-│   └── diskMonitor.js         # Lecture /proc/diskstats
-├── widgets/
-│   ├── speedGraph.js      # Graphique réseau (download/upload)
-│   ├── systemGraph.js     # Graphique générique (mémoire, CPU, temp)
-│   └── quotaBar.js        # Barre de progression du quota
-├── utils/
-│   ├── storage.js         # Stockage des statistiques réseau
-│   ├── formatters.js      # Formatage (octets, température)
-│   └── notifications.js   # Gestionnaire de notifications
-├── schemas/
-│   └── org.gnome.shell.extensions.net-speed-animals.gschema.xml
-├── po/
-│   └── fr.po              # Traduction française
-└── locale/
-    └── fr/LC_MESSAGES/    # Traduction compilée
-```
+------------------------------------------------------------------------
 
-## Compatibilité
+## Project Structure
 
-- GNOME Shell 45, 46, 47, 48
-- Wayland et X11
-- Ubuntu, Fedora, Arch Linux
+    net-speed-animals@spiderdev.fr/
+    ├── extension.js           # Main extension code
+    ├── prefs.js               # Preferences interface
+    ├── metadata.json          # Extension metadata
+    ├── stylesheet.css         # CSS styles
+    ├── install.sh             # Installation script
+    ├── icons/
+    │   ├── snail/             # Snail animations (7 frames)
+    │   ├── turtle/            # Turtle animations (7 frames)
+    │   ├── rabbit/            # Rabbit animations (7 frames)
+    │   ├── blob/              # Memory icons (4 levels)
+    │   ├── cpu/               # CPU icons (4 levels)
+    │   ├── temperature/       # Temperature icons (4 levels)
+    │   └── disk/              # Disk icons (4 levels)
+    ├── monitors/
+    │   ├── temperatureMonitor.js  # Reads /sys/class/thermal/
+    │   └── diskMonitor.js         # Reads /proc/diskstats
+    ├── widgets/
+    │   ├── speedGraph.js      # Network graph (download/upload)
+    │   ├── systemGraph.js     # Generic graph (memory, CPU, temp)
+    │   └── quotaBar.js        # Quota progress bar
+    ├── utils/
+    │   ├── storage.js         # Network stats storage
+    │   ├── formatters.js      # Formatting (bytes, temperature)
+    │   └── notifications.js   # Notification manager
+    ├── schemas/
+    │   └── org.gnome.shell.extensions.net-speed-animals.gschema.xml
+    ├── po/
+    │   └── fr.po              # French translation
+    └── locale/
+        └── fr/LC_MESSAGES/    # Compiled translation
 
-## Désinstallation
+------------------------------------------------------------------------
 
-```bash
+## Compatibility
+
+-   GNOME Shell 45, 46, 47, 48\
+-   Wayland and X11\
+-   Ubuntu, Fedora, Arch Linux
+
+------------------------------------------------------------------------
+
+## Uninstall
+
+``` bash
 gnome-extensions uninstall net-speed-animals@spiderdev.fr
 ```
