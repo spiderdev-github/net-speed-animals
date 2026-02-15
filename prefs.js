@@ -70,49 +70,6 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     });
     window.add(page);
 
-    // Language group
-    const languageGroup = new Adw.PreferencesGroup({
-      title: _('Language'),
-      description: _('Choose the extension language'),
-    });
-    page.add(languageGroup);
-
-    const languageModel = new Gtk.StringList();
-    for (const l of availableLanguages) {
-      languageModel.append(l.label);
-    }
-
-    const languageRow = new Adw.ComboRow({
-      title: _('Extension Language'),
-      subtitle: _('Select language for this extension (requires reload)'),
-      model: languageModel,
-    });
-
-    // Set current selection
-    const currentLang = settings.get_string('language');
-    const currentIndex = availableLanguages.findIndex(l => l.code === currentLang);
-    languageRow.selected = currentIndex >= 0 ? currentIndex : 0;
-
-    languageRow.connect('notify::selected', () => {
-      const selectedLang = availableLanguages[languageRow.selected];
-      if (!selectedLang) return;
-
-      const prevLang = settings.get_string('language');
-      if (selectedLang.code === prevLang) return;
-
-      settings.set_string('language', selectedLang.code);
-
-      // Show info banner that prefs need to be reopened
-      const banner = new Adw.Banner({
-        title: _('Language changed. Reopen preferences to apply.'),
-        revealed: true,
-      });
-      banner.add_css_class('warning');
-      window.add(banner);
-    });
-
-    languageGroup.add(languageRow);
-
     // Network Interface group
     const interfaceGroup = new Adw.PreferencesGroup({
       title: _('Network Interface'),
@@ -260,6 +217,21 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     });
     page.add(clickActionsGroup);
 
+    const enableMiddleClickSwitch = new Gtk.Switch({
+      active: settings.get_boolean('enable-middle-click-preference'),
+      valign: Gtk.Align.CENTER,
+    });
+
+    const enableMiddleClickRow = new Adw.ActionRow({
+      title: _('Middle-Click to Open Preferences'),
+      subtitle: _('Middle-click the panel icon to open preferences (off = open popup menu)'),
+      activatable_widget: enableMiddleClickSwitch,
+    });
+    enableMiddleClickRow.add_suffix(enableMiddleClickSwitch);
+
+    settings.bind('enable-middle-click-preference', enableMiddleClickSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    clickActionsGroup.add(enableMiddleClickRow);
+    
     const enableLeftClickSwitch = new Gtk.Switch({
       active: settings.get_boolean('enable-left-click-cycle'),
       valign: Gtk.Align.CENTER,
@@ -290,20 +262,50 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     settings.bind('enable-scroll-interface-switch', enableScrollSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     clickActionsGroup.add(enableScrollRow);
 
-    const enableMiddleClickSwitch = new Gtk.Switch({
-      active: settings.get_boolean('enable-middle-click-preference'),
-      valign: Gtk.Align.CENTER,
+    
+
+    // Language group
+    const languageGroup = new Adw.PreferencesGroup({
+      title: _('Language'),
+      description: _('Choose the extension language'),
+    });
+    page.add(languageGroup);
+
+    const languageModel = new Gtk.StringList();
+    for (const l of availableLanguages) {
+      languageModel.append(l.label);
+    }
+
+    const languageRow = new Adw.ComboRow({
+      title: _('Extension Language'),
+      subtitle: _('Select language for this extension (requires reload)'),
+      model: languageModel,
     });
 
-    const enableMiddleClickRow = new Adw.ActionRow({
-      title: _('Middle-Click to Open Preferences'),
-      subtitle: _('Middle-click the panel icon to open preferences (off = open popup menu)'),
-      activatable_widget: enableMiddleClickSwitch,
-    });
-    enableMiddleClickRow.add_suffix(enableMiddleClickSwitch);
+    // Set current selection
+    const currentLang = settings.get_string('language');
+    const currentIndex = availableLanguages.findIndex(l => l.code === currentLang);
+    languageRow.selected = currentIndex >= 0 ? currentIndex : 0;
 
-    settings.bind('enable-middle-click-preference', enableMiddleClickSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-    clickActionsGroup.add(enableMiddleClickRow);
+    languageRow.connect('notify::selected', () => {
+      const selectedLang = availableLanguages[languageRow.selected];
+      if (!selectedLang) return;
+
+      const prevLang = settings.get_string('language');
+      if (selectedLang.code === prevLang) return;
+
+      settings.set_string('language', selectedLang.code);
+
+      // Show info banner that prefs need to be reopened
+      const banner = new Adw.Banner({
+        title: _('Language changed. Reopen preferences to apply.'),
+        revealed: true,
+      });
+      banner.add_css_class('warning');
+      window.add(banner);
+    });
+
+    languageGroup.add(languageRow);
 
     // ========== Display Page ==========
     const displayPage = new Adw.PreferencesPage({
@@ -313,8 +315,7 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     window.add(displayPage);
 
     const displaySpeedGroup = new Adw.PreferencesGroup({
-      title: _('Network speed options'),
-      description: _('Choose which elements to show'),
+      title: _('Network speed options')
     });
     displayPage.add(displaySpeedGroup);
 
@@ -392,8 +393,7 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     displaySpeedGroup.add(speedModeRow);
 
     const displayMemoryGroup = new Adw.PreferencesGroup({
-      title: _('Memory options'),
-      description: _('Choose which elements to show'),
+      title: _('Memory options')
     });
     displayPage.add(displayMemoryGroup);
 
@@ -443,8 +443,7 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     displayMemoryGroup.add(showMemoryGraphRow);
 
     const displayCpuGroup = new Adw.PreferencesGroup({
-      title: _('CPU options'),
-      description: _('Choose which elements to show'),
+      title: _('CPU options')
     });
     displayPage.add(displayCpuGroup);
 
@@ -494,8 +493,7 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     displayCpuGroup.add(showCpuGraphRow);
 
     const displayTempGroup = new Adw.PreferencesGroup({
-      title: _('Temperture options'),
-      description: _('Choose which elements to show'),
+      title: _('Temperture options')
     });
     displayPage.add(displayTempGroup);
 
@@ -623,7 +621,9 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     displayDiskGroup.add(diskModeRow);
     
 
-    const displayOtherGroup = new Adw.PreferencesGroup({});
+    const displayOtherGroup = new Adw.PreferencesGroup({
+      title: _("Color themes")
+    });
     displayPage.add(displayOtherGroup);
 
    

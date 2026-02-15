@@ -271,6 +271,21 @@
       <summary>Show disk I/O graph</summary>
       <description>Display a disk I/O history graph in the popup menu</description>
     </key>
+    <key type="d" name="disk-level-1">
+      <default>1.0</default>
+      <summary>Disk I/O level 1 threshold</summary>
+      <description>Disk I/O speed (MB/s) to switch to level 1 (low activity)</description>
+    </key>
+    <key type="d" name="disk-level-2">
+      <default>10.0</default>
+      <summary>Disk I/O level 2 threshold</summary>
+      <description>Disk I/O speed (MB/s) to switch to level 2 (medium activity)</description>
+    </key>
+    <key type="d" name="disk-level-3">
+      <default>50.0</default>
+      <summary>Disk I/O level 3 threshold</summary>
+      <description>Disk I/O speed (MB/s) to switch to level 3 (high activity)</description>
+    </key>
     <key name="prefs-start-page" type="s">
       <default>'general'</default>
     </key>
