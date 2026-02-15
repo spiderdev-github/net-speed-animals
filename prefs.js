@@ -113,210 +113,6 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
 
     languageGroup.add(languageRow);
 
-    // Animal thresholds group
-    const thresholdGroup = new Adw.PreferencesGroup({
-      title: _('Animal Speed Thresholds'),
-      description: _('Change the network speed thresholds for switching animals'),
-    });
-    page.add(thresholdGroup);
-
-    const turtleRow = new Adw.SpinRow({
-      title: _('Turtle Threshold'),
-      subtitle: _('Switch to turtle when above (Mbit/s)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 0,
-        upper: 100,
-        step_increment: 0.1,
-        page_increment: 1,
-        value: 2,
-      }),
-      digits: 1,
-    });
-
-    settings.bind('turtle-threshold', turtleRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    thresholdGroup.add(turtleRow);
-
-    const rabbitRow = new Adw.SpinRow({
-      title: _('Rabbit Threshold'),
-      subtitle: _('Switch to rabbit when above (Mbit/s)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 0,
-        upper: 100,
-        step_increment: 0.1,
-        page_increment: 1,
-        value: 20,
-      }),
-      digits: 1,
-    });
-
-    settings.bind('rabbit-threshold', rabbitRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    thresholdGroup.add(rabbitRow);
-
-    // Memory thresholds group
-    const memoryThresholdGroup = new Adw.PreferencesGroup({
-      title: _('Memory Level Thresholds'),
-      description: _('Change the memory usage thresholds for switching blob levels'),
-    });
-    page.add(memoryThresholdGroup);
-
-    const memLevel1Row = new Adw.SpinRow({
-      title: _('Memory Level 1 Threshold'),
-      subtitle: _('Switch to blob level 1 when above (%)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 0,
-        upper: 100,
-        step_increment: 1,
-        page_increment: 5,
-        value: 25,
-      }),
-      digits: 1,
-    });
-
-    settings.bind('memory-level-1', memLevel1Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    memoryThresholdGroup.add(memLevel1Row);
-
-    const memLevel2Row = new Adw.SpinRow({
-      title: _('Memory Level 2 Threshold'),
-      subtitle: _('Switch to blob level 2 when above (%)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 0,
-        upper: 100,
-        step_increment: 1,
-        page_increment: 5,
-        value: 50,
-      }),
-      digits: 1,
-    });
-
-    settings.bind('memory-level-2', memLevel2Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    memoryThresholdGroup.add(memLevel2Row);
-
-    const memLevel3Row = new Adw.SpinRow({
-      title: _('Memory Level 3 Threshold'),
-      subtitle: _('Switch to blob level 3 when above (%)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 0,
-        upper: 100,
-        step_increment: 1,
-        page_increment: 5,
-        value: 75,
-      }),
-      digits: 1,
-    });
-
-    settings.bind('memory-level-3', memLevel3Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    memoryThresholdGroup.add(memLevel3Row);
-
-    // CPU thresholds group
-    const cpuThresholdGroup = new Adw.PreferencesGroup({
-      title: _('CPU Level Thresholds'),
-      description: _('Change the CPU usage thresholds for switching CPU icon levels'),
-    });
-    page.add(cpuThresholdGroup);
-
-    const cpuLevel1Row = new Adw.SpinRow({
-      title: _('CPU Level 1 Threshold'),
-      subtitle: _('Switch to CPU level 1 when above (%)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 0,
-        upper: 100,
-        step_increment: 1,
-        page_increment: 5,
-        value: 25,
-      }),
-      digits: 1,
-    });
-
-    settings.bind('cpu-level-1', cpuLevel1Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    cpuThresholdGroup.add(cpuLevel1Row);
-
-    const cpuLevel2Row = new Adw.SpinRow({
-      title: _('CPU Level 2 Threshold'),
-      subtitle: _('Switch to CPU level 2 when above (%)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 0,
-        upper: 100,
-        step_increment: 1,
-        page_increment: 5,
-        value: 50,
-      }),
-      digits: 1,
-    });
-
-    settings.bind('cpu-level-2', cpuLevel2Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    cpuThresholdGroup.add(cpuLevel2Row);
-
-    const cpuLevel3Row = new Adw.SpinRow({
-      title: _('CPU Level 3 Threshold'),
-      subtitle: _('Switch to CPU level 3 when above (%)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 0,
-        upper: 100,
-        step_increment: 1,
-        page_increment: 5,
-        value: 75,
-      }),
-      digits: 1,
-    });
-
-    settings.bind('cpu-level-3', cpuLevel3Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    cpuThresholdGroup.add(cpuLevel3Row);
-
-    // Temperature thresholds group
-    const temperatureThresholdGroup = new Adw.PreferencesGroup({
-      title: _('Temperature Thresholds'),
-      description: _('Change the temperature thresholds for switching thermometer levels'),
-    });
-    page.add(temperatureThresholdGroup);
-
-    const tempWarmRow = new Adw.SpinRow({
-      title: _('Warm Temperature Threshold'),
-      subtitle: _('Switch to warm (yellow) when above (°C)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 20,
-        upper: 100,
-        step_increment: 5,
-        page_increment: 10,
-        value: 50,
-      }),
-      digits: 0,
-    });
-
-    settings.bind('temperature-threshold-warm', tempWarmRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    temperatureThresholdGroup.add(tempWarmRow);
-
-    const tempHotRow = new Adw.SpinRow({
-      title: _('Hot Temperature Threshold'),
-      subtitle: _('Switch to hot (orange) when above (°C)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 30,
-        upper: 110,
-        step_increment: 5,
-        page_increment: 10,
-        value: 70,
-      }),
-      digits: 0,
-    });
-
-    settings.bind('temperature-threshold-hot', tempHotRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    temperatureThresholdGroup.add(tempHotRow);
-
-    const tempCriticalRow = new Adw.SpinRow({
-      title: _('Critical Temperature Threshold'),
-      subtitle: _('Switch to critical (red) when above (°C)'),
-      adjustment: new Gtk.Adjustment({
-        lower: 40,
-        upper: 120,
-        step_increment: 5,
-        page_increment: 10,
-        value: 85,
-      }),
-      digits: 0,
-    });
-
-    settings.bind('temperature-threshold-critical', tempCriticalRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
-    temperatureThresholdGroup.add(tempCriticalRow);
-
     // Network Interface group
     const interfaceGroup = new Adw.PreferencesGroup({
       title: _('Network Interface'),
@@ -845,6 +641,217 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
 
     settings.bind('enable-color-themes', enableColorThemesSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     displayOtherGroup.add(enableColorThemesRow);
+
+    // ========== Thresholds Page ==========
+    const thresholdsPage = new Adw.PreferencesPage({
+      title: _('Thresholds'),
+      icon_name: 'dialog-warning-symbolic',
+    });
+    window.add(thresholdsPage);
+
+    // Animal thresholds group
+    const thresholdGroup = new Adw.PreferencesGroup({
+      title: _('Animal Speed Thresholds'),
+      description: _('Change the network speed thresholds for switching animals'),
+    });
+    thresholdsPage.add(thresholdGroup);
+
+    const turtleRow = new Adw.SpinRow({
+      title: _('Turtle Threshold'),
+      subtitle: _('Switch to turtle when above (Mbit/s)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 100,
+        step_increment: 0.1,
+        page_increment: 1,
+        value: 2,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('turtle-threshold', turtleRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    thresholdGroup.add(turtleRow);
+
+    const rabbitRow = new Adw.SpinRow({
+      title: _('Rabbit Threshold'),
+      subtitle: _('Switch to rabbit when above (Mbit/s)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 100,
+        step_increment: 0.1,
+        page_increment: 1,
+        value: 20,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('rabbit-threshold', rabbitRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    thresholdGroup.add(rabbitRow);
+
+    // Memory thresholds group
+    const memoryThresholdGroup = new Adw.PreferencesGroup({
+      title: _('Memory Level Thresholds'),
+      description: _('Change the memory usage thresholds for switching blob levels'),
+    });
+    thresholdsPage.add(memoryThresholdGroup);
+
+    const memLevel1Row = new Adw.SpinRow({
+      title: _('Memory Level 1 Threshold'),
+      subtitle: _('Switch to blob level 1 when above (%)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 100,
+        step_increment: 1,
+        page_increment: 5,
+        value: 25,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('memory-level-1', memLevel1Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    memoryThresholdGroup.add(memLevel1Row);
+
+    const memLevel2Row = new Adw.SpinRow({
+      title: _('Memory Level 2 Threshold'),
+      subtitle: _('Switch to blob level 2 when above (%)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 100,
+        step_increment: 1,
+        page_increment: 5,
+        value: 50,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('memory-level-2', memLevel2Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    memoryThresholdGroup.add(memLevel2Row);
+
+    const memLevel3Row = new Adw.SpinRow({
+      title: _('Memory Level 3 Threshold'),
+      subtitle: _('Switch to blob level 3 when above (%)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 100,
+        step_increment: 1,
+        page_increment: 5,
+        value: 75,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('memory-level-3', memLevel3Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    memoryThresholdGroup.add(memLevel3Row);
+
+    // CPU thresholds group
+    const cpuThresholdGroup = new Adw.PreferencesGroup({
+      title: _('CPU Level Thresholds'),
+      description: _('Change the CPU usage thresholds for switching CPU icon levels'),
+    });
+    thresholdsPage.add(cpuThresholdGroup);
+
+    const cpuLevel1Row = new Adw.SpinRow({
+      title: _('CPU Level 1 Threshold'),
+      subtitle: _('Switch to CPU level 1 when above (%)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 100,
+        step_increment: 1,
+        page_increment: 5,
+        value: 25,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('cpu-level-1', cpuLevel1Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    cpuThresholdGroup.add(cpuLevel1Row);
+
+    const cpuLevel2Row = new Adw.SpinRow({
+      title: _('CPU Level 2 Threshold'),
+      subtitle: _('Switch to CPU level 2 when above (%)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 100,
+        step_increment: 1,
+        page_increment: 5,
+        value: 50,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('cpu-level-2', cpuLevel2Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    cpuThresholdGroup.add(cpuLevel2Row);
+
+    const cpuLevel3Row = new Adw.SpinRow({
+      title: _('CPU Level 3 Threshold'),
+      subtitle: _('Switch to CPU level 3 when above (%)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 100,
+        step_increment: 1,
+        page_increment: 5,
+        value: 75,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('cpu-level-3', cpuLevel3Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    cpuThresholdGroup.add(cpuLevel3Row);
+
+    // Temperature thresholds group
+    const temperatureThresholdGroup = new Adw.PreferencesGroup({
+      title: _('Temperature Thresholds'),
+      description: _('Change the temperature thresholds for switching thermometer levels'),
+    });
+    thresholdsPage.add(temperatureThresholdGroup);
+
+    const tempWarmRow = new Adw.SpinRow({
+      title: _('Warm Temperature Threshold'),
+      subtitle: _('Switch to warm (yellow) when above (°C)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 20,
+        upper: 100,
+        step_increment: 5,
+        page_increment: 10,
+        value: 50,
+      }),
+      digits: 0,
+    });
+
+    settings.bind('temperature-threshold-warm', tempWarmRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    temperatureThresholdGroup.add(tempWarmRow);
+
+    const tempHotRow = new Adw.SpinRow({
+      title: _('Hot Temperature Threshold'),
+      subtitle: _('Switch to hot (orange) when above (°C)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 30,
+        upper: 110,
+        step_increment: 5,
+        page_increment: 10,
+        value: 70,
+      }),
+      digits: 0,
+    });
+
+    settings.bind('temperature-threshold-hot', tempHotRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    temperatureThresholdGroup.add(tempHotRow);
+
+    const tempCriticalRow = new Adw.SpinRow({
+      title: _('Critical Temperature Threshold'),
+      subtitle: _('Switch to critical (red) when above (°C)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 40,
+        upper: 120,
+        step_increment: 5,
+        page_increment: 10,
+        value: 85,
+      }),
+      digits: 0,
+    });
+
+    settings.bind('temperature-threshold-critical', tempCriticalRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    temperatureThresholdGroup.add(tempCriticalRow);
 
     // ========== Notifications Page ==========
     const notificationsPage = new Adw.PreferencesPage({

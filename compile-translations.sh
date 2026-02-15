@@ -14,6 +14,19 @@ echo "✓ Traduction française compilée"
 msgfmt locale/en.po -o locale/en/LC_MESSAGES/net-speed-animals.mo
 echo "✓ Traduction anglaise compilée"
 
+# Compiler la traduction allemande
+msgfmt locale/de.po -o locale/de/LC_MESSAGES/net-speed-animals.mo
+echo "✓ Traduction allemande compilée"
+
+# Compiler la traduction espagnol
+msgfmt locale/es.po -o locale/es/LC_MESSAGES/net-speed-animals.mo
+echo "✓ Traduction espagnole compilée"
+
+# Compiler la italienne espagnol
+msgfmt locale/it.po -o locale/it/LC_MESSAGES/net-speed-animals.mo
+echo "✓ Traduction italienne compilée"
+
+
 echo ""
 echo "Traductions compilées avec succès !"
 echo ""
