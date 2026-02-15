@@ -108,8 +108,7 @@ chmod +x install.sh
     ![general](assets/screen-menu.png)
 
 -   General\
-    ![general](assets/screen-general-part1.png)\
-    ![general](assets/screen-general-part2.png)
+    ![general](assets/screen-general.png)\
 
 -   Display\
     ![display](assets/screen-display-partt1.png)\
