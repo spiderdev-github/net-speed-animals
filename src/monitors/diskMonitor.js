@@ -190,14 +190,13 @@ export class DiskMonitor {
    * Get disk I/O level based on activity
    * Returns 0-3 (idle, low, medium, high)
    */
-  getDiskLevel(readSpeed, writeSpeed) {
+  getDiskLevel(readSpeed, writeSpeed, lowMB = 1, mediumMB = 10, highMB = 50) {
     const totalSpeed = readSpeed + writeSpeed;
 
-    // Thresholds in bytes per second
-    // 1 MB/s = 1,048,576 bytes/s
-    const lowThreshold = 1 * 1024 * 1024;      // 1 MB/s
-    const mediumThreshold = 10 * 1024 * 1024;  // 10 MB/s
-    const highThreshold = 50 * 1024 * 1024;    // 50 MB/s
+    // Thresholds in bytes per second (parameter values are in MB/s)
+    const lowThreshold = lowMB * 1024 * 1024;
+    const mediumThreshold = mediumMB * 1024 * 1024;
+    const highThreshold = highMB * 1024 * 1024;
 
     if (totalSpeed < lowThreshold) {
       return 0; // Idle

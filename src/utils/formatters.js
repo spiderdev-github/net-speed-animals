@@ -1,3 +1,8 @@
+// Clamp a number between min and max
+export function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
+
 // Format bytes to human-readable format (B, KB, MB, GB, TB)
 export function formatBytes(bytes) {
   if (bytes === 0) return '0 B';
@@ -19,7 +24,7 @@ export function formatSpeed(bytesPerSec) {
 
   // If speed is >= 1 Mbit/s, show in Mbit/s
   if (mbit >= 1.0) {
-    return `${mbit.toFixed(1)} Mb/s`;
+    return `${mbit.toFixed(1)} Mbit/s`;
   }
 
   // If speed is >= 1 KB/s, show in KB/s

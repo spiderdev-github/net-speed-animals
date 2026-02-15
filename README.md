@@ -23,7 +23,7 @@ chmod +x install.sh
 
 ## 📖 Documentation
 
-🇫🇷 Lire en français : [README FR](README.fr.md)  
+🇫🇷 Lire en français : [README FR](docs/README.fr.md)  
 
 -----------------------------------------------------------------------
 

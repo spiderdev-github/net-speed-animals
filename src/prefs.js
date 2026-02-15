@@ -853,6 +853,61 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     settings.bind('temperature-threshold-critical', tempCriticalRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
     temperatureThresholdGroup.add(tempCriticalRow);
 
+    // Disk I/O thresholds group
+    const diskThresholdGroup = new Adw.PreferencesGroup({
+      title: _('Disk I/O Thresholds'),
+      description: _('Change the disk I/O speed thresholds for switching disk icon levels'),
+    });
+    thresholdsPage.add(diskThresholdGroup);
+
+    const diskLevel1Row = new Adw.SpinRow({
+      title: _('Disk Level 1 Threshold'),
+      subtitle: _('Switch to low activity when above (MB/s)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0.1,
+        upper: 500,
+        step_increment: 0.5,
+        page_increment: 5,
+        value: 1,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('disk-level-1', diskLevel1Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    diskThresholdGroup.add(diskLevel1Row);
+
+    const diskLevel2Row = new Adw.SpinRow({
+      title: _('Disk Level 2 Threshold'),
+      subtitle: _('Switch to medium activity when above (MB/s)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 1,
+        upper: 1000,
+        step_increment: 1,
+        page_increment: 10,
+        value: 10,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('disk-level-2', diskLevel2Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    diskThresholdGroup.add(diskLevel2Row);
+
+    const diskLevel3Row = new Adw.SpinRow({
+      title: _('Disk Level 3 Threshold'),
+      subtitle: _('Switch to high activity when above (MB/s)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 5,
+        upper: 5000,
+        step_increment: 5,
+        page_increment: 50,
+        value: 50,
+      }),
+      digits: 1,
+    });
+
+    settings.bind('disk-level-3', diskLevel3Row.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    diskThresholdGroup.add(diskLevel3Row);
+
     // ========== Notifications Page ==========
     const notificationsPage = new Adw.PreferencesPage({
       title: _('Notifications'),
