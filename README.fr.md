@@ -5,7 +5,7 @@
 ![Bureau](https://img.shields.io/badge/desktop-GNOME-orange)
 ![GTK](https://img.shields.io/badge/GTK-3.x-purple)
 
-Extension GNOME Shell complète de monitoring système avec des animations d'animaux (escargot 🐌, tortue 🐢, lapin 🐰) qui changent selon la vitesse du réseau, et des indicateurs visuels pour CPU, mémoire, température et disque.
+Extension GNOME Shell complète de monitoring système avec des animations d'animaux (escargot, tortue, lapin) qui changent selon la vitesse du réseau, et des indicateurs visuels pour CPU, mémoire, température et disque.
 
 ------------------------------------------------------------------------
 

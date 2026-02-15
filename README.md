@@ -6,7 +6,7 @@
 ![GTK](https://img.shields.io/badge/GTK-3.x-purple)
 
 A complete GNOME Shell system monitoring extension featuring animated
-animals (snail 🐌, turtle 🐢, rabbit 🐰) that change according to
+animals (snail, turtle, rabbit) that change according to
 network speed, along with visual indicators for CPU, memory,
 temperature, and disk activity.
 
