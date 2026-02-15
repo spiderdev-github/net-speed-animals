@@ -111,7 +111,7 @@ chmod +x install.sh
     ![general](assets/screen-general.png)\
 
 -   Display\
-    ![display](assets/screen-display-partt1.png)\
+    ![display](assets/screen-display-part1.png)\
     ![display](assets/screen-display-part2.png)
 
 -   Thresholds\

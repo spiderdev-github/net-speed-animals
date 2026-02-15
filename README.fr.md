@@ -90,25 +90,25 @@ chmod +x install.sh
 
 ## 📸 Screenshots
 
-- Menu
-  ![general](assets/screen-menu.png)
+-   Menu\
+    ![general](assets/screen-menu.png)
 
-- General  
-  ![general](assets/screen-general-part1.png)
-  ![general](assets/screen-general-part2.png)
+-   General\
+    ![general](assets/screen-general.png)\
 
-- Display  
-  ![display](assets/screen-display-partt1.png)
-  ![display](assets/screen-display-part2.png)
+-   Affichage\
+    ![display](assets/screen-display-part1.png)\
+    ![display](assets/screen-display-part2.png)
 
-- Thresholds  
-  ![display](assets/screen-thresholds.png)
+-   Seuils\
+    ![display](assets/screen-thresholds.png)
 
-- Notifications  
-  ![geoloc](assets/screen-notifications.png)
+-   Notifications\
+    ![notifications](assets/screen-notifications.png)
 
-- About  
-  ![geoloc](assets/screen-about.png)
+-   A-propos\
+    ![about](assets/screen-about.png)
+
 
 ---
 
