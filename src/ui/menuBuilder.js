@@ -1,4 +1,5 @@
 import St from 'gi://St';
+import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
@@ -56,6 +57,20 @@ export class MenuBuilder {
 
     this._buildSystemGraph('disk', { lineColor: '#a78bfa', title: 'Disk I/O', unit: 'MB/s', minValue: 0, maxValue: 100 },
       'MB/s', '#a78bfa', 'Disk I/O', 'show-disk-graph');
+
+    // "View all stats" button - opens System Monitor on Resources tab
+    const viewAllItem = new PopupMenu.PopupMenuItem(_('View all stats'));
+    viewAllItem.connect('activate', () => {
+      try {
+        Gio.Subprocess.new(
+          ['gnome-system-monitor', '--show-resources-tab'],
+          Gio.SubprocessFlags.NONE
+        );
+      } catch (e) {
+        log(`Failed to open System Monitor: ${e.message}`);
+      }
+    });
+    this._menu.addMenuItem(viewAllItem);
 
     this._menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
