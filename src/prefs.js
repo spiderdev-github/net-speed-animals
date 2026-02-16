@@ -171,7 +171,50 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     updateAnimSensitivity();
     settings.connect('changed::disable-animation', updateAnimSensitivity);
 
+    // Panel Position group
+    const positionGroup = new Adw.PreferencesGroup({
+      title: _('Panel Position'),
+      description: _('Choose where the indicator appears in the top bar'),
+    });
+    page.add(positionGroup);
 
+    const panelBoxCombo = new Gtk.StringList();
+    panelBoxCombo.append(_('Left'));
+    panelBoxCombo.append(_('Center'));
+    panelBoxCombo.append(_('Right'));
+
+    const panelBoxRow = new Adw.ComboRow({
+      title: _('Position in Panel'),
+      subtitle: _('Place the indicator on the left, center, or right of the top bar'),
+      model: panelBoxCombo,
+    });
+
+    const panelBoxValue = settings.get_string('panel-box');
+    const panelBoxMap = { 'left': 0, 'center': 1, 'right': 2 };
+    panelBoxRow.selected = panelBoxMap[panelBoxValue] ?? 2;
+
+    panelBoxRow.connect('notify::selected', () => {
+      const boxValues = ['left', 'center', 'right'];
+      settings.set_string('panel-box', boxValues[panelBoxRow.selected]);
+    });
+
+    positionGroup.add(panelBoxRow);
+
+    const panelPositionRow = new Adw.SpinRow({
+      title: _('Position Index'),
+      subtitle: _('Order within the chosen panel area (0 = first)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 20,
+        step_increment: 1,
+        page_increment: 5,
+        value: 0,
+      }),
+      digits: 0,
+    });
+
+    settings.bind('panel-position', panelPositionRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    positionGroup.add(panelPositionRow);
 
     // Statistics group
     const statisticsGroup = new Adw.PreferencesGroup({
@@ -313,6 +356,43 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
       icon_name: 'preferences-desktop-wallpaper-symbolic',
     });
     window.add(displayPage);
+
+    // Icon Theme group
+    const iconThemeGroup = new Adw.PreferencesGroup({
+      title: _('Icon Theme'),
+      description: _('Choose the animal icon theme'),
+    });
+    displayPage.add(iconThemeGroup);
+
+    const ICON_THEMES = [
+      { code: 'classic',  label: `🐌  ${_('Classic')} (${_('Snail / Turtle / Rabbit')})` },
+      { code: 'aquatic',  label: `🐟  ${_('Aquatic')} (${_('Fish / Dolphin / Shark')})` },
+      { code: 'domestic', label: `🐱  ${_('Domestic')} (${_('Cat / Dog / Horse')})` },
+      { code: 'birds',    label: `🐧  ${_('Birds')} (${_('Penguin / Duck / Eagle')})` },
+      { code: 'insects',  label: `🐜  ${_('Insects')} (${_('Ant / Ladybug / Bee')})` },
+    ];
+
+    const iconThemeModel = new Gtk.StringList();
+    for (const t of ICON_THEMES) {
+      iconThemeModel.append(t.label);
+    }
+
+    const iconThemeRow = new Adw.ComboRow({
+      title: _('Icon Theme'),
+      subtitle: _('Select the animal icon set for speed indication'),
+      model: iconThemeModel,
+    });
+
+    const currentTheme = settings.get_string('icon-theme');
+    const themeIndex = ICON_THEMES.findIndex(t => t.code === currentTheme);
+    iconThemeRow.selected = themeIndex >= 0 ? themeIndex : 0;
+
+    iconThemeRow.connect('notify::selected', () => {
+      const selected = ICON_THEMES[iconThemeRow.selected];
+      if (selected) settings.set_string('icon-theme', selected.code);
+    });
+
+    iconThemeGroup.add(iconThemeRow);
 
     const displaySpeedGroup = new Adw.PreferencesGroup({
       title: _('Network speed options')
@@ -1190,6 +1270,16 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     });
     longDescRow.set_activatable(false);
     descGroup.add(longDescRow);
+
+    const githubRow = new Adw.ActionRow({
+      title: _('Github Project : '),
+    });
+    githubRow.set_activatable(false);
+    githubRow.add_suffix(makeLinkButton(_('https://github.com/spiderdev-github/net-speed-animals'), 'https://github.com/spiderdev-github/net-speed-animals'));
+
+    descGroup.add(githubRow);
+
+    
 
     // Donations
     const donateGroup = new Adw.PreferencesGroup({

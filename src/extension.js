@@ -80,17 +80,27 @@ export default class NetSpeedAnimalsExtension extends Extension {
       },
     });
 
-    Main.panel.addToStatusArea(this.uuid, this._indicator, 0, 'right');
+    const panelBox = this._settings.get_string('panel-box');
+    const panelPosition = this._settings.get_int('panel-position');
+    Main.panel.addToStatusArea(this.uuid, this._indicator, panelPosition, panelBox);
 
-    // Load icons
-    const iconLoader = new IconLoader(this.path);
-    this._icons = iconLoader.loadAll();
+    // Listen for panel position changes
+    this._panelBoxSignalId = this._settings.connect('changed::panel-box', () => this._repositionIndicator());
+    this._panelPositionSignalId = this._settings.connect('changed::panel-position', () => this._repositionIndicator());
+
+    // Load icons with theme support
+    this._iconLoader = new IconLoader(this.path);
+    const themeName = this._settings.get_string('icon-theme');
+    this._icons = this._iconLoader.loadAll(themeName);
 
     // Animation controller
     const panelWidgets = this._panelIndicator.getWidgets();
     this._animController = new AnimationController(
       panelWidgets.icon, this._icons.frames, this._icons.fixedFrames, this._settings
     );
+
+    // Listen for theme changes
+    this._iconThemeSignalId = this._settings.connect('changed::icon-theme', () => this._reloadTheme());
 
     // Init monitors
     this._networkMonitor = new NetworkMonitor();
@@ -135,6 +145,36 @@ export default class NetSpeedAnimalsExtension extends Extension {
       this._tick();
       return GLib.SOURCE_CONTINUE;
     });
+  }
+
+  _reloadTheme() {
+    const themeName = this._settings.get_string('icon-theme');
+    this._icons = this._iconLoader.loadAll(themeName);
+
+    // Update animation controller with new frames
+    if (this._animController) {
+      this._animController.setFrames(this._icons.frames, this._icons.fixedFrames);
+      this._animController.applyFrame(true);
+    }
+  }
+
+  _repositionIndicator() {
+    const boxName = this._settings.get_string('panel-box');
+    const position = this._settings.get_int('panel-position');
+
+    const boxes = {
+      'left': Main.panel._leftBox,
+      'center': Main.panel._centerBox,
+      'right': Main.panel._rightBox,
+    };
+    const targetBox = boxes[boxName] || boxes['right'];
+
+    const container = this._indicator.container;
+    const parent = container.get_parent();
+    if (parent) parent.remove_child(container);
+
+    const index = Math.min(position, targetBox.get_n_children());
+    targetBox.insert_child_at_index(container, index);
   }
 
   _tick() {
@@ -210,6 +250,20 @@ export default class NetSpeedAnimalsExtension extends Extension {
       GLib.unsetenv('LANGUAGE');
     }
 
+    // Disconnect panel position signals
+    if (this._panelBoxSignalId) {
+      this._settings.disconnect(this._panelBoxSignalId);
+      this._panelBoxSignalId = 0;
+    }
+    if (this._panelPositionSignalId) {
+      this._settings.disconnect(this._panelPositionSignalId);
+      this._panelPositionSignalId = 0;
+    }
+    if (this._iconThemeSignalId) {
+      this._settings.disconnect(this._iconThemeSignalId);
+      this._iconThemeSignalId = 0;
+    }
+
     // Clean timers
     if (this._measureTimerId) {
       GLib.source_remove(this._measureTimerId);
@@ -263,6 +317,7 @@ export default class NetSpeedAnimalsExtension extends Extension {
     }
 
     this._icons = null;
+    this._iconLoader = null;
     this._settings = null;
   }
 }

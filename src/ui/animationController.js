@@ -87,6 +87,15 @@ export class AnimationController {
     }
   }
 
+  /**
+   * Replace frames and fixed frames (for theme switching)
+   */
+  setFrames(frames, fixedFrames) {
+    this._frames = frames;
+    this._fixedFrames = fixedFrames;
+    this._frameIndex = 0;
+  }
+
   get animal() {
     return this._animal;
   }
