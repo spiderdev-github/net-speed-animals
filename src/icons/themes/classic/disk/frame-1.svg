@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Disk icon - Idle (level 1) -->
+  <!-- HDD body -->
+  <rect x="6" y="8" width="20" height="16" rx="2" fill="#5a5a5a" stroke="#ffffff" stroke-width="1.5"/>
+  <!-- Disk platter -->
+  <circle cx="16" cy="16" r="5" fill="#3a3a3a" stroke="#ffffff" stroke-width="1"/>
+  <!-- Center spindle -->
+  <circle cx="16" cy="16" r="1.5" fill="#ffffff"/>
+  <!-- Activity indicator (very dim - idle) -->
+  <circle cx="24" cy="10" r="1.5" fill="#4ade80" opacity="0.3"/>
+</svg>

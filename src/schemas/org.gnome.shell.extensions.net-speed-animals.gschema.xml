@@ -309,5 +309,15 @@
       <summary>Panel position index</summary>
       <description>Position index within the chosen panel box (0 = leftmost in that box)</description>
     </key>
+    <key name="threshold-mode" type="s">
+      <default>'spectacular'</default>
+      <summary>Threshold mode</summary>
+      <description>Preset applied to all thresholds (stable, spectacular, stress).</description>
+    </key>
+    <key name="icon-size" type="i">
+      <default>32</default>
+      <summary>Panel icon size</summary>
+      <description>Size in pixels for panel icons.</description>
+    </key>
   </schema>
 </schemalist>

@@ -4,15 +4,30 @@
     padding-right: 6px;
 }
 
-/* Custom icon size */
-.netspeed-icon {
-  /* icon-size: 30px;   /* change to 28, 32, 36 if needed */
-  width: 28px;
-  height: 28px;
-  min-width: 28px;
-  min-height: 28px;
-  margin-left: 1px;
-  margin-right: 3px;
+/* Speed label in panel */
+.netspeed-temperature-label,
+.netspeed-cpu-label,
+.netspeed-memory-label,
+.netspeed-label {
+  font-size: 13px;
+  font-weight: bold;
+  vertical-align: middle;
+  padding-top: 8px
+}
+
+/* Fix width to prevent layout shift for Disk I/O */
+.netspeed-disk-label {
+    font-size: 13px;
+    font-weight: bold;
+    min-width: 75px;        /* Ajustable selon ton format */
+    text-align: right;
+    vertical-align: middle;
+    padding-top: 8px
+}
+
+/* Optional: better numeric alignment (if supported) */
+.netspeed-disk-label {
+    font-feature-settings: "tnum" 1;
 }
 
 /* separate label in panel */
@@ -24,13 +39,17 @@
   padding-top:8px;
 }
 
-/* Speed label in panel */
-.netspeed-label {
-  font-size: 13px;
-  font-weight: bold;
-  margin-right: 0px;
-  vertical-align: middle;
-  padding-top:8px;
+/* Custom icon size */
+.netspeed-disk-icon,
+.netspeed-temperature-icon,
+.netspeed-cpu-icon,
+.netspeed-blob-icon,
+.netspeed-icon {
+  /* icon-size: 30px;   /* change to 28, 32, 36 if needed */
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
 }
 
 /* Blob icon for memory usage */
@@ -39,21 +58,9 @@
   height: 32px;
   min-width: 32px;
   min-height: 32px;
-  margin-left: 3px;
 }
 
-
-
-/* Memory label in panel */
-.netspeed-memory-label {
-  font-size: 13px;
-  font-weight: bold;
-  margin-right: 0px;
-  vertical-align: middle;
-  padding-top:8px;
-}
-
-/* CPU icon */
+/* CPU icon 
 .netspeed-cpu-icon {
   width: 32px;
   height: 32px;
@@ -63,16 +70,32 @@
   padding-top: 5px;
   padding-bottom: 3px;
   
-}
+} */
 
-/* CPU label in panel */
-.netspeed-cpu-label {
-  font-size: 13px;
-  font-weight: bold;
-  margin-right: 0px;
-  vertical-align: middle;
-  padding-top:8px;
-}
+/* Temperature icon 
+.netspeed-temperature-icon {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  margin-left: 0px;
+  padding-top: 4px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+}  */
+
+
+/* Disk icon 
+.netspeed-disk-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  margin-left: 3px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-left: 10px
+} */
 
 /* Optional hover effect */
 .netspeed-button:hover {
@@ -139,27 +162,6 @@
     color: #f87171; /* red */
 }
 
-/* Temperature icon */
-.netspeed-temperature-icon {
-  width: 20px;
-  height: 20px;
-  min-width: 20px;
-  min-height: 20px;
-  margin-left: 0px;
-  padding-top: 4px;
-  padding-bottom: 3px;
-  padding-left: 3px;
-}
-
-/* Temperature label in panel */
-.netspeed-temperature-label {
-  font-size: 13px;
-  font-weight: bold;
-  margin-right: 0px;
-  vertical-align: middle;
-  padding-top:8px;
-}
-
 /* Color themes for temperature */
 .netspeed-temperature-label.temp-cool {
     color: #60a5fa; /* blue */
@@ -175,27 +177,6 @@
 
 .netspeed-temperature-label.temp-critical {
     color: #ef4444; /* red */
-}
-
-/* Disk icon */
-.netspeed-disk-icon {
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  min-height: 32px;
-  margin-left: 3px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-left: 10px
-}
-
-/* Disk label in panel */
-.netspeed-disk-label {
-  font-size: 13px;
-  font-weight: bold;
-  margin-right: 0px;
-  vertical-align: middle;
-  padding-top:8px;
 }
 
 /* Speed graph */

@@ -394,6 +394,33 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
 
     iconThemeGroup.add(iconThemeRow);
 
+    // Icon Size group
+    const iconSizeGroup = new Adw.PreferencesGroup({
+      title: _('Icon Size'),
+      description: _('Adjust the size of panel icons'),
+    });
+    displayPage.add(iconSizeGroup);
+
+    const iconSizeRow = new Adw.SpinRow({
+      title: _('Icon Size (px)'),
+      subtitle: _('Applies to all panel icons (network, memory, CPU, temperature, disk)'),
+      adjustment: new Gtk.Adjustment({
+        lower: 16,
+        upper: 64,
+        step_increment: 1,
+        page_increment: 4,
+        value: settings.get_int('icon-size') || 32,
+      }),
+      digits: 0,
+    });
+
+    iconSizeRow.connect('notify::value', () => {
+      settings.set_int('icon-size', iconSizeRow.value);
+    });
+
+    iconSizeGroup.add(iconSizeRow);
+
+
     const displaySpeedGroup = new Adw.PreferencesGroup({
       title: _('Network speed options')
     });

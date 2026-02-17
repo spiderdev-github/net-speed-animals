@@ -1,23 +1,23 @@
 {
   "version": 1,
   "session": {
-    "rxBytes": 1649698893,
-    "txBytes": 106382235,
-    "startTime": "2026-02-16T07:47:45.875Z"
+    "rxBytes": 9815386127,
+    "txBytes": 222191364,
+    "startTime": "2026-02-16T18:29:08.350Z"
   },
   "daily": {
-    "rxBytes": 1649698893,
-    "txBytes": 106382235,
-    "date": "2026-02-16"
+    "rxBytes": 7163306953,
+    "txBytes": 169661285,
+    "date": "2026-02-17"
   },
   "weekly": {
-    "rxBytes": 1649698893,
-    "txBytes": 106382235,
+    "rxBytes": 9815386127,
+    "txBytes": 222191364,
     "weekStart": "2026-02-16"
   },
   "monthly": {
-    "rxBytes": 1649698893,
-    "txBytes": 106382235,
+    "rxBytes": 9815386127,
+    "txBytes": 222191364,
     "month": "2026-02"
   }
 }
