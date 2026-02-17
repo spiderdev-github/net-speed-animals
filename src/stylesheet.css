@@ -30,6 +30,10 @@
     font-feature-settings: "tnum" 1;
 }
 
+.netspeed-memory-label {
+    margin-left: 3px
+}
+
 /* separate label in panel */
 .separate-label {
   font-size: 13px;
