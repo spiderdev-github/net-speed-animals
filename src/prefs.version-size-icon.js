@@ -394,8 +394,7 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
 
     iconThemeGroup.add(iconThemeRow);
 
-
-// Icon Size group
+    // Icon Size group
     const iconSizeGroup = new Adw.PreferencesGroup({
       title: _('Icon Size'),
       description: _('Adjust the size of panel icons'),
@@ -756,113 +755,6 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
       icon_name: 'dialog-warning-symbolic',
     });
     window.add(thresholdsPage);
-
-    // Threshold mode group
-    const thresholdModeGroup = new Adw.PreferencesGroup({
-      title: _('Threshold Mode'),
-      description: _('Choose how sensitive the thresholds are (more or less animated)'),
-    });
-    thresholdsPage.add(thresholdModeGroup);
-
-    const thresholdModeList = new Gtk.StringList();
-    thresholdModeList.append(_('Stable'));
-    thresholdModeList.append(_('Spectacular'));
-    thresholdModeList.append(_('Stress Test'));
-
-    const thresholdModeRow = new Adw.ComboRow({
-      title: _('Mode'),
-      subtitle: _('Apply a preset to all thresholds'),
-      model: thresholdModeList,
-    });
-
-    const applyThresholdPreset = (mode) => {
-      const presets = {
-        stable: {
-          turtle: 5.0,
-          rabbit: 50.0,
-          mem1: 40.0,
-          mem2: 65.0,
-          mem3: 85.0,
-          cpu1: 30.0,
-          cpu2: 60.0,
-          cpu3: 85.0,
-          tempWarm: 55.0,
-          tempHot: 70.0,
-          tempCritical: 85.0,
-          disk1: 1.0,
-          disk2: 20.0,
-          disk3: 100.0,
-        },
-        spectacular: {
-          turtle: 2.0,
-          rabbit: 20.0,
-          mem1: 30.0,
-          mem2: 55.0,
-          mem3: 75.0,
-          cpu1: 20.0,
-          cpu2: 45.0,
-          cpu3: 70.0,
-          tempWarm: 50.0,
-          tempHot: 65.0,
-          tempCritical: 75.0,
-          disk1: 0.5,
-          disk2: 10.0,
-          disk3: 50.0,
-        },
-        stress: {
-          turtle: 1.0,
-          rabbit: 10.0,
-          mem1: 20.0,
-          mem2: 40.0,
-          mem3: 60.0,
-          cpu1: 10.0,
-          cpu2: 30.0,
-          cpu3: 50.0,
-          tempWarm: 45.0,
-          tempHot: 55.0,
-          tempCritical: 65.0,
-          disk1: 0.1,
-          disk2: 2.0,
-          disk3: 10.0,
-        },
-      };
-
-      const p = presets[mode];
-      if (!p) return;
-
-      settings.set_double('turtle-threshold', p.turtle);
-      settings.set_double('rabbit-threshold', p.rabbit);
-
-      settings.set_double('memory-level-1', p.mem1);
-      settings.set_double('memory-level-2', p.mem2);
-      settings.set_double('memory-level-3', p.mem3);
-
-      settings.set_double('cpu-level-1', p.cpu1);
-      settings.set_double('cpu-level-2', p.cpu2);
-      settings.set_double('cpu-level-3', p.cpu3);
-
-      settings.set_double('temperature-threshold-warm', p.tempWarm);
-      settings.set_double('temperature-threshold-hot', p.tempHot);
-      settings.set_double('temperature-threshold-critical', p.tempCritical);
-
-      settings.set_double('disk-io-level-1', p.disk1);
-      settings.set_double('disk-io-level-2', p.disk2);
-      settings.set_double('disk-io-level-3', p.disk3);
-    };
-
-    const modeToIndex = { stable: 0, spectacular: 1, stress: 2 };
-    const indexToMode = ['stable', 'spectacular', 'stress'];
-
-    const currentThresholdMode = settings.get_string('threshold-mode') || 'spectacular';
-    thresholdModeRow.selected = modeToIndex[currentThresholdMode] ?? 1;
-
-    thresholdModeRow.connect('notify::selected', () => {
-      const mode = indexToMode[thresholdModeRow.selected] ?? 'spectacular';
-      settings.set_string('threshold-mode', mode);
-      applyThresholdPreset(mode);
-    });
-
-    thresholdModeGroup.add(thresholdModeRow);
 
     // Animal thresholds group
     const thresholdGroup = new Adw.PreferencesGroup({

@@ -78,13 +78,13 @@ export class PanelIndicator {
 
     this._widgets.diskLabel = new St.Label({
       text: '-- MB/s',
-      style_class: 'netspeed-disk-label nsa-diskio-label',
+      style_class: 'netspeed-disk-label',
     });
 
     // this._widgets.diskLabel = new St.Label({
     //     text: '0 B/s',
     //     y_align: Clutter.ActorAlign.CENTER,
-    //     style_class: 'netspeed-disk-label nsa-diskio-label',
+    //     style_class: 'netspeed-disk-label',
     // });
 
 
@@ -141,29 +141,24 @@ export class PanelIndicator {
     const sepSpeed = new St.Label({ text: '  ', style_class: 'separate-label' });
     const sepMem = new St.Label({ text: '  ', style_class: 'separate-label' });
     const sepCpu = new St.Label({ text: '  ', style_class: 'separate-label' });
-    const sepDisk = new St.Label({ text: '  ', style_class: 'separate-label' });
 
     // Build layout
     box.add_child(this._widgets.diskLabel);
     box.add_child(this._widgets.diskIcon);
-    box.add_child(sepDisk);
-    
+    box.add_child(sepCpu);
     box.add_child(this._widgets.speedLabel);
     box.add_child(this._widgets.icon);
     box.add_child(sepSpeed);
-    
     box.add_child(this._widgets.memoryLabel);
     box.add_child(this._widgets.blobIcon);
     box.add_child(sepMem);
-    
     box.add_child(this._widgets.cpuLabel);
     box.add_child(this._widgets.cpuIcon);
     box.add_child(sepCpu);
-    
     box.add_child(this._widgets.temperatureLabel);
     box.add_child(this._widgets.temperatureIcon);
-      
-
+    
+    
     // Event handlers
     box.reactive = true;
     box.track_hover = true;

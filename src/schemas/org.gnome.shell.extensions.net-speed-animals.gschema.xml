@@ -289,7 +289,7 @@
     <key name="prefs-start-page" type="s">
       <default>'general'</default>
     </key>
-    <key type="s" name="language">
+    <key type="s" name="language">chatg
       <default>''</default>
       <summary>Extension language</summary>
       <description>Override system language for this extension. Empty string means use system language.</description>
