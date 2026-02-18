@@ -1,4 +1,7 @@
 import GLib from 'gi://GLib';
+import St from 'gi://St';
+import Clutter from 'gi://Clutter';
+
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 
@@ -18,6 +21,7 @@ import { AnimationController } from './ui/animationController.js';
 import { PanelIndicator } from './ui/panelIndicator.js';
 import { MenuBuilder } from './ui/menuBuilder.js';
 import { RenderEngine } from './ui/renderEngine.js';
+import * as ModalDialog from 'resource:///org/gnome/shell/ui/modalDialog.js';
 
 export default class NetSpeedAnimalsExtension extends Extension {
   enable() {
@@ -31,7 +35,79 @@ export default class NetSpeedAnimalsExtension extends Extension {
     }
 
     this._ = this.gettext.bind(this);
+    this._maybeResetSettingsThenContinue();
+    
+  }
 
+  _maybeResetSettingsThenContinue() {
+    // Only ask once (after install / first run)
+    const didInit = this._settings.get_boolean('did-initialize');
+    if (didInit) {
+      this._continueEnable();
+      return;
+    }
+
+    // Detect existing user prefs: any key with a user value
+    const keys = this._settings.list_keys();
+    const hasUserPrefs = keys.some((k) => {
+      if (k === 'did-initialize') return false;
+      return this._settings.get_user_value(k) !== null;
+    });
+
+    // If no existing prefs, just mark initialized and continue
+    if (!hasUserPrefs) {
+      this._settings.set_boolean('did-initialize', true);
+      this._continueEnable();
+      return;
+    }
+
+    // Ask user
+    const dialog = new ModalDialog.ModalDialog({
+      styleClass: null,
+      destroyOnClose: true,
+    });
+
+    dialog.contentLayout.add_child(
+      new St.Label({
+        text: this._('Existing settings were found. Do you want to reset them to defaults?'),
+        style_class: 'dialog-label',
+      })
+    );
+
+    dialog.setButtons([
+      {
+        label: this._('Keep'),
+        action: () => {
+          this._settings.set_boolean('did-initialize', true);
+          dialog.close();
+          this._continueEnable();
+        },
+        key: Clutter.KEY_Escape,
+      },
+      {
+        label: this._('Reset'),
+        default: true,
+        action: () => {
+          this._resetAllSettings();
+          this._settings.set_boolean('did-initialize', true);
+          dialog.close();
+          this._continueEnable();
+        },
+      },
+    ]);
+
+    dialog.open();
+  }
+
+  _resetAllSettings() {
+    const keys = this._settings.list_keys();
+    for (const k of keys) {
+      if (k === 'did-initialize') continue; // avoid re-prompt loop
+      this._settings.reset(k);
+    }
+  }
+
+  _continueEnable() {
     // Create panel indicator
     this._indicator = new PanelMenu.Button(0.0, this.metadata.name, false);
 
@@ -249,6 +325,8 @@ export default class NetSpeedAnimalsExtension extends Extension {
     } else {
       GLib.unsetenv('LANGUAGE');
     }
+
+    this._settings.set_boolean('did-initialize', false);
 
     // Disconnect panel position signals
     if (this._panelBoxSignalId) {

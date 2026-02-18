@@ -47,7 +47,7 @@
       <description>Display mode for network speed: 'combined' (total), 'separate' (download/upload), or 'download-only' or 'upload-only'</description>
     </key>
     <key type="b" name="show-speed-label">
-      <default>true</default>
+      <default>false</default>
       <summary>Show speed label</summary>
       <description>Display the network speed label in the panel</description>
     </key>
@@ -247,12 +247,12 @@
       <description>Display a temperature history graph in the popup menu</description>
     </key>
     <key type="b" name="show-disk-icon">
-      <default>true</default>
+      <default>false</default>
       <summary>Show disk icon</summary>
       <description>Display the disk I/O activity icon in the panel</description>
     </key>
     <key type="b" name="show-disk-label">
-      <default>true</default>
+      <default>false</default>
       <summary>Show disk label</summary>
       <description>Display the disk I/O speed label in the panel</description>
     </key>
@@ -300,7 +300,7 @@
       <description>Animal icon theme: classic, aquatic, domestic, birds, insects</description>
     </key>
     <key type="s" name="panel-box">
-      <default>'right'</default>
+      <default>'left'</default>
       <summary>Panel box position</summary>
       <description>Which panel box to place the indicator in: 'left', 'center', or 'right'</description>
     </key>
@@ -310,7 +310,7 @@
       <description>Position index within the chosen panel box (0 = leftmost in that box)</description>
     </key>
     <key name="threshold-mode" type="s">
-      <default>'spectacular'</default>
+      <default>'stable'</default>
       <summary>Threshold mode</summary>
       <description>Preset applied to all thresholds (stable, spectacular, stress).</description>
     </key>
@@ -318,6 +318,11 @@
       <default>32</default>
       <summary>Panel icon size</summary>
       <description>Size in pixels for panel icons.</description>
+    </key>
+    <key name="did-initialize" type="b">
+      <default>false</default>
+      <summary>Did initialize</summary>
+      <description>Whether the extension has already asked to reset existing settings after install.</description>
     </key>
   </schema>
 </schemalist>
