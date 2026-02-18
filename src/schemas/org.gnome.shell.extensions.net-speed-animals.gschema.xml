@@ -289,13 +289,13 @@
     <key name="prefs-start-page" type="s">
       <default>'general'</default>
     </key>
-    <key type="s" name="language">chatg
+    <key type="s" name="language">
       <default>''</default>
       <summary>Extension language</summary>
       <description>Override system language for this extension. Empty string means use system language.</description>
     </key>
     <key type="s" name="icon-theme">
-      <default>'classic'</default>
+      <default>'aquatic'</default>
       <summary>Icon theme</summary>
       <description>Animal icon theme: classic, aquatic, domestic, birds, insects</description>
     </key>
