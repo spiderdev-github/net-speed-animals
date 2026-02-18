@@ -388,7 +388,7 @@ msgid "Display a CPU usage history graph in the popup menu"
 msgstr ""
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:496
-msgid "Temperture options"
+msgid "Temperature options"
 msgstr ""
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:506

@@ -1,4 +1,5 @@
 import GLib from 'gi://GLib';
+import { MAX_PERCENT, MIN_PERCENT, PROC_PATHS } from '../utils/constants.js';
 
 /**
  * Memory monitor - reads /proc/meminfo and calculates memory usage percentage
@@ -8,7 +9,7 @@ export class MemoryMonitor {
    * Read current memory usage percentage (0-100)
    */
   readPercent() {
-    const path = '/proc/meminfo';
+    const path = PROC_PATHS.MEMINFO;
     try {
       const [ok, bytes] = GLib.file_get_contents(path);
       if (!ok) return 0;
@@ -33,7 +34,7 @@ export class MemoryMonitor {
 
       const used = memTotal - memAvailable;
       const percent = (used / memTotal) * 100;
-      return Math.max(0, Math.min(100, percent));
+      return Math.max(MIN_PERCENT, Math.min(MAX_PERCENT, percent));
     } catch {
       return 0;
     }

@@ -300,7 +300,7 @@
       <description>Animal icon theme: classic, aquatic, domestic, birds, insects</description>
     </key>
     <key type="s" name="panel-box">
-      <default>'left'</default>
+      <default>'right'</default>
       <summary>Panel box position</summary>
       <description>Which panel box to place the indicator in: 'left', 'center', or 'right'</description>
     </key>

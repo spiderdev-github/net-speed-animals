@@ -81,14 +81,6 @@ export class PanelIndicator {
       style_class: 'netspeed-disk-label nsa-diskio-label',
     });
 
-    // this._widgets.diskLabel = new St.Label({
-    //     text: '0 B/s',
-    //     y_align: Clutter.ActorAlign.CENTER,
-    //     style_class: 'netspeed-disk-label nsa-diskio-label',
-    // });
-
-
-
     // Initial visibility from settings
     this._widgets.icon.visible = this._settings.get_boolean('show-animal-icon');
     this._widgets.blobIcon.visible = this._settings.get_boolean('show-memory-icon');

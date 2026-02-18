@@ -8,6 +8,14 @@ import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import { clamp } from './utils/formatters.js';
 import { StatisticsStorage } from './utils/storage.js';
+import {
+  ANIMATION_INTERVAL_MS,
+  MEASUREMENT_INTERVAL_MS,
+  STATS_AUTOSAVE_INTERVAL_SEC,
+  RESTART_DELAY_MS,
+  DEFAULT_MAX_SPEED_MBIT,
+  SPEED_THRESHOLD_MULTIPLIER,
+} from './utils/constants.js';
 import { NotificationManager } from './utils/notifications.js';
 
 import { NetworkMonitor } from './monitors/networkMonitor.js';
@@ -200,7 +208,7 @@ export default class NetSpeedAnimalsExtension extends Extension {
     if (this._settings.get_boolean('track-statistics')) {
       const dataDir = GLib.build_filenamev([GLib.get_user_data_dir(), 'gnome-shell', 'extensions', this.metadata.uuid]);
       this._statsStorage = new StatisticsStorage(dataDir);
-      this._statsStorage.startAutoSave(60);
+      this._statsStorage.startAutoSave(STATS_AUTOSAVE_INTERVAL_SEC);
     }
 
     // Notification manager
@@ -215,9 +223,9 @@ export default class NetSpeedAnimalsExtension extends Extension {
 
     // Start timers
     this._animController.applyFrame(true);
-    this._animController.start(250);
+    this._animController.start(ANIMATION_INTERVAL_MS);
 
-    this._measureTimerId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () => {
+    this._measureTimerId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, MEASUREMENT_INTERVAL_MS, () => {
       this._tick();
       return GLib.SOURCE_CONTINUE;
     });
@@ -275,7 +283,7 @@ export default class NetSpeedAnimalsExtension extends Extension {
       this._animController.setAnimal(animal);
 
       // Adjust animation speed
-      const maxMbit = Math.max(rabbitThreshold * 2, 100);
+      const maxMbit = Math.max(rabbitThreshold * SPEED_THRESHOLD_MULTIPLIER, DEFAULT_MAX_SPEED_MBIT);
       const t = clamp(net.mbit / maxMbit, 0, 1);
       const targetInterval = Math.round(maxAnimSpeed - t * (maxAnimSpeed - minAnimSpeed));
       this._animController.updateInterval(targetInterval);
@@ -318,6 +326,15 @@ export default class NetSpeedAnimalsExtension extends Extension {
     this._renderEngine.checkNotifications(metrics, this._notificationManager, this._statsStorage);
   }
 
+  uninstall() {
+    this._settings.set_boolean('did-initialize', false);
+    if (this._origLanguage) {
+      GLib.setenv('LANGUAGE', this._origLanguage, true);
+    } else {
+      GLib.unsetenv('LANGUAGE');
+    }
+  }
+
   disable() {
     // Restore original LANGUAGE env
     if (this._origLanguage) {
@@ -325,8 +342,6 @@ export default class NetSpeedAnimalsExtension extends Extension {
     } else {
       GLib.unsetenv('LANGUAGE');
     }
-
-    this._settings.set_boolean('did-initialize', false);
 
     // Disconnect panel position signals
     if (this._panelBoxSignalId) {

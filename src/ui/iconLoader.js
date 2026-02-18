@@ -57,7 +57,7 @@ export class IconLoader {
       });
 
     } catch (e) {
-      log(`Error loading frames: ${e}`);
+      console.error(`Error loading frames: ${e}`);
     }
 
     return arr;
@@ -123,7 +123,7 @@ export class IconLoader {
       },
       blobFrames: this.loadFrames(themeName, 'memory', 4),
       cpuFrames: this.loadFrames(themeName, 'cpu', 4),
-      temperatureFrames: this.loadFrames(themeName,'temperture', 4),
+      temperatureFrames: this.loadFrames(themeName,'temperature', 4),
       diskFrames: this.loadFrames(themeName,'disk', 4),
     };
   }

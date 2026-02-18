@@ -1,5 +1,12 @@
 import GLib from 'gi://GLib';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import {
+  MICROSECONDS_PER_SECOND,
+  BITS_PER_BYTE,
+  BITS_PER_MBIT,
+  MIN_TIME_DELTA_SEC,
+  PROC_PATHS,
+} from '../utils/constants.js';
 
 /**
  * Network monitor - reads /proc/net/dev and calculates speed
@@ -15,7 +22,7 @@ export class NetworkMonitor {
    * Read /proc/net/dev and return map: iface -> { rxBytes, txBytes }
    */
   _readNetDev() {
-    const path = '/proc/net/dev';
+    const path = PROC_PATHS.NET_DEV;
     try {
       const [ok, bytes] = GLib.file_get_contents(path);
       if (!ok) return {};
@@ -118,7 +125,7 @@ export class NetworkMonitor {
    */
   measure(settings) {
     const nowUs = GLib.get_monotonic_time();
-    const dtSec = (nowUs - this._prevTimeUs) / 1_000_000;
+    const dtSec = (nowUs - this._prevTimeUs) / MICROSECONDS_PER_SECOND;
     this._prevTimeUs = nowUs;
 
     const cur = this._readNetDev();
@@ -136,10 +143,10 @@ export class NetworkMonitor {
 
     const dRx = curr.rxBytes - prev.rxBytes;
     const dTx = curr.txBytes - prev.txBytes;
-    const rxBps = dRx / Math.max(dtSec, 0.001);
-    const txBps = dTx / Math.max(dtSec, 0.001);
-    const bytesPerSec = (dRx + dTx) / Math.max(dtSec, 0.001);
-    const mbit = (bytesPerSec * 8) / 1_000_000;
+    const rxBps = dRx / Math.max(dtSec, MIN_TIME_DELTA_SEC);
+    const txBps = dTx / Math.max(dtSec, MIN_TIME_DELTA_SEC);
+    const bytesPerSec = (dRx + dTx) / Math.max(dtSec, MIN_TIME_DELTA_SEC);
+    const mbit = (bytesPerSec * BITS_PER_BYTE) / BITS_PER_MBIT;
 
     this._prevStats = cur;
 

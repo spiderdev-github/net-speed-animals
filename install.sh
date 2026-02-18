@@ -92,6 +92,8 @@ echo -e "${GREEN}✓${NC} All dependencies are installed"
 echo ""
 echo -e "${BLUE}Compiling translations...${NC}"
 
+
+
 if [ -d "$PO_DIR" ]; then
   shopt -s nullglob
   for po_file in "$PO_DIR"/*.po; do
@@ -122,12 +124,11 @@ fi
 echo ""
 echo -e "${BLUE}Installing extension files...${NC}"
 
-# Disable extension before overwriting if installed
-if [ -d "$EXTENSION_DIR" ] && [ "$SRC_DIR" != "$EXTENSION_DIR" ]; then
-  if gnome-extensions list 2>/dev/null | grep -q "$EXTENSION_UUID"; then
-    echo -e "${BLUE}Disabling existing extension...${NC}"
-    gnome-extensions disable "$EXTENSION_UUID" 2>/dev/null || true
-  fi
+# Clean install: uninstall existing extension if present
+if gnome-extensions list 2>/dev/null | grep -q "$EXTENSION_UUID"; then
+  echo -e "${BLUE}Uninstalling existing extension for clean install...${NC}"
+  gnome-extensions uninstall "$EXTENSION_UUID" 2>/dev/null || true
+  sleep 1
 fi
 
 mkdir -p "$EXTENSION_DIR"
@@ -177,24 +178,60 @@ fi
 
 echo -e "${GREEN}✓${NC} Extension files installed to $EXTENSION_DIR"
 
-# Enable extension
+echo ""
+echo -e "${BLUE}Update extension translation...${NC}"
+
+# update extension translattion
+cp $SCRIPT_DIR/tools/translate.sh $EXTENSION_DIR
+chmod +x $EXTENSION_DIR/translate.sh
+cd $EXTENSION_DIR
+sh translate.sh
+echo -e "${GREEN}✓${NC} Translate successfully updated"
+
+# Enable extension (without restarting GNOME Shell yet)
 echo ""
 echo -e "${BLUE}Enabling extension...${NC}"
 
-if gnome-extensions enable "$EXTENSION_UUID" 2>/dev/null; then
-  echo -e "${GREEN}✓${NC} Extension enabled successfully"
-else
-  echo -e "${YELLOW}⚠ Could not enable extension automatically.${NC}"
+RETRY_COUNT=0
+MAX_RETRIES=5
+
+while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+  # Check if extension is visible to gnome-extensions
+  if gnome-extensions list 2>/dev/null | grep -q "$EXTENSION_UUID"; then
+    # Try to enable
+    if gnome-extensions enable "$EXTENSION_UUID" 2>/dev/null; then
+      echo -e "${GREEN}✓${NC} Extension enabled successfully"
+      break
+    else
+      # Command failed, retry
+      RETRY_COUNT=$((RETRY_COUNT + 1))
+      if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+        echo -e "${YELLOW}  Retrying... ($RETRY_COUNT/$MAX_RETRIES)${NC}"
+        sleep 1
+      fi
+    fi
+  else
+    # Extension not visible yet, retry
+    RETRY_COUNT=$((RETRY_COUNT + 1))
+    if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+      echo -e "${YELLOW}  Extension not detected yet, retrying... ($RETRY_COUNT/$MAX_RETRIES)${NC}"
+      sleep 1
+    fi
+  fi
+done
+
+if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+  echo -e "${YELLOW}⚠ Could not enable extension automatically after $MAX_RETRIES attempts.${NC}"
   echo -e "${YELLOW}  Please enable it manually using GNOME Extensions app.${NC}"
 fi
 
-# Restart GNOME Shell
+# Restart GNOME Shell to load the enabled extension
 echo ""
-echo -e "${BLUE}Restarting GNOME Shell...${NC}"
+echo -e "${BLUE}Restarting GNOME Shell to load extension...${NC}"
 busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting...");' > /dev/null 2>&1 || true
 echo -e "${GREEN}✓${NC} GNOME Shell restart requested"
 
-sleep 2
+sleep 3
 
 # Success message
 echo ""

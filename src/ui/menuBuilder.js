@@ -7,6 +7,12 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import { SpeedGraph } from '../widgets/speedGraph.js';
 import { SystemGraph } from '../widgets/systemGraph.js';
 import { QuotaBar } from '../widgets/quotaBar.js';
+import {
+  GRAPH_WIDTH,
+  GRAPH_HEIGHT,
+  GRAPH_MAX_DATA_POINTS,
+  RESTART_DELAY_MS,
+} from '../utils/constants.js';
 
 /**
  * Menu builder - constructs the dropdown popup menu
@@ -43,7 +49,7 @@ export class MenuBuilder {
     this._menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
     // Graphs
-    this._buildGraph('speed', new SpeedGraph({ width: 300, height: 60, maxDataPoints: 60 }),
+    this._buildGraph('speed', new SpeedGraph({ width: GRAPH_WIDTH, height: GRAPH_HEIGHT, maxDataPoints: GRAPH_MAX_DATA_POINTS }),
       'Mbit/s', '#4ade80', 'Network', 'show-speed-graph');
 
     this._buildSystemGraph('memory', { lineColor: '#fbbf24', title: 'Memory Usage', unit: '%', minValue: 0, maxValue: 100 },
@@ -67,7 +73,7 @@ export class MenuBuilder {
           Gio.SubprocessFlags.NONE
         );
       } catch (e) {
-        log(`Failed to open System Monitor: ${e.message}`);
+        console.error(`Failed to open System Monitor: ${e.message}`);
       }
     });
     this._menu.addMenuItem(viewAllItem);
@@ -101,7 +107,7 @@ export class MenuBuilder {
     restartItem.connect('activate', () => {
       const uuid = this._callbacks.uuid;
       Main.extensionManager.disableExtension(uuid);
-      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, () => {
+      GLib.timeout_add(GLib.PRIORITY_DEFAULT, RESTART_DELAY_MS, () => {
         Main.extensionManager.enableExtension(uuid);
         return GLib.SOURCE_REMOVE;
       });
@@ -138,7 +144,7 @@ export class MenuBuilder {
   }
 
   _buildSystemGraph(key, opts, unitLabel, color, name, settingKey) {
-    const graph = new SystemGraph({ width: 300, height: 60, maxDataPoints: 60, ...opts });
+    const graph = new SystemGraph({ width: GRAPH_WIDTH, height: GRAPH_HEIGHT, maxDataPoints: GRAPH_MAX_DATA_POINTS, ...opts });
     this._buildGraph(key, graph, unitLabel, color, name, settingKey);
   }
 
@@ -175,7 +181,7 @@ export class MenuBuilder {
   }
 
   _buildQuotaBar() {
-    this._widgets.quotaBar = new QuotaBar({ width: 300, height: 24 });
+    this._widgets.quotaBar = new QuotaBar({ width: GRAPH_WIDTH, height: 24 });
 
     this._widgets.quotaMenuItem = new PopupMenu.PopupBaseMenuItem({ reactive: false, can_focus: false });
     this._widgets.quotaMenuItem.add_child(this._widgets.quotaBar);

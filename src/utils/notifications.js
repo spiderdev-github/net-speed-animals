@@ -1,4 +1,11 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import {
+  NOTIFICATION_COOLDOWN_MS,
+  BITS_PER_MBIT,
+  BITS_PER_BYTE,
+  BYTES_TO_GB_POWER,
+  BYTES_PER_KB,
+} from './constants.js';
 
 /**
  * NotificationManager
@@ -18,8 +25,8 @@ export class NotificationManager {
       'quota-critical': 0,
     };
 
-    // Cooldown period in milliseconds (5 minutes)
-    this._cooldownPeriod = 5 * 60 * 1000;
+    // Cooldown period: prevents notification spam
+    this._cooldownPeriod = NOTIFICATION_COOLDOWN_MS;
   }
 
   /**
@@ -66,10 +73,10 @@ export class NotificationManager {
     }
 
     const threshold = this._settings.get_double('network-dropout-threshold');
-    const thresholdBytes = (threshold * 1_000_000) / 8; // Convert Mbit/s to bytes/s
+    const thresholdBytes = (threshold * BITS_PER_MBIT) / BITS_PER_BYTE;
 
     if (speed < thresholdBytes && speed > 0) {
-      const speedMbit = (speed * 8) / 1_000_000;
+      const speedMbit = (speed * BITS_PER_BYTE) / BITS_PER_MBIT;
       this._notify(
         'Network Speed Low',
         `Network speed dropped to ${speedMbit.toFixed(1)} Mbit/s (threshold: ${threshold} Mbit/s)`,
@@ -154,8 +161,8 @@ export class NotificationManager {
 
     // Critical alert (red zone)
     if (usedPercent >= criticalThreshold) {
-      const usedGB = usedBytes / (1024 ** 3);
-      const quotaGB = quotaBytes / (1024 ** 3);
+      const usedGB = usedBytes / (BYTES_PER_KB ** BYTES_TO_GB_POWER);
+      const quotaGB = quotaBytes / (BYTES_PER_KB ** BYTES_TO_GB_POWER);
       this._notify(
         'Bandwidth Quota Critical',
         `${usedPercent.toFixed(1)}% used (${usedGB.toFixed(1)} GB / ${quotaGB.toFixed(1)} GB)`,
@@ -164,8 +171,8 @@ export class NotificationManager {
     }
     // Warning alert (yellow zone)
     else if (usedPercent >= warningThreshold) {
-      const usedGB = usedBytes / (1024 ** 3);
-      const quotaGB = quotaBytes / (1024 ** 3);
+      const usedGB = usedBytes / (BYTES_PER_KB ** BYTES_TO_GB_POWER);
+      const quotaGB = quotaBytes / (BYTES_PER_KB ** BYTES_TO_GB_POWER);
       this._notify(
         'Bandwidth Quota Warning',
         `${usedPercent.toFixed(1)}% used (${usedGB.toFixed(1)} GB / ${quotaGB.toFixed(1)} GB)`,

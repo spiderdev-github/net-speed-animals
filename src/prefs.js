@@ -350,6 +350,69 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
 
     languageGroup.add(languageRow);
 
+    // Reset Settings group
+    const resetGroup = new Adw.PreferencesGroup({
+      title: _('Reset Settings'),
+      description: _('Restore all settings to their default values'),
+    });
+    page.add(resetGroup);
+
+    const resetRow = new Adw.ActionRow({
+      title: _('Reset All Settings'),
+      subtitle: _('This will restore all extension settings to defaults'),
+      icon_name: 'edit-clear-all-symbolic',
+    });
+
+    const resetButton = new Gtk.Button({
+      label: _('Reset'),
+      valign: Gtk.Align.CENTER,
+      css_classes: ['destructive-action'],
+    });
+
+    resetButton.connect('clicked', () => {
+      // Create confirmation dialog
+      const dialog = new Adw.MessageDialog({
+        transient_for: window,
+        modal: true,
+        heading: _('Reset All Settings?'),
+        body: _('This will restore all settings to their default values. This action cannot be undone.'),
+      });
+
+      dialog.add_response('cancel', _('Cancel'));
+      dialog.add_response('reset', _('Reset'));
+      dialog.set_response_appearance('reset', Adw.ResponseAppearance.DESTRUCTIVE);
+      dialog.set_default_response('cancel');
+      dialog.set_close_response('cancel');
+
+      dialog.connect('response', (dialog, response) => {
+        if (response === 'reset') {
+          // Reset all settings except 'did-initialize'
+          const keys = settings.list_keys();
+          for (const key of keys) {
+            if (key === 'did-initialize') continue; // Keep initialization flag
+            settings.reset(key);
+          }
+
+          // Show success toast notification
+          const toast = new Adw.Toast({
+            title: _('Settings reset. Please reopen preferences to see changes.'),
+            timeout: 0, // Keep visible until dismissed
+          });
+          toast.set_button_label(_('Close'));
+          toast.connect('button-clicked', () => {
+            window.close();
+          });
+          window.add_toast(toast);
+        }
+      });
+
+      dialog.present();
+    });
+
+    resetRow.add_suffix(resetButton);
+    resetRow.activatable_widget = resetButton;
+    resetGroup.add(resetRow);
+
     // ========== Display Page ==========
     const displayPage = new Adw.PreferencesPage({
       title: _('Display'),
@@ -601,7 +664,7 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     displayCpuGroup.add(showCpuGraphRow);
 
     const displayTempGroup = new Adw.PreferencesGroup({
-      title: _('Temperture options')
+      title: _('Temperature options')
     });
     displayPage.add(displayTempGroup);
 

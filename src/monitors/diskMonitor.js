@@ -1,4 +1,9 @@
 import GLib from 'gi://GLib';
+import {
+  BYTES_PER_SECTOR,
+  MICROSECONDS_PER_SECOND,
+  PROC_PATHS,
+} from '../utils/constants.js';
 
 /**
  * DiskMonitor
@@ -19,7 +24,7 @@ export class DiskMonitor {
    * Looks for common disk devices (sda, nvme0n1, etc.)
    */
   _detectDevices() {
-    const path = '/proc/diskstats';
+    const path = PROC_PATHS.DISKSTATS;
     try {
       const [ok, bytes] = GLib.file_get_contents(path);
       if (!ok) return;
@@ -114,7 +119,7 @@ export class DiskMonitor {
       return { readSpeed: 0, writeSpeed: 0 };
     }
 
-    const path = '/proc/diskstats';
+    const path = PROC_PATHS.DISKSTATS;
     try {
       const [ok, bytes] = GLib.file_get_contents(path);
       if (!ok) return { readSpeed: 0, writeSpeed: 0 };
@@ -157,10 +162,9 @@ export class DiskMonitor {
           const deltaTimeUs = nowUs - this._prevTimeUs;
 
           if (deltaTimeUs > 0) {
-            // Convert sectors to bytes (512 bytes per sector)
-            // Convert time from microseconds to seconds
-            const readSpeed = (deltaSectorsRead * 512) / (deltaTimeUs / 1_000_000);
-            const writeSpeed = (deltaSectorsWritten * 512) / (deltaTimeUs / 1_000_000);
+            // Convert sectors to bytes and time from microseconds to seconds
+            const readSpeed = (deltaSectorsRead * BYTES_PER_SECTOR) / (deltaTimeUs / MICROSECONDS_PER_SECOND);
+            const writeSpeed = (deltaSectorsWritten * BYTES_PER_SECTOR) / (deltaTimeUs / MICROSECONDS_PER_SECOND);
 
             this._prevStats = { sectorsRead, sectorsWritten };
             this._prevTimeUs = nowUs;

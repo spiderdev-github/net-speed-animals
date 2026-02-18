@@ -6,10 +6,13 @@ set -e
 EXTENSION_PATH="$(cd "$(dirname "$0")" && pwd)"
 LOCALE_DIR="$EXTENSION_PATH/locale"
 POT_FILE="$LOCALE_DIR/net-speed-animals.pot"
+PO_DIR="po_files"
 
 # ANSI colors
+RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 echo -e "${YELLOW}Net Speed Animals - Translation Manager${NC}\n"
@@ -23,7 +26,12 @@ extract_strings() {
         --output="$POT_FILE" \
         --from-code=UTF-8 \
         "$EXTENSION_PATH/extension.js" \
-        "$EXTENSION_PATH/prefs.js"
+        "$EXTENSION_PATH/prefs.js" \
+        "$EXTENSION_PATH/ui/animationController.js" \
+        "$EXTENSION_PATH/ui/iconLoader.js" \
+        "$EXTENSION_PATH/ui/menuBuilder.js" \
+        "$EXTENSION_PATH/ui/panelIndicator.js" \
+        "$EXTENSION_PATH/ui/renderEngine.js"
     echo -e "${GREEN}✓ POT file generated: $POT_FILE${NC}"
 }
 
@@ -31,7 +39,7 @@ extract_strings() {
 update_translations() {
     echo "Updating translation files..."
     for lang in fr en de es it; do
-        po_file="$LOCALE_DIR/$lang.po"
+        po_file="$LOCALE_DIR/$PO_DIR/$lang.po"
         if [ -f "$po_file" ]; then
             msgmerge --update "$po_file" "$POT_FILE"
             echo -e "${GREEN}✓ Updated $lang.po${NC}"
@@ -43,14 +51,17 @@ update_translations() {
 compile_translations() {
     echo "Compiling translations..."
     for lang in fr en de es it; do
-        po_file="$LOCALE_DIR/$lang.po"
+        po_file="$LOCALE_DIR/$PO_DIR/$lang.po"
         mo_dir="$LOCALE_DIR/$lang/LC_MESSAGES"
         mo_file="$mo_dir/net-speed-animals.mo"
-        
+        echo "file : ${po_file}"
+
         if [ -f "$po_file" ]; then
             mkdir -p "$mo_dir"
             msgfmt -o "$mo_file" "$po_file"
             echo -e "${GREEN}✓ Compiled $lang: $mo_file${NC}"
+        else
+        echo -e "${RED}Compilation impossible !${NC}"
         fi
     done
 }

@@ -1,4 +1,5 @@
 import GLib from 'gi://GLib';
+import { MAX_PERCENT, MIN_PERCENT, PROC_PATHS } from '../utils/constants.js';
 
 /**
  * CPU monitor - reads /proc/stat and calculates CPU usage percentage
@@ -11,7 +12,7 @@ export class CpuMonitor {
   }
 
   _read() {
-    const path = '/proc/stat';
+    const path = PROC_PATHS.STAT;
     try {
       const [ok, bytes] = GLib.file_get_contents(path);
       if (!ok) return { percent: 0, stats: null };
@@ -50,7 +51,7 @@ export class CpuMonitor {
       if (totalDelta <= 0) return { percent: 0, stats: currentStats };
 
       const percent = ((totalDelta - idleDelta) / totalDelta) * 100;
-      return { percent: Math.max(0, Math.min(100, percent)), stats: currentStats };
+      return { percent: Math.max(MIN_PERCENT, Math.min(MAX_PERCENT, percent)), stats: currentStats };
     } catch {
       return { percent: 0, stats: null };
     }
