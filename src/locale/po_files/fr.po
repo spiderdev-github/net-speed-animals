@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Net Speed Animals\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-18 21:25+0100\n"
+"POT-Creation-Date: 2026-02-18 22:05+0100\n"
 "PO-Revision-Date: 2026-02-15\n"
 "Last-Translator: SpiderDev\n"
 "Language-Team: French\n"
@@ -11,17 +11,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:80
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:83
 msgid "Existing settings were found. Do you want to reset them to defaults?"
-msgstr ""
-"Des paramètres existants ont été détectés. Voulez-vous les rétablir par "
-"défaut ?"
+msgstr "Des paramètres existants ont été détectés. Voulez-vous les rétablir par défaut ?"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:87
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:90
 msgid "Keep"
 msgstr "Garder"
 
-#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:96
+#: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/extension.js:99
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:367
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:382
 msgid "Reset"
@@ -95,9 +93,7 @@ msgstr "Désactiver l'animation"
 msgid ""
 "Show a static icon instead of animated frames (uses fixed-animal.svg if "
 "available)"
-msgstr ""
-"Afficher une icône fixe au lieu de l'animation (utilise fixed-animal.svg si "
-"disponible)"
+msgstr "Afficher une icône fixe au lieu de l'animation (utilise fixed-animal.svg si disponible)"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:176
 msgid "Panel Position"
@@ -105,8 +101,7 @@ msgstr "Position du panneau"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:177
 msgid "Choose where the indicator appears in the top bar"
-msgstr ""
-"Choisissez l'emplacement où l'indicateur apparaît dans la barre supérieure"
+msgstr "Choisissez l'emplacement où l'indicateur apparaît dans la barre supérieure"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:182
 msgid "Left"
@@ -126,8 +121,7 @@ msgstr "Position dans le panneau"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:188
 msgid "Place the indicator on the left, center, or right of the top bar"
-msgstr ""
-"Placez l'indicateur à gauche, au centre ou à droite de la barre supérieure."
+msgstr "Placez l'indicateur à gauche, au centre ou à droite de la barre supérieure."
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:204
 msgid "Position Index"
@@ -152,9 +146,7 @@ msgstr "Suivre les statistiques"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:233
 msgid "Record network traffic data (session/daily/weekly/monthly)"
-msgstr ""
-"Enregistrer les données de trafic réseau (session/journalier/hebdomadaire/"
-"mensuel)"
+msgstr "Enregistrer les données de trafic réseau (session/journalier/hebdomadaire/mensuel)"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:247
 msgid "Show Statistics in Menu"
@@ -228,29 +220,31 @@ msgstr "Réinitialiser les statistiques de session"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:356
 msgid "Restore all settings to their default values"
-msgstr ""
+msgstr "Rétablir tous les paramètres à leurs valeurs par défaut"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:361
 msgid "Reset All Settings"
-msgstr ""
+msgstr "Réinitialiser tous les paramètres"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:362
 msgid "This will restore all extension settings to defaults"
-msgstr ""
+msgstr "Cela rétablira les paramètres par défaut de toutes les extensions."
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:377
 msgid "Reset All Settings?"
-msgstr ""
+msgstr "Réinitialiser tous les paramètres ?"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:378
 msgid ""
 "This will restore all settings to their default values. This action cannot "
 "be undone."
 msgstr ""
+"Cette opération rétablira tous les paramètres à leurs valeurs par défaut. "
+"Cette action est irréversible."
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:381
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: /home/akhalfi/.local/share/gnome-shell/extensions/net-speed-animals@spiderdev.fr/prefs.js:398
 msgid "Settings reset. Please reopen preferences to see changes."

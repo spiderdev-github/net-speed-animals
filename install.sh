@@ -183,6 +183,7 @@ echo -e "${BLUE}Update extension translation...${NC}"
 
 # update extension translattion
 cp $SCRIPT_DIR/tools/translate.sh $EXTENSION_DIR
+cp $SCRIPT_DIR/src/test.js $EXTENSION_DIR
 chmod +x $EXTENSION_DIR/translate.sh
 cd $EXTENSION_DIR
 sh translate.sh
