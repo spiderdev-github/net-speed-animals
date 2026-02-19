@@ -141,11 +141,18 @@ Chaque animal dispose d'**animations fluides image par image** qui s'adaptent à
     - 🟢 Vert : Plage normale/sûre
     - 🟡 Jaune : Plage d'avertissement
     - 🔴 Rouge : Plage critique
--   📏 **Ajustement taille des icônes** : 16-48px (défaut 32px)
+-   📏 **Ajustement taille des icônes** : 16-64px (défaut 32px)
 -   📍 **Position dans le panneau** : boîte gauche, centre ou droite
 -   🔢 **Index de position** : ajustement fin du placement dans la boîte choisie
--   🎭 **Sélection de thème** : 5 magnifiques thèmes d'icônes au choix
+-   🎭 **Sélection de thème** : 5 thèmes intégrés + mode personnalisé (choix manuel de 3 animaux)
 -   ⏸️ **Basculement animation** : utiliser des icônes statiques si préféré
+
+### 🩺 Diagnostic & Dépannage
+
+-   🔎 **Page Diagnostic dédiée** dans les préférences
+-   ♻️ **Bouton Refresh** pour relancer les vérifications instantanément
+-   ✅ **Vérifications en direct** de `/proc/net/dev`, `/sys/class/thermal`, et `/proc/diskstats`
+-   🌐 **Détection immédiate** de l'interface active, de la zone thermique et du disque actif
 
 ### 🖱️ Actions de clic interactives
 
@@ -225,49 +232,61 @@ Ou **clic milieu** sur l'icône du panneau (si activé dans les paramètres)
 
 ### 📋 Aperçu des pages de préférences
 
+La fenêtre de préférences inclut une recherche intégrée et suit cet ordre :
+-   Général → Affichage → Seuils → Notifications → Diagnostic → À propos
+
 #### 🔧 Général
+-   **Profils rapides**
+    -   Presets en un clic : Custom, Laptop, Gaming, Dev, Low-power
+    -   Action de remise à Custom
 -   **Interface réseau**
     -   Mode de sélection : Automatique (trafic le plus élevé) ou Manuel
     -   Saisie du nom d'interface pour sélection manuelle
-    -   Détection d'interface en direct
--   **Contrôle d'animation**
-    -   Vitesse minimale d'animation (50-500ms)
-    -   Vitesse maximale d'animation (100-1000ms)
-    -   Option de désactivation de l'animation (utiliser icônes statiques)
 -   **Position dans le panneau**
     -   Choisir la boîte : gauche, centre ou droite
     -   Index de position dans la boîte (0 = première position)
--   **Statistiques réseau**
-    -   Activer/désactiver le suivi
-    -   Afficher les statistiques dans le menu
 -   **Actions de clic**
     -   Basculer clic gauche (parcours)
     -   Basculer clic milieu (préférences)
     -   Basculer défilement (changement d'interface)
+-   **Contrôle d'animation**
+    -   Vitesse minimale d'animation (50-500ms)
+    -   Vitesse maximale d'animation (100-1000ms)
+    -   Option de désactivation de l'animation (utiliser icônes statiques)
+-   **Statistiques réseau**
+    -   Activer/désactiver le suivi
+    -   Afficher les statistiques dans le menu
 -   **Langue**
     -   Système par défaut ou spécifique (🇬🇧 🇫🇷 🇩🇪 🇪🇸 🇮🇹)
     -   Nécessite rechargement de l'extension
+-   **Sauvegarde & restauration**
+    -   Export des paramètres en JSON
+    -   Import des paramètres depuis JSON
+-   **Réinitialisation**
+    -   Remettre tous les paramètres de l'extension par défaut
 
 #### 🎨 Affichage
 -   **Sélection du thème d'icônes**
-    -   5 thèmes : Aquatique, Classique, Domestique, Oiseaux, Insectes
-    -   Aperçu disponible pour chaque thème
+    -   5 thèmes intégrés : Aquatique, Classique, Domestique, Oiseaux, Insectes
+    -   Mode personnalisé : choisir manuellement les animaux lent/moyen/rapide
 -   **Taille des icônes**
-    -   Ajustable de 16 à 48 pixels (défaut : 32px)
+    -   Ajustable de 16 à 64 pixels (défaut : 32px)
     -   S'applique à toutes les icônes du panneau
+-   **Thèmes de couleur**
+    -   Activer/désactiver les couleurs adaptatives des étiquettes (vert/jaune/rouge)
 -   **Options de vitesse réseau**
     -   Afficher/masquer l'icône animée de l'animal
     -   Afficher/masquer l'étiquette de texte de vitesse
     -   Afficher/masquer le graphique de vitesse dans le menu
     -   Mode d'affichage : combiné, séparé, téléchargement seul, envoi seul
--   **Options mémoire**
-    -   Afficher/masquer l'icône blob de mémoire
-    -   Afficher/masquer l'étiquette de pourcentage mémoire
-    -   Afficher/masquer le graphique mémoire dans le menu
 -   **Options CPU**
     -   Afficher/masquer l'icône CPU
     -   Afficher/masquer l'étiquette de pourcentage CPU
     -   Afficher/masquer le graphique CPU dans le menu
+-   **Options mémoire**
+    -   Afficher/masquer l'icône blob de mémoire
+    -   Afficher/masquer l'étiquette de pourcentage mémoire
+    -   Afficher/masquer le graphique mémoire dans le menu
 -   **Options température**
     -   Afficher/masquer l'icône thermomètre
     -   Afficher/masquer l'étiquette température
@@ -277,8 +296,6 @@ Ou **clic milieu** sur l'icône du panneau (si activé dans les paramètres)
     -   Afficher/masquer l'étiquette de vitesse disque
     -   Afficher/masquer le graphique E/S disque dans le menu
     -   Mode d'affichage : combiné, séparé, lecture seule, écriture seule
--   **Thèmes de couleur**
-    -   Activer/désactiver les couleurs adaptatives des étiquettes (vert/jaune/rouge)
 
 #### 🎚️ Seuils
 -   **Mode de seuils**
@@ -319,6 +336,19 @@ Ou **clic milieu** sur l'icône du panneau (si activé dans les paramètres)
     -   Activer les notifications de quota
     -   Seuil d'avertissement (%) - défaut : 75%
     -   Seuil critique (%) - défaut : 90%
+
+#### 🩺 Diagnostic
+-   **Refresh Diagnostics**
+    -   Relancer les vérifications système à la demande
+-   **Détection en direct**
+    -   Interface réseau active
+    -   Zone thermique active
+    -   Disque actif
+-   **État des permissions**
+    -   Vérification de lecture de `/proc/net/dev`, `/sys/class/thermal`, `/proc/diskstats`
+
+#### ℹ️ À propos
+-   Version, liens du projet et liens de support
 
 ------------------------------------------------------------------------
 

@@ -141,11 +141,18 @@ Each animal comes with **smooth frame-by-frame animations** that adapt to your n
     - 🟢 Green: Normal/safe range
     - 🟡 Yellow: Warning range
     - 🔴 Red: Critical range
--   📏 **Icon size adjustment**: 16-48px (default 32px)
+-   📏 **Icon size adjustment**: 16-64px (default 32px)
 -   📍 **Panel position**: left, center, or right box
 -   🔢 **Position index**: fine-tune placement within chosen box
--   🎭 **Theme selection**: 5 beautiful icon themes to choose from
+-   🎭 **Theme selection**: 5 built-in themes + custom mode (choose your 3 speed animals)
 -   ⏸️ **Animation toggle**: use static icons if preferred
+
+### 🩺 Diagnostics & Troubleshooting
+
+-   🔎 **Dedicated Diagnostics page** in preferences
+-   ♻️ **Refresh button** to re-run checks instantly
+-   ✅ **Live checks** for `/proc/net/dev`, `/sys/class/thermal`, and `/proc/diskstats`
+-   🌐 **Instant detection** of active interface, thermal zone, and disk device
 
 ### 🖱️ Interactive Click Actions
 
@@ -226,49 +233,61 @@ Or **middle-click** on the panel icon (if enabled in settings)
 
 ### 📋 Preferences Pages Overview
 
+The preferences window includes built-in search and follows this order:
+-   General → Display → Thresholds → Notifications → Diagnostics → About
+
 #### 🔧 General
+-   **Quick Profiles**
+    -   One-click presets: Custom, Laptop, Gaming, Dev, Low-power
+    -   Reset to Custom action
 -   **Network Interface**
     -   Selection mode: Automatic (highest traffic) or Manual
     -   Interface name input for manual selection
-    -   Live interface detection
--   **Animation Control**
-    -   Minimum animation speed (50-500ms)
-    -   Maximum animation speed (100-1000ms)
-    -   Animation disable option (use static icons)
 -   **Panel Position**
     -   Choose box: left, center, or right
     -   Position index within box (0 = first position)
--   **Network Statistics**
-    -   Enable/disable tracking
-    -   Show statistics in menu
 -   **Click Actions**
     -   Toggle left-click cycling
     -   Toggle middle-click preferences
     -   Toggle scroll interface switching
+-   **Animation Control**
+    -   Minimum animation speed (50-500ms)
+    -   Maximum animation speed (100-1000ms)
+    -   Animation disable option (use static icons)
+-   **Network Statistics**
+    -   Enable/disable tracking
+    -   Show statistics in menu
 -   **Language**
     -   System default or override (🇬🇧 🇫🇷 🇩🇪 🇪🇸 🇮🇹)
     -   Requires extension reload
+-   **Backup & Restore**
+    -   Export settings to JSON
+    -   Import settings from JSON
+-   **Reset Settings**
+    -   Reset all extension settings to defaults
 
 #### 🎨 Display
 -   **Icon Theme Selection**
-    -   5 themes: Aquatic, Classic, Domestic, Birds, Insects
-    -   Preview available for each theme
+    -   5 built-in themes: Aquatic, Classic, Domestic, Birds, Insects
+    -   Custom mode: choose slow/medium/fast animals manually
 -   **Icon Size**
-    -   Adjustable from 16 to 48 pixels (default: 32px)
+    -   Adjustable from 16 to 64 pixels (default: 32px)
     -   Applies to all panel icons
+-   **Color Themes**
+    -   Enable/disable adaptive label colors (green/yellow/red)
 -   **Network Speed Options**
     -   Show/hide animated animal icon
     -   Show/hide speed text label
     -   Show/hide speed graph in menu
     -   Display mode: combined, separate, download-only, upload-only
--   **Memory Options**
-    -   Show/hide memory blob icon
-    -   Show/hide memory percentage label
-    -   Show/hide memory graph in menu
 -   **CPU Options**
     -   Show/hide CPU icon
     -   Show/hide CPU percentage label
     -   Show/hide CPU graph in menu
+-   **Memory Options**
+    -   Show/hide memory blob icon
+    -   Show/hide memory percentage label
+    -   Show/hide memory graph in menu
 -   **Temperature Options**
     -   Show/hide thermometer icon
     -   Show/hide temperature label
@@ -278,8 +297,6 @@ Or **middle-click** on the panel icon (if enabled in settings)
     -   Show/hide disk speed label
     -   Show/hide disk I/O graph in menu
     -   Display mode: combined, separate, read-only, write-only
--   **Color Themes**
-    -   Enable/disable adaptive label colors (green/yellow/red)
 
 #### 🎚️ Thresholds
 -   **Threshold Mode**
@@ -320,6 +337,19 @@ Or **middle-click** on the panel icon (if enabled in settings)
     -   Enable quota notifications
     -   Warning threshold (%) - default: 75%
     -   Critical threshold (%) - default: 90%
+
+#### 🩺 Diagnostics
+-   **Refresh Diagnostics**
+    -   Re-run system checks on demand
+-   **Live Detection**
+    -   Active network interface
+    -   Active thermal zone
+    -   Active disk device
+-   **Permission Status**
+    -   Readability checks for `/proc/net/dev`, `/sys/class/thermal`, `/proc/diskstats`
+
+#### ℹ️ About
+-   Version, project links, and support links
 
 ------------------------------------------------------------------------
 
