@@ -48,6 +48,9 @@ export default class NetSpeedAnimalsExtension extends Extension {
   }
 
   _maybeResetSettingsThenContinue() {
+    this._continueEnable();
+    return;
+
     // Only ask once (after install / first run)
     const didInit = this._settings.get_boolean('did-initialize');
     if (didInit) {
@@ -175,7 +178,7 @@ export default class NetSpeedAnimalsExtension extends Extension {
     // Load icons with theme support
     this._iconLoader = new IconLoader(this.path);
     const themeName = this._settings.get_string('icon-theme');
-    this._icons = this._iconLoader.loadAll(themeName);
+    this._icons = this._iconLoader.loadAll(themeName, this._settings);
 
     // Animation controller
     const panelWidgets = this._panelIndicator.getWidgets();
@@ -185,6 +188,15 @@ export default class NetSpeedAnimalsExtension extends Extension {
 
     // Listen for theme changes
     this._iconThemeSignalId = this._settings.connect('changed::icon-theme', () => this._reloadTheme());
+    this._customSlowSignalId = this._settings.connect('changed::custom-animal-slow', () => {
+      if (this._settings.get_string('icon-theme') === 'custom') this._reloadTheme();
+    });
+    this._customMediumSignalId = this._settings.connect('changed::custom-animal-medium', () => {
+      if (this._settings.get_string('icon-theme') === 'custom') this._reloadTheme();
+    });
+    this._customFastSignalId = this._settings.connect('changed::custom-animal-fast', () => {
+      if (this._settings.get_string('icon-theme') === 'custom') this._reloadTheme();
+    });
 
     // Init monitors
     this._networkMonitor = new NetworkMonitor();
@@ -221,6 +233,10 @@ export default class NetSpeedAnimalsExtension extends Extension {
     const menuWidgets = this._menuBuilder.getWidgets();
     this._renderEngine = new RenderEngine(panelWidgets, menuWidgets, this._settings, this._);
 
+    this._lastConnectivityState = null;
+    this._connectedSinceMs = 0;
+    this._lastOutageAtMs = 0;
+
     // Start timers
     this._animController.applyFrame(true);
     this._animController.start(ANIMATION_INTERVAL_MS);
@@ -233,7 +249,7 @@ export default class NetSpeedAnimalsExtension extends Extension {
 
   _reloadTheme() {
     const themeName = this._settings.get_string('icon-theme');
-    this._icons = this._iconLoader.loadAll(themeName);
+    this._icons = this._iconLoader.loadAll(themeName, this._settings);
 
     // Update animation controller with new frames
     if (this._animController) {
@@ -263,6 +279,30 @@ export default class NetSpeedAnimalsExtension extends Extension {
 
   _tick() {
     const net = this._networkMonitor.measure(this._settings);
+    const nowMs = Date.now();
+
+    if (this._lastConnectivityState === null) {
+      this._lastConnectivityState = Boolean(net.connected);
+      if (this._lastConnectivityState) {
+        this._connectedSinceMs = nowMs;
+      }
+    } else if (this._lastConnectivityState !== Boolean(net.connected)) {
+      if (this._lastConnectivityState && !net.connected) {
+        this._lastOutageAtMs = nowMs;
+        this._connectedSinceMs = 0;
+      }
+      if (!this._lastConnectivityState && net.connected) {
+        this._connectedSinceMs = nowMs;
+      }
+      this._lastConnectivityState = Boolean(net.connected);
+    }
+
+    const internetUptimeSec = (net.connected && this._connectedSinceMs > 0)
+      ? Math.max(0, Math.floor((nowMs - this._connectedSinceMs) / 1000))
+      : 0;
+    const lastOutageAt = this._lastOutageAtMs > 0
+      ? new Date(this._lastOutageAtMs).toISOString()
+      : null;
 
     // Add traffic to statistics
     if (this._statsStorage && net.dRx >= 0 && net.dTx >= 0) {
@@ -306,6 +346,9 @@ export default class NetSpeedAnimalsExtension extends Extension {
       temperature,
       diskReadSpeed: diskIO.readSpeed,
       diskWriteSpeed: diskIO.writeSpeed,
+      internetConnected: Boolean(net.connected),
+      internetUptimeSec,
+      lastOutageAt,
     };
 
     // Render UI
@@ -355,6 +398,18 @@ export default class NetSpeedAnimalsExtension extends Extension {
     if (this._iconThemeSignalId) {
       this._settings.disconnect(this._iconThemeSignalId);
       this._iconThemeSignalId = 0;
+    }
+    if (this._customSlowSignalId) {
+      this._settings.disconnect(this._customSlowSignalId);
+      this._customSlowSignalId = 0;
+    }
+    if (this._customMediumSignalId) {
+      this._settings.disconnect(this._customMediumSignalId);
+      this._customMediumSignalId = 0;
+    }
+    if (this._customFastSignalId) {
+      this._settings.disconnect(this._customFastSignalId);
+      this._customFastSignalId = 0;
     }
 
     // Clean timers

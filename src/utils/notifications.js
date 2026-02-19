@@ -29,6 +29,33 @@ export class NotificationManager {
     this._cooldownPeriod = NOTIFICATION_COOLDOWN_MS;
   }
 
+  _getSnoozeUntilMs() {
+    if (!this._settings) return 0;
+
+    const untilIso = this._settings.get_string('notifications-snooze-until');
+    if (!untilIso) return 0;
+
+    const untilMs = Date.parse(untilIso);
+    if (!Number.isFinite(untilMs)) {
+      this._settings.set_string('notifications-snooze-until', '');
+      return 0;
+    }
+
+    return untilMs;
+  }
+
+  _isTemporarilySilenced() {
+    const untilMs = this._getSnoozeUntilMs();
+    if (untilMs <= 0) return false;
+
+    if (Date.now() >= untilMs) {
+      this._settings.set_string('notifications-snooze-until', '');
+      return false;
+    }
+
+    return true;
+  }
+
   /**
    * Check if we can show a notification (not in cooldown)
    * @param {string} type - Notification type
@@ -55,6 +82,10 @@ export class NotificationManager {
    * @param {string} type - Notification type for cooldown tracking
    */
   _notify(title, body, type) {
+    if (this._isTemporarilySilenced()) {
+      return;
+    }
+
     if (!this._canNotify(type)) {
       return; // In cooldown period
     }
@@ -196,6 +227,16 @@ export class NotificationManager {
     for (const type in this._lastNotifications) {
       this._lastNotifications[type] = 0;
     }
+  }
+
+  silenceForMinutes(minutes) {
+    const duration = Math.max(1, Number.parseInt(minutes, 10) || 1);
+    const until = new Date(Date.now() + duration * 60 * 1000).toISOString();
+    this._settings.set_string('notifications-snooze-until', until);
+  }
+
+  clearTemporarySilence() {
+    this._settings.set_string('notifications-snooze-until', '');
   }
 
   /**

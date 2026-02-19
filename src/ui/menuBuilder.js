@@ -34,19 +34,39 @@ export class MenuBuilder {
 
     // Menu items
     this._widgets.speedItem = new PopupMenu.PopupMenuItem(_('Speed: --'), { reactive: false });
+    this._widgets.speedPeakItem = new PopupMenu.PopupMenuItem(_('Peak: --'), { reactive: false });
+    this._widgets.speedAvg1mItem = new PopupMenu.PopupMenuItem(_('Average (1m): --'), { reactive: false });
+    this._widgets.speedAvg5mItem = new PopupMenu.PopupMenuItem(_('Average (5m): --'), { reactive: false });
     this._widgets.ifaceItem = new PopupMenu.PopupMenuItem(_('Interface: --'), { reactive: false });
+    this._widgets.internetUptimeItem = new PopupMenu.PopupMenuItem(_('Internet uptime: --'), { reactive: false });
+    this._widgets.lastOutageItem = new PopupMenu.PopupMenuItem(_('Last outage: --'), { reactive: false });
     this._widgets.memoryItem = new PopupMenu.PopupMenuItem(_('Memory: --'), { reactive: false });
     this._widgets.cpuItem = new PopupMenu.PopupMenuItem(_('CPU: --'), { reactive: false });
     this._widgets.temperatureItem = new PopupMenu.PopupMenuItem(_('Temperature: --'), { reactive: false });
     this._widgets.diskItem = new PopupMenu.PopupMenuItem(_('Disk I/O: --'), { reactive: false });
 
     this._menu.addMenuItem(this._widgets.speedItem);
+    this._menu.addMenuItem(this._widgets.speedPeakItem);
+    this._menu.addMenuItem(this._widgets.speedAvg1mItem);
+    this._menu.addMenuItem(this._widgets.speedAvg5mItem);
     this._menu.addMenuItem(this._widgets.ifaceItem);
+    this._menu.addMenuItem(this._widgets.internetUptimeItem);
+    this._menu.addMenuItem(this._widgets.lastOutageItem);
     this._menu.addMenuItem(this._widgets.memoryItem);
     this._menu.addMenuItem(this._widgets.cpuItem);
     this._menu.addMenuItem(this._widgets.temperatureItem);
     this._menu.addMenuItem(this._widgets.diskItem);
     this._menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+
+    const updateAdvancedSpeedStatsVisibility = () => {
+      const visible = this._settings.get_boolean('show-speed-advanced-stats');
+      this._widgets.speedPeakItem.visible = visible;
+      this._widgets.speedAvg1mItem.visible = visible;
+      this._widgets.speedAvg5mItem.visible = visible;
+    };
+    updateAdvancedSpeedStatsVisibility();
+    const advancedStatsId = this._settings.connect('changed::show-speed-advanced-stats', updateAdvancedSpeedStatsVisibility);
+    this._signalIds.push(advancedStatsId);
 
     // Graphs
     this._buildGraph('speed', new SpeedGraph({ width: GRAPH_WIDTH, height: GRAPH_HEIGHT, maxDataPoints: GRAPH_MAX_DATA_POINTS }),
@@ -87,6 +107,38 @@ export class MenuBuilder {
     this._buildQuotaBar();
 
     this._menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+
+    const silenceItem = new PopupMenu.PopupMenuItem(_('Silence Notifications'));
+    silenceItem.connect('activate', () => {
+      const now = Date.now();
+      const untilMs = this._getSnoozeUntilMs();
+
+      if (untilMs > now) {
+        this._settings.set_string('notifications-snooze-until', '');
+      } else {
+        const duration = Math.max(1, this._settings.get_int('notifications-snooze-duration-minutes'));
+        const untilIso = new Date(now + duration * 60 * 1000).toISOString();
+        this._settings.set_string('notifications-snooze-until', untilIso);
+      }
+
+      this._updateSilenceMenuItemLabel();
+    });
+    this._widgets.silenceItem = silenceItem;
+    this._menu.addMenuItem(silenceItem);
+
+    const silenceSignals = [
+      this._settings.connect('changed::notifications-snooze-until', () => this._updateSilenceMenuItemLabel()),
+      this._settings.connect('changed::notifications-snooze-duration-minutes', () => this._updateSilenceMenuItemLabel()),
+      this._settings.connect('changed::enable-notifications', () => this._updateSilenceMenuItemLabel()),
+    ];
+    this._signalIds.push(...silenceSignals);
+    this._updateSilenceMenuItemLabel();
+
+    this._silenceRefreshId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 30, () => {
+      if (!this._settings || !this._widgets.silenceItem) return GLib.SOURCE_REMOVE;
+      this._updateSilenceMenuItemLabel();
+      return GLib.SOURCE_CONTINUE;
+    });
 
     // Control items
     const prefsItem = new PopupMenu.PopupMenuItem(_('Preferences'));
@@ -198,11 +250,58 @@ export class MenuBuilder {
     this._menu.addMenuItem(this._widgets.quotaMenuItem);
   }
 
+  _getSnoozeUntilMs() {
+    const untilIso = this._settings.get_string('notifications-snooze-until');
+    if (!untilIso) return 0;
+
+    const untilMs = Date.parse(untilIso);
+    if (!Number.isFinite(untilMs)) {
+      this._settings.set_string('notifications-snooze-until', '');
+      return 0;
+    }
+
+    return untilMs;
+  }
+
+  _updateSilenceMenuItemLabel() {
+    const item = this._widgets.silenceItem;
+    if (!item) return;
+
+    const notificationsEnabled = this._settings.get_boolean('enable-notifications');
+    item.setSensitive(notificationsEnabled);
+
+    if (!notificationsEnabled) {
+      item.label.text = this._('Silence Notifications (disabled)');
+      return;
+    }
+
+    const now = Date.now();
+    const untilMs = this._getSnoozeUntilMs();
+
+    if (untilMs > now) {
+      const remainingMin = Math.max(1, Math.ceil((untilMs - now) / 60000));
+      item.label.text = `${this._('Resume Notifications')} (${remainingMin} min)`;
+      return;
+    }
+
+    if (untilMs > 0) {
+      this._settings.set_string('notifications-snooze-until', '');
+    }
+
+    const duration = Math.max(1, this._settings.get_int('notifications-snooze-duration-minutes'));
+    item.label.text = `${this._('Silence Notifications')} (${duration} min)`;
+  }
+
   getWidgets() {
     return this._widgets;
   }
 
   destroy() {
+    if (this._silenceRefreshId) {
+      GLib.source_remove(this._silenceRefreshId);
+      this._silenceRefreshId = 0;
+    }
+
     for (const id of this._signalIds) {
       try { this._settings.disconnect(id); } catch { /* ignore */ }
     }

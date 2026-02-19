@@ -1,6 +1,9 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { formatSpeed, formatTemp, formatBytes } from '../utils/formatters.js';
 
+const HISTORY_1M_POINTS = 60;
+const HISTORY_5M_POINTS = 300;
+
 /**
  * Render engine - updates all UI elements with current metrics
  */
@@ -10,6 +13,7 @@ export class RenderEngine {
     this._menu = menuWidgets;
     this._settings = settings;
     this._ = gettext;
+    this._speedHistory = [];
   }
 
   /**
@@ -149,8 +153,22 @@ export class RenderEngine {
   }
 
   _updateMenuItems(metrics) {
-    const { bytesPerSec, iface, memoryPercent, cpuPercent, temperature, diskReadSpeed, diskWriteSpeed } = metrics;
+    const {
+      bytesPerSec,
+      iface,
+      memoryPercent,
+      cpuPercent,
+      temperature,
+      diskReadSpeed,
+      diskWriteSpeed,
+      internetConnected,
+      internetUptimeSec,
+      lastOutageAt,
+    } = metrics;
     const _ = this._;
+
+    this._recordSpeedSample(bytesPerSec);
+    const speedStats = this._computeSpeedStats();
 
     if (this._menu.speedItem) {
       if (bytesPerSec === null || bytesPerSec === undefined) {
@@ -158,6 +176,18 @@ export class RenderEngine {
       } else {
         this._menu.speedItem.label.text = `${_('Speed')}: ${formatSpeed(bytesPerSec)}`;
       }
+    }
+
+    if (this._menu.speedPeakItem) {
+      this._menu.speedPeakItem.label.text = `${_('Peak')}: ${formatSpeed(speedStats.peak)}`;
+    }
+
+    if (this._menu.speedAvg1mItem) {
+      this._menu.speedAvg1mItem.label.text = `${_('Average (1m)')}: ${formatSpeed(speedStats.avg1m)}`;
+    }
+
+    if (this._menu.speedAvg5mItem) {
+      this._menu.speedAvg5mItem.label.text = `${_('Average (5m)')}: ${formatSpeed(speedStats.avg5m)}`;
     }
 
     if (this._menu.memoryItem) {
@@ -184,6 +214,64 @@ export class RenderEngine {
     if (this._menu.ifaceItem) {
       this._menu.ifaceItem.label.text = `${_('Interface')}: ${iface ?? '--'}`;
     }
+
+    if (this._menu.internetUptimeItem) {
+      this._menu.internetUptimeItem.label.text = internetConnected
+        ? `${_('Internet uptime')}: ${this._formatDuration(internetUptimeSec)}`
+        : `${_('Internet uptime')}: ${_('down')}`;
+    }
+
+    if (this._menu.lastOutageItem) {
+      this._menu.lastOutageItem.label.text = `${_('Last outage')}: ${this._formatOutageTime(lastOutageAt)}`;
+    }
+  }
+
+  _formatDuration(totalSeconds) {
+    const sec = Math.max(0, Number.parseInt(totalSeconds ?? 0, 10));
+    const days = Math.floor(sec / 86400);
+    const hours = Math.floor((sec % 86400) / 3600);
+    const mins = Math.floor((sec % 3600) / 60);
+    const seconds = sec % 60;
+
+    if (days > 0) return `${days}d ${hours}h ${mins}m`;
+    if (hours > 0) return `${hours}h ${mins}m ${seconds}s`;
+    if (mins > 0) return `${mins}m ${seconds}s`;
+    return `${seconds}s`;
+  }
+
+  _formatOutageTime(isoString) {
+    if (!isoString) return this._('never');
+
+    const date = new Date(isoString);
+    if (!Number.isFinite(date.getTime())) return this._('unknown');
+
+    return date.toLocaleString();
+  }
+
+  _recordSpeedSample(bytesPerSec) {
+    const sample = Number.isFinite(bytesPerSec) ? Math.max(0, bytesPerSec) : 0;
+    this._speedHistory.push(sample);
+
+    if (this._speedHistory.length > HISTORY_5M_POINTS) {
+      this._speedHistory.shift();
+    }
+  }
+
+  _computeSpeedStats() {
+    const history = this._speedHistory;
+    if (history.length === 0) {
+      return { peak: 0, avg1m: 0, avg5m: 0 };
+    }
+
+    const peak = Math.max(...history);
+    const last1m = history.slice(-HISTORY_1M_POINTS);
+    const sum1m = last1m.reduce((acc, value) => acc + value, 0);
+    const avg1m = sum1m / Math.max(last1m.length, 1);
+
+    const sum5m = history.reduce((acc, value) => acc + value, 0);
+    const avg5m = sum5m / Math.max(history.length, 1);
+
+    return { peak, avg1m, avg5m };
   }
 
   _updateGraphs(metrics) {
@@ -361,6 +449,7 @@ export class RenderEngine {
   }
 
   destroy() {
+    this._speedHistory = [];
     this._panel = null;
     this._menu = null;
     this._settings = null;

@@ -183,11 +183,17 @@ echo -e "${BLUE}Update extension translation...${NC}"
 
 # update extension translattion
 cp $SCRIPT_DIR/tools/translate.sh $EXTENSION_DIR
-cp $SCRIPT_DIR/src/test.js $EXTENSION_DIR
+echo ""
+echo -e "${GREEN}✓${NC} copy translate.sh to $EXTENSION_DIR"
 chmod +x $EXTENSION_DIR/translate.sh
-cd $EXTENSION_DIR
-sh translate.sh
+
+sh $EXTENSION_DIR/translate.sh
 echo -e "${GREEN}✓${NC} Translate successfully updated"
+
+
+cp $SCRIPT_DIR/src/tests.js $EXTENSION_DIR
+echo -e "${GREEN}✓${NC} copy tests.js to $EXTENSION_DIR"
+
 
 # Enable extension (without restarting GNOME Shell yet)
 echo ""

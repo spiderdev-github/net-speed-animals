@@ -9,6 +9,25 @@ const THEMES = {
   domestic: { slow: 'cat',     medium: 'dog',      fast: 'horse' },
   birds:    { slow: 'duck',    medium: 'hummingbird',     fast: 'eagle' },
   insects:  { slow: 'ant',     medium: 'ladybug',  fast: 'bee' },
+  custom:   { slow: 'snail',   medium: 'turtle',  fast: 'rabbit' },
+};
+
+const ANIMAL_THEME_MAP = {
+  snail: 'classic',
+  turtle: 'classic',
+  rabbit: 'classic',
+  fish: 'aquatic',
+  dolphin: 'aquatic',
+  whale: 'aquatic',
+  cat: 'domestic',
+  dog: 'domestic',
+  horse: 'domestic',
+  duck: 'birds',
+  hummingbird: 'birds',
+  eagle: 'birds',
+  ant: 'insects',
+  ladybug: 'insects',
+  bee: 'insects',
 };
 
 /**
@@ -107,24 +126,42 @@ export class IconLoader {
    * Load all icons for the extension with theme support
    * @param {string} themeName - theme name (classic, aquatic, domestic, birds, insects)
    */
-  loadAll(themeName = 'classic') {
-    const themeDef = THEMES[themeName] || THEMES.classic;
+  loadAll(themeName = 'classic', settings = null) {
+    let themeDef = THEMES[themeName] || THEMES.classic;
+
+    if (themeName === 'custom' && settings) {
+      themeDef = {
+        slow: settings.get_string('custom-animal-slow') || 'snail',
+        medium: settings.get_string('custom-animal-medium') || 'turtle',
+        fast: settings.get_string('custom-animal-fast') || 'rabbit',
+      };
+    }
+
+    const getNetworkTheme = (animal, fallbackTheme) => {
+      if (themeName !== 'custom') return fallbackTheme;
+      return ANIMAL_THEME_MAP[animal] || 'classic';
+    };
+
+    const slowTheme = getNetworkTheme(themeDef.slow, themeName);
+    const mediumTheme = getNetworkTheme(themeDef.medium, themeName);
+    const fastTheme = getNetworkTheme(themeDef.fast, themeName);
+    const systemTheme = themeName === 'custom' ? 'classic' : themeName;
     
     return {
       frames: {
-        snail: this.loadThemeFrames(themeName, themeDef.slow, 'network'),
-        turtle: this.loadThemeFrames(themeName, themeDef.medium, 'network'),
-        rabbit: this.loadThemeFrames(themeName, themeDef.fast, 'network'),
+        snail: this.loadThemeFrames(slowTheme, themeDef.slow, 'network'),
+        turtle: this.loadThemeFrames(mediumTheme, themeDef.medium, 'network'),
+        rabbit: this.loadThemeFrames(fastTheme, themeDef.fast, 'network'),
       },
       fixedFrames: {
-        snail: this.loadThemeFixedIcon(themeName, themeDef.slow, 'network'),
-        turtle: this.loadThemeFixedIcon(themeName, themeDef.medium, 'network'),
-        rabbit: this.loadThemeFixedIcon(themeName, themeDef.fast, 'network'),
+        snail: this.loadThemeFixedIcon(slowTheme, themeDef.slow, 'network'),
+        turtle: this.loadThemeFixedIcon(mediumTheme, themeDef.medium, 'network'),
+        rabbit: this.loadThemeFixedIcon(fastTheme, themeDef.fast, 'network'),
       },
-      blobFrames: this.loadFrames(themeName, 'memory', 4),
-      cpuFrames: this.loadFrames(themeName, 'cpu', 4),
-      temperatureFrames: this.loadFrames(themeName,'temperature', 4),
-      diskFrames: this.loadFrames(themeName,'disk', 4),
+      blobFrames: this.loadFrames(systemTheme, 'memory', 4),
+      cpuFrames: this.loadFrames(systemTheme, 'cpu', 4),
+      temperatureFrames: this.loadFrames(systemTheme,'temperature', 4),
+      diskFrames: this.loadFrames(systemTheme,'disk', 4),
     };
   }
 

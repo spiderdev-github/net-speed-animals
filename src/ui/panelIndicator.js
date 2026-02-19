@@ -130,27 +130,27 @@ export class PanelIndicator {
     }
 
     // Separator labels
-    const sepSpeed = new St.Label({ text: '  ', style_class: 'separate-label' });
-    const sepMem = new St.Label({ text: '  ', style_class: 'separate-label' });
-    const sepCpu = new St.Label({ text: '  ', style_class: 'separate-label' });
-    const sepDisk = new St.Label({ text: '  ', style_class: 'separate-label' });
+    this._widgets.sepSpeed = new St.Label({ text: '  ', style_class: 'separate-label' });
+    this._widgets.sepMem = new St.Label({ text: '  ', style_class: 'separate-label' });
+    this._widgets.sepCpu = new St.Label({ text: '  ', style_class: 'separate-label' });
+    this._widgets.sepDisk = new St.Label({ text: '  ', style_class: 'separate-label' });
 
     // Build layout
     box.add_child(this._widgets.diskLabel);
     box.add_child(this._widgets.diskIcon);
-    box.add_child(sepDisk);
+    box.add_child(this._widgets.sepDisk);
     
     box.add_child(this._widgets.speedLabel);
     box.add_child(this._widgets.icon);
-    box.add_child(sepSpeed);
+    box.add_child(this._widgets.sepSpeed);
     
     box.add_child(this._widgets.memoryLabel);
     box.add_child(this._widgets.blobIcon);
-    box.add_child(sepMem);
+    box.add_child(this._widgets.sepMem);
     
     box.add_child(this._widgets.cpuLabel);
     box.add_child(this._widgets.cpuIcon);
-    box.add_child(sepCpu);
+    box.add_child(this._widgets.sepCpu);
     
     box.add_child(this._widgets.temperatureLabel);
     box.add_child(this._widgets.temperatureIcon);

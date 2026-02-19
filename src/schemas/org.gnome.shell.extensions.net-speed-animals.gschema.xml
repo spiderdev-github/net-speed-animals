@@ -101,6 +101,21 @@
       <summary>Manually selected interface</summary>
       <description>The network interface to monitor when in manual mode (e.g., 'eth0', 'wlan0')</description>
     </key>
+    <key type="b" name="auto-ignore-virtual-ifaces">
+      <default>true</default>
+      <summary>Ignore virtual interfaces in auto mode</summary>
+      <description>When enabled, auto-detection ignores virtual/VPN-like interfaces (tun/tap/wg/virbr, etc.).</description>
+    </key>
+    <key type="b" name="auto-ignore-docker-ifaces">
+      <default>true</default>
+      <summary>Ignore Docker/container interfaces in auto mode</summary>
+      <description>When enabled, auto-detection ignores Docker/container interfaces (docker0, veth*, br-*, cni*, etc.).</description>
+    </key>
+    <key type="b" name="auto-ignore-tailscale-ifaces">
+      <default>true</default>
+      <summary>Ignore Tailscale interfaces in auto mode</summary>
+      <description>When enabled, auto-detection ignores tailscale interfaces (tailscale0, etc.).</description>
+    </key>
     <key type="b" name="enable-color-themes">
       <default>true</default>
       <summary>Enable color themes</summary>
@@ -120,6 +135,11 @@
       <default>true</default>
       <summary>Show speed graph</summary>
       <description>Display a speed history graph in the popup menu</description>
+    </key>
+    <key type="b" name="show-speed-advanced-stats">
+      <default>true</default>
+      <summary>Show speed advanced stats</summary>
+      <description>Display speed peak and average (1m/5m) lines in the popup menu.</description>
     </key>
     <key type="b" name="show-temperature-icon">
       <default>true</default>
@@ -155,6 +175,16 @@
       <default>true</default>
       <summary>Enable notifications</summary>
       <description>Enable desktop notifications for alerts and warnings</description>
+    </key>
+    <key type="i" name="notifications-snooze-duration-minutes">
+      <default>30</default>
+      <summary>Notification silence duration</summary>
+      <description>Default duration in minutes for temporary notification silence.</description>
+    </key>
+    <key type="s" name="notifications-snooze-until">
+      <default>''</default>
+      <summary>Notification silence end time</summary>
+      <description>ISO timestamp until which notifications are temporarily silenced. Empty string means no silence.</description>
     </key>
     <key type="b" name="notify-network-dropout">
       <default>true</default>
@@ -299,6 +329,21 @@
       <summary>Icon theme</summary>
       <description>Animal icon theme: classic, aquatic, domestic, birds, insects</description>
     </key>
+    <key type="s" name="custom-animal-slow">
+      <default>'snail'</default>
+      <summary>Custom theme slow animal</summary>
+      <description>Animal/icon used for low network speed in custom theme.</description>
+    </key>
+    <key type="s" name="custom-animal-medium">
+      <default>'turtle'</default>
+      <summary>Custom theme medium animal</summary>
+      <description>Animal/icon used for medium network speed in custom theme.</description>
+    </key>
+    <key type="s" name="custom-animal-fast">
+      <default>'rabbit'</default>
+      <summary>Custom theme fast animal</summary>
+      <description>Animal/icon used for high network speed in custom theme.</description>
+    </key>
     <key type="s" name="panel-box">
       <default>'right'</default>
       <summary>Panel box position</summary>
@@ -308,6 +353,11 @@
       <default>0</default>
       <summary>Panel position index</summary>
       <description>Position index within the chosen panel box (0 = leftmost in that box)</description>
+    </key>
+    <key name="quick-profile" type="s">
+      <default>'custom'</default>
+      <summary>Quick profile preset</summary>
+      <description>Ready-to-use preset profile: custom, laptop, gaming, dev, low-power.</description>
     </key>
     <key name="threshold-mode" type="s">
       <default>'stable'</default>

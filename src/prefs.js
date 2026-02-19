@@ -21,6 +21,7 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     }
 
     const settings = this.getSettings();
+    window.set_search_enabled(true);
 
     // Apply language override before any gettext calls
     const lang = settings.get_string('language');
@@ -29,6 +30,226 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     }
 
     const _ = this.gettext.bind(this);
+
+    const setSettingValue = (key, value) => {
+      if (typeof value === 'boolean') {
+        settings.set_boolean(key, value);
+        return;
+      }
+      if (typeof value === 'number') {
+        if (Number.isInteger(value)) settings.set_int(key, value);
+        else settings.set_double(key, value);
+        return;
+      }
+      settings.set_string(key, String(value));
+    };
+
+    const getSettingType = (key) => {
+      const variant = settings.get_default_value(key);
+      return variant ? variant.get_type_string() : null;
+    };
+
+    const getSettingValue = (key) => {
+      const variant = settings.get_value(key);
+      return variant ? variant.deepUnpack() : null;
+    };
+
+    const exportSettingsToPath = (filePath) => {
+      const allKeys = settings.list_keys();
+      const exportableKeys = allKeys.filter(key => !['did-initialize', 'prefs-start-page'].includes(key));
+
+      const payload = {
+        format: 'net-speed-animals-settings',
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        settings: {},
+      };
+
+      for (const key of exportableKeys) {
+        payload.settings[key] = getSettingValue(key);
+      }
+
+      const json = JSON.stringify(payload, null, 2);
+      GLib.file_set_contents(filePath, json);
+    };
+
+    const importSettingsFromPath = (filePath) => {
+      const [ok, bytes] = GLib.file_get_contents(filePath);
+      if (!ok) throw new Error('Unable to read file');
+
+      const text = new TextDecoder('utf-8').decode(bytes);
+      const parsed = JSON.parse(text);
+      const source = parsed?.settings && typeof parsed.settings === 'object'
+        ? parsed.settings
+        : parsed;
+
+      if (!source || typeof source !== 'object') {
+        throw new Error('Invalid JSON settings payload');
+      }
+
+      const validKeys = new Set(settings.list_keys());
+      const keys = Object.keys(source).filter(k => validKeys.has(k));
+
+      for (const key of keys) {
+        const value = source[key];
+        const type = getSettingType(key);
+
+        switch (type) {
+          case 'b':
+            settings.set_boolean(key, Boolean(value));
+            break;
+          case 'i': {
+            const parsedInt = Number.parseInt(value, 10);
+            if (Number.isFinite(parsedInt)) settings.set_int(key, parsedInt);
+            break;
+          }
+          case 'd': {
+            const parsedDouble = Number(value);
+            if (Number.isFinite(parsedDouble)) settings.set_double(key, parsedDouble);
+            break;
+          }
+          case 's':
+            settings.set_string(key, String(value));
+            break;
+          default:
+            break;
+        }
+      }
+    };
+
+    const QUICK_PROFILE_IDS = ['custom', 'laptop', 'gaming', 'dev', 'low-power'];
+    const QUICK_PROFILE_PRESETS = {
+      laptop: {
+        'threshold-mode': 'stable',
+        'disable-animation': false,
+        'min-anim-speed': 120,
+        'max-anim-speed': 520,
+        'show-speed-label': false,
+        'show-memory-icon': true,
+        'show-memory-label': true,
+        'show-cpu-icon': false,
+        'show-cpu-label': false,
+        'show-temperature-icon': true,
+        'show-temperature-label': true,
+        'show-disk-icon': false,
+        'show-disk-label': false,
+        'show-speed-graph': true,
+        'show-memory-graph': false,
+        'show-cpu-graph': false,
+        'show-temperature-graph': true,
+        'show-disk-graph': false,
+        'enable-notifications': true,
+        'notify-cpu-high': false,
+        'notify-memory-high': true,
+        'notify-temperature-high': true,
+        'cpu-alert-threshold': 95.0,
+        'memory-alert-threshold': 92.0,
+        'temperature-alert-threshold': 82.0,
+      },
+      gaming: {
+        'threshold-mode': 'spectacular',
+        'disable-animation': false,
+        'min-anim-speed': 70,
+        'max-anim-speed': 260,
+        'show-speed-label': true,
+        'show-memory-icon': true,
+        'show-memory-label': true,
+        'show-cpu-icon': true,
+        'show-cpu-label': true,
+        'show-temperature-icon': true,
+        'show-temperature-label': true,
+        'show-disk-icon': true,
+        'show-disk-label': true,
+        'show-speed-graph': true,
+        'show-memory-graph': true,
+        'show-cpu-graph': true,
+        'show-temperature-graph': true,
+        'show-disk-graph': true,
+        'enable-notifications': true,
+        'notify-cpu-high': true,
+        'notify-memory-high': true,
+        'notify-temperature-high': true,
+        'cpu-alert-threshold': 92.0,
+        'memory-alert-threshold': 92.0,
+        'temperature-alert-threshold': 80.0,
+        'enable-color-themes': true,
+      },
+      dev: {
+        'threshold-mode': 'stable',
+        'disable-animation': false,
+        'min-anim-speed': 90,
+        'max-anim-speed': 420,
+        'speed-display-mode': 'separate',
+        'show-speed-label': true,
+        'show-memory-icon': true,
+        'show-memory-label': true,
+        'show-cpu-icon': true,
+        'show-cpu-label': true,
+        'show-temperature-icon': true,
+        'show-temperature-label': true,
+        'show-disk-icon': true,
+        'show-disk-label': true,
+        'show-speed-graph': true,
+        'show-memory-graph': true,
+        'show-cpu-graph': true,
+        'show-temperature-graph': true,
+        'show-disk-graph': true,
+        'track-statistics': true,
+        'show-statistics': true,
+        'enable-notifications': true,
+        'cpu-alert-threshold': 90.0,
+        'memory-alert-threshold': 90.0,
+        'temperature-alert-threshold': 85.0,
+      },
+      'low-power': {
+        'threshold-mode': 'stable',
+        'disable-animation': true,
+        'show-animal-icon': true,
+        'show-speed-label': false,
+        'show-memory-icon': false,
+        'show-memory-label': false,
+        'show-cpu-icon': false,
+        'show-cpu-label': false,
+        'show-temperature-icon': false,
+        'show-temperature-label': false,
+        'show-disk-icon': false,
+        'show-disk-label': false,
+        'show-speed-graph': false,
+        'show-memory-graph': false,
+        'show-cpu-graph': false,
+        'show-temperature-graph': false,
+        'show-disk-graph': false,
+        'show-statistics': false,
+        'enable-notifications': false,
+        'enable-color-themes': false,
+      },
+    };
+
+    const QUICK_PROFILE_MANAGED_KEYS = [...new Set(
+      Object.values(QUICK_PROFILE_PRESETS).flatMap(preset => Object.keys(preset))
+    )];
+
+    const applyQuickProfile = (profileId) => {
+      const preset = QUICK_PROFILE_PRESETS[profileId];
+      if (!preset) {
+        settings.set_string('quick-profile', 'custom');
+        return false;
+      }
+
+      for (const [key, value] of Object.entries(preset)) {
+        setSettingValue(key, value);
+      }
+
+      settings.set_string('quick-profile', profileId);
+      return true;
+    };
+
+    const resetQuickProfileToCustom = () => {
+      for (const key of QUICK_PROFILE_MANAGED_KEYS) {
+        settings.reset(key);
+      }
+      settings.set_string('quick-profile', 'custom');
+    };
 
     // Available languages with flags and native names
     const LANGUAGES = [
@@ -78,7 +299,7 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     page.add(interfaceGroup);
 
     const interfaceModeCombo = new Gtk.StringList();
-    interfaceModeCombo.append(_('Automatic (highest traffic)'));
+    interfaceModeCombo.append(_('Automatic (smart detection)'));
     interfaceModeCombo.append(_('Manual (select below)'));
 
     const interfaceModeRow = new Adw.ComboRow({
@@ -107,6 +328,168 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     });
 
     interfaceGroup.add(interfaceEntry);
+
+    const ignoreVirtualSwitch = new Gtk.Switch({
+      active: settings.get_boolean('auto-ignore-virtual-ifaces'),
+      valign: Gtk.Align.CENTER,
+    });
+
+    const ignoreVirtualRow = new Adw.ActionRow({
+      title: _('Auto: Ignore Virtual Interfaces'),
+      subtitle: _('Ignore virtual/VPN-like interfaces (tun/tap/wg/virbr, etc.) when selecting automatically'),
+      activatable_widget: ignoreVirtualSwitch,
+    });
+    ignoreVirtualRow.add_suffix(ignoreVirtualSwitch);
+    settings.bind('auto-ignore-virtual-ifaces', ignoreVirtualSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    interfaceGroup.add(ignoreVirtualRow);
+
+    const ignoreDockerSwitch = new Gtk.Switch({
+      active: settings.get_boolean('auto-ignore-docker-ifaces'),
+      valign: Gtk.Align.CENTER,
+    });
+
+    const ignoreDockerRow = new Adw.ActionRow({
+      title: _('Auto: Ignore Docker/Container Interfaces'),
+      subtitle: _('Ignore docker0, veth*, br-*, cni*, and related container interfaces'),
+      activatable_widget: ignoreDockerSwitch,
+    });
+    ignoreDockerRow.add_suffix(ignoreDockerSwitch);
+    settings.bind('auto-ignore-docker-ifaces', ignoreDockerSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    interfaceGroup.add(ignoreDockerRow);
+
+    const ignoreTailscaleSwitch = new Gtk.Switch({
+      active: settings.get_boolean('auto-ignore-tailscale-ifaces'),
+      valign: Gtk.Align.CENTER,
+    });
+
+    const ignoreTailscaleRow = new Adw.ActionRow({
+      title: _('Auto: Ignore Tailscale Interfaces'),
+      subtitle: _('Ignore tailscale interfaces during automatic selection'),
+      activatable_widget: ignoreTailscaleSwitch,
+    });
+    ignoreTailscaleRow.add_suffix(ignoreTailscaleSwitch);
+    settings.bind('auto-ignore-tailscale-ifaces', ignoreTailscaleSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    interfaceGroup.add(ignoreTailscaleRow);
+
+    // Quick profiles group
+    const quickProfileGroup = new Adw.PreferencesGroup({
+      title: _('Quick Profiles'),
+      description: _('Apply ready-to-use preset configurations'),
+    });
+    page.add(quickProfileGroup);
+
+    const quickProfileList = new Gtk.StringList();
+    quickProfileList.append(_('Custom')); 
+    quickProfileList.append(_('Laptop')); 
+    quickProfileList.append(_('Gaming')); 
+    quickProfileList.append(_('Dev')); 
+    quickProfileList.append(_('Low-power')); 
+
+    const quickProfileRow = new Adw.ComboRow({
+      title: _('Preset Profile'),
+      subtitle: _('Laptop, Gaming, Dev, or Low-power (applies immediately)'),
+      model: quickProfileList,
+    });
+
+    const currentProfileId = settings.get_string('quick-profile');
+    const currentProfileIndex = QUICK_PROFILE_IDS.indexOf(currentProfileId);
+    quickProfileRow.selected = currentProfileIndex >= 0 ? currentProfileIndex : 0;
+
+    quickProfileRow.connect('notify::selected', () => {
+      const profileId = QUICK_PROFILE_IDS[quickProfileRow.selected] ?? 'custom';
+
+      if (profileId === 'custom') {
+        settings.set_string('quick-profile', 'custom');
+        return;
+      }
+
+      const applied = applyQuickProfile(profileId);
+      if (!applied) return;
+
+      const toast = new Adw.Toast({
+        title: _('Profile applied. Changes are active immediately.'),
+        timeout: 3,
+      });
+      window.add_toast(toast);
+    });
+
+    settings.connect('changed::quick-profile', () => {
+      const profileId = settings.get_string('quick-profile');
+      const profileIndex = QUICK_PROFILE_IDS.indexOf(profileId);
+      const index = profileIndex >= 0 ? profileIndex : 0;
+      if (quickProfileRow.selected !== index) quickProfileRow.selected = index;
+    });
+
+    quickProfileGroup.add(quickProfileRow);
+
+    const resetProfileRow = new Adw.ActionRow({
+      title: _('Reset to Custom'),
+      subtitle: _('Restore default values for all profile-managed settings and switch to Custom'),
+    });
+
+    const resetProfileButton = new Gtk.Button({
+      label: _('Reset'),
+      valign: Gtk.Align.CENTER,
+      css_classes: ['destructive-action'],
+    });
+
+    resetProfileButton.connect('clicked', () => {
+      resetQuickProfileToCustom();
+      const toast = new Adw.Toast({
+        title: _('Profile reset to Custom.'),
+        timeout: 3,
+      });
+      window.add_toast(toast);
+    });
+
+    resetProfileRow.add_suffix(resetProfileButton);
+    resetProfileRow.activatable_widget = resetProfileButton;
+    quickProfileGroup.add(resetProfileRow);
+
+    // const profilePreviewGroup = new Adw.PreferencesGroup({
+    //   title: _('Profile Preview'),
+    //   description: _('Quick visual summary of each preset'),
+    // });
+    // page.add(profilePreviewGroup);
+
+    // const createProfilePreviewRow = (emoji, title, subtitle) => {
+    //   const row = new Adw.ActionRow({
+    //     title,
+    //     subtitle,
+    //     activatable: false,
+    //   });
+    //   row.add_prefix(new Gtk.Label({
+    //     label: emoji,
+    //     valign: Gtk.Align.CENTER,
+    //   }));
+    //   return row;
+    // };
+
+    // profilePreviewGroup.add(createProfilePreviewRow(
+    //   '💻',
+    //   _('Laptop'),
+    //   _('Balanced and cooler setup: fewer indicators, calm alerts, battery-friendly behavior')
+    // ));
+    // profilePreviewGroup.add(createProfilePreviewRow(
+    //   '🎮',
+    //   _('Gaming'),
+    //   _('Full visibility with all indicators and graphs enabled, responsive animations, active alerts')
+    // ));
+    // profilePreviewGroup.add(createProfilePreviewRow(
+    //   '🧑‍💻',
+    //   _('Dev'),
+    //   _('Detailed monitoring for coding sessions: separate network view, full graphs, and statistics')
+    // ));
+    // profilePreviewGroup.add(createProfilePreviewRow(
+    //   '🔋',
+    //   _('Low-power'),
+    //   _('Minimal resource usage: static icon, compact display, graphs and notifications mostly disabled')
+    // ));
+    // profilePreviewGroup.add(createProfilePreviewRow(
+    //   '🛠️',
+    //   _('Custom'),
+    //   _('Manual mode: your own mix of options and thresholds without preset constraints')
+    // ));
 
     // Animation group
     const animGroup = new Adw.PreferencesGroup({
@@ -350,6 +733,122 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
 
     languageGroup.add(languageRow);
 
+    const backupGroup = new Adw.PreferencesGroup({
+      title: _('Backup & Restore'),
+      description: _('Export or import extension settings as JSON'),
+    });
+    page.add(backupGroup);
+
+    const exportRow = new Adw.ActionRow({
+      title: _('Export Settings (JSON)'),
+      subtitle: _('Save current configuration to a .json file'),
+    });
+
+    const exportButton = new Gtk.Button({
+      label: _('Export'),
+      valign: Gtk.Align.CENTER,
+      css_classes: ['suggested-action'],
+    });
+
+    exportButton.connect('clicked', () => {
+      const chooser = new Gtk.FileChooserNative({
+        title: _('Export Settings'),
+        transient_for: window,
+        action: Gtk.FileChooserAction.SAVE,
+        accept_label: _('Save'),
+        cancel_label: _('Cancel'),
+      });
+
+      chooser.set_current_name('net-speed-animals-settings.json');
+
+      const filter = new Gtk.FileFilter();
+      filter.set_name(_('JSON files'));
+      filter.add_pattern('*.json');
+      chooser.add_filter(filter);
+
+      chooser.connect('response', (_dialog, response) => {
+        if (response !== Gtk.ResponseType.ACCEPT) return;
+
+        const file = chooser.get_file();
+        const filePath = file ? file.get_path() : null;
+        if (!filePath) return;
+
+        try {
+          exportSettingsToPath(filePath);
+          window.add_toast(new Adw.Toast({
+            title: _('Settings exported successfully.'),
+            timeout: 3,
+          }));
+        } catch (e) {
+          window.add_toast(new Adw.Toast({
+            title: _('Export failed. Check file permissions.'),
+            timeout: 4,
+          }));
+          console.error('Export settings failed:', e);
+        }
+      });
+
+      chooser.show();
+    });
+
+    exportRow.add_suffix(exportButton);
+    exportRow.activatable_widget = exportButton;
+    backupGroup.add(exportRow);
+
+    const importRow = new Adw.ActionRow({
+      title: _('Import Settings (JSON)'),
+      subtitle: _('Load configuration from a .json file and apply immediately'),
+    });
+
+    const importButton = new Gtk.Button({
+      label: _('Import'),
+      valign: Gtk.Align.CENTER,
+      css_classes: ['destructive-action'],
+    });
+
+    importButton.connect('clicked', () => {
+      const chooser = new Gtk.FileChooserNative({
+        title: _('Import Settings'),
+        transient_for: window,
+        action: Gtk.FileChooserAction.OPEN,
+        accept_label: _('Open'),
+        cancel_label: _('Cancel'),
+      });
+
+      const filter = new Gtk.FileFilter();
+      filter.set_name(_('JSON files'));
+      filter.add_pattern('*.json');
+      chooser.add_filter(filter);
+
+      chooser.connect('response', (_dialog, response) => {
+        if (response !== Gtk.ResponseType.ACCEPT) return;
+
+        const file = chooser.get_file();
+        const filePath = file ? file.get_path() : null;
+        if (!filePath) return;
+
+        try {
+          importSettingsFromPath(filePath);
+          window.add_toast(new Adw.Toast({
+            title: _('Settings imported successfully.'),
+            timeout: 3,
+          }));
+        } catch (e) {
+          window.add_toast(new Adw.Toast({
+            title: _('Import failed. Invalid or incompatible JSON file.'),
+            timeout: 4,
+          }));
+          console.error('Import settings failed:', e);
+        }
+      });
+
+      chooser.show();
+    });
+
+    importRow.add_suffix(importButton);
+    importRow.activatable_widget = importButton;
+    backupGroup.add(importRow);
+
     // Reset Settings group
     const resetGroup = new Adw.PreferencesGroup({
       title: _('Reset Settings'),
@@ -433,6 +932,7 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
       { code: 'domestic', label: `🐱  ${_('Domestic')} (${_('Cat / Dog / Horse')})` },
       { code: 'birds',    label: `🐧  ${_('Birds')} (${_('Penguin / Duck / Eagle')})` },
       { code: 'insects',  label: `🐜  ${_('Insects')} (${_('Ant / Ladybug / Bee')})` },
+      { code: 'custom',   label: `🛠️  ${_('Custom')} (${_('Choose your 3 speed animals')})` },
     ];
 
     const iconThemeModel = new Gtk.StringList();
@@ -456,6 +956,82 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     });
 
     iconThemeGroup.add(iconThemeRow);
+
+    const CUSTOM_NETWORK_ANIMALS = [
+      { code: 'snail', label: _('Snail') },
+      { code: 'turtle', label: _('Turtle') },
+      { code: 'rabbit', label: _('Rabbit') },
+      { code: 'fish', label: _('Fish') },
+      { code: 'dolphin', label: _('Dolphin') },
+      { code: 'whale', label: _('Whale') },
+      { code: 'cat', label: _('Cat') },
+      { code: 'dog', label: _('Dog') },
+      { code: 'horse', label: _('Horse') },
+      { code: 'duck', label: _('Duck') },
+      { code: 'hummingbird', label: _('Hummingbird') },
+      { code: 'eagle', label: _('Eagle') },
+      { code: 'ant', label: _('Ant') },
+      { code: 'ladybug', label: _('Ladybug') },
+      { code: 'bee', label: _('Bee') },
+    ];
+
+    const buildAnimalModel = () => {
+      const model = new Gtk.StringList();
+      for (const animal of CUSTOM_NETWORK_ANIMALS) {
+        model.append(animal.label);
+      }
+      return model;
+    };
+
+    const findAnimalIndex = (code) => {
+      const idx = CUSTOM_NETWORK_ANIMALS.findIndex(a => a.code === code);
+      return idx >= 0 ? idx : 0;
+    };
+
+    const customSlowRow = new Adw.ComboRow({
+      title: _('Custom: Slow speed animal'),
+      subtitle: _('Used for low network speed range'),
+      model: buildAnimalModel(),
+    });
+    customSlowRow.selected = findAnimalIndex(settings.get_string('custom-animal-slow'));
+    customSlowRow.connect('notify::selected', () => {
+      const selected = CUSTOM_NETWORK_ANIMALS[customSlowRow.selected];
+      if (selected) settings.set_string('custom-animal-slow', selected.code);
+    });
+    iconThemeGroup.add(customSlowRow);
+
+    const customMediumRow = new Adw.ComboRow({
+      title: _('Custom: Medium speed animal'),
+      subtitle: _('Used for medium network speed range'),
+      model: buildAnimalModel(),
+    });
+    customMediumRow.selected = findAnimalIndex(settings.get_string('custom-animal-medium'));
+    customMediumRow.connect('notify::selected', () => {
+      const selected = CUSTOM_NETWORK_ANIMALS[customMediumRow.selected];
+      if (selected) settings.set_string('custom-animal-medium', selected.code);
+    });
+    iconThemeGroup.add(customMediumRow);
+
+    const customFastRow = new Adw.ComboRow({
+      title: _('Custom: Fast speed animal'),
+      subtitle: _('Used for high network speed range'),
+      model: buildAnimalModel(),
+    });
+    customFastRow.selected = findAnimalIndex(settings.get_string('custom-animal-fast'));
+    customFastRow.connect('notify::selected', () => {
+      const selected = CUSTOM_NETWORK_ANIMALS[customFastRow.selected];
+      if (selected) settings.set_string('custom-animal-fast', selected.code);
+    });
+    iconThemeGroup.add(customFastRow);
+
+    const updateCustomThemeRowsVisibility = () => {
+      const isCustom = settings.get_string('icon-theme') === 'custom';
+      customSlowRow.visible = isCustom;
+      customMediumRow.visible = isCustom;
+      customFastRow.visible = isCustom;
+    };
+    updateCustomThemeRowsVisibility();
+    settings.connect('changed::icon-theme', updateCustomThemeRowsVisibility);
 
 
 // Icon Size group
@@ -534,6 +1110,21 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
 
     settings.bind('show-speed-graph', showGraphSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     displaySpeedGroup.add(showGraphRow);
+
+    const showSpeedAdvancedStatsSwitch = new Gtk.Switch({
+      active: settings.get_boolean('show-speed-advanced-stats'),
+      valign: Gtk.Align.CENTER,
+    });
+
+    const showSpeedAdvancedStatsRow = new Adw.ActionRow({
+      title: _('Show Peak & Averages'),
+      subtitle: _('Display Peak, Average (1m), and Average (5m) in the popup menu'),
+      activatable_widget: showSpeedAdvancedStatsSwitch,
+    });
+    showSpeedAdvancedStatsRow.add_suffix(showSpeedAdvancedStatsSwitch);
+
+    settings.bind('show-speed-advanced-stats', showSpeedAdvancedStatsSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+    displaySpeedGroup.add(showSpeedAdvancedStatsRow);
 
     const speedModeCombo = new Gtk.StringList();
     speedModeCombo.append(_('Combined (Total Speed)'));
@@ -908,9 +1499,9 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
       settings.set_double('temperature-threshold-hot', p.tempHot);
       settings.set_double('temperature-threshold-critical', p.tempCritical);
 
-      settings.set_double('disk-io-level-1', p.disk1);
-      settings.set_double('disk-io-level-2', p.disk2);
-      settings.set_double('disk-io-level-3', p.disk3);
+      settings.set_double('disk-level-1', p.disk1);
+      settings.set_double('disk-level-2', p.disk2);
+      settings.set_double('disk-level-3', p.disk3);
     };
 
     const modeToIndex = { stable: 0, spectacular: 1, stress: 2 };
@@ -1214,6 +1805,98 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     settings.bind('enable-notifications', enableNotificationsSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
     notificationsMasterGroup.add(enableNotificationsRow);
 
+    const temporarySilenceGroup = new Adw.PreferencesGroup({
+      title: _('Temporary Silence'),
+      description: _('Mute notifications for a limited time, then resume automatically'),
+    });
+    notificationsPage.add(temporarySilenceGroup);
+
+    const silenceDurationRow = new Adw.SpinRow({
+      title: _('Silence Duration (minutes)'),
+      subtitle: _('Duration used by the Silence Now button'),
+      adjustment: new Gtk.Adjustment({
+        lower: 5,
+        upper: 480,
+        step_increment: 5,
+        page_increment: 15,
+        value: settings.get_int('notifications-snooze-duration-minutes'),
+      }),
+      digits: 0,
+    });
+    settings.bind('notifications-snooze-duration-minutes', silenceDurationRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
+    temporarySilenceGroup.add(silenceDurationRow);
+
+    const temporarySilenceRow = new Adw.ActionRow({
+      title: _('Silence Notifications'),
+      subtitle: _('Notifications are active'),
+    });
+
+    const temporarySilenceButton = new Gtk.Button({
+      label: _('Silence Now'),
+      valign: Gtk.Align.CENTER,
+      css_classes: ['suggested-action'],
+    });
+
+    const getSilenceUntilMs = () => {
+      const iso = settings.get_string('notifications-snooze-until');
+      if (!iso) return 0;
+      const parsed = Date.parse(iso);
+      return Number.isFinite(parsed) ? parsed : 0;
+    };
+
+    const updateTemporarySilenceRow = () => {
+      const now = Date.now();
+      const untilMs = getSilenceUntilMs();
+      const active = untilMs > now;
+
+      if (active) {
+        const remainingMinutes = Math.max(1, Math.ceil((untilMs - now) / 60000));
+        temporarySilenceRow.subtitle = `${_('Notifications are muted for about')} ${remainingMinutes} ${_('minute(s)')}.`;
+        temporarySilenceButton.label = _('Resume Now');
+        temporarySilenceButton.remove_css_class('suggested-action');
+        temporarySilenceButton.add_css_class('destructive-action');
+      } else {
+        if (untilMs > 0) settings.set_string('notifications-snooze-until', '');
+        temporarySilenceRow.subtitle = _('Notifications are active');
+        temporarySilenceButton.label = _('Silence Now');
+        temporarySilenceButton.remove_css_class('destructive-action');
+        temporarySilenceButton.add_css_class('suggested-action');
+      }
+
+      temporarySilenceButton.sensitive = settings.get_boolean('enable-notifications');
+    };
+
+    temporarySilenceButton.connect('clicked', () => {
+      const now = Date.now();
+      const untilMs = getSilenceUntilMs();
+
+      if (untilMs > now) {
+        settings.set_string('notifications-snooze-until', '');
+        window.add_toast(new Adw.Toast({
+          title: _('Notifications resumed.'),
+          timeout: 3,
+        }));
+      } else {
+        const duration = Math.max(1, settings.get_int('notifications-snooze-duration-minutes'));
+        const until = new Date(now + duration * 60 * 1000).toISOString();
+        settings.set_string('notifications-snooze-until', until);
+        window.add_toast(new Adw.Toast({
+          title: `${_('Notifications silenced for')} ${duration} ${_('minute(s)')}.`,
+          timeout: 3,
+        }));
+      }
+
+      updateTemporarySilenceRow();
+    });
+
+    settings.connect('changed::notifications-snooze-until', updateTemporarySilenceRow);
+    settings.connect('changed::enable-notifications', updateTemporarySilenceRow);
+    updateTemporarySilenceRow();
+
+    temporarySilenceRow.add_suffix(temporarySilenceButton);
+    temporarySilenceRow.activatable_widget = temporarySilenceButton;
+    temporarySilenceGroup.add(temporarySilenceRow);
+
     const networkAlertsGroup = new Adw.PreferencesGroup({ title: _('Network Alerts') });
     notificationsPage.add(networkAlertsGroup);
 
@@ -1410,6 +2093,348 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     settings.bind('quota-critical-threshold', quotaCriticalThresholdRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
     quotaAlertsGroup.add(quotaCriticalThresholdRow);
 
+    // ========== Diagnostics Page ==========
+    const diagnosticsPage = new Adw.PreferencesPage({
+      title: _('Diagnostics'),
+      icon_name: 'search-symbolic',
+    });
+    window.add(diagnosticsPage);
+
+    const diagnoseSystemHealth = () => {
+      const results = {
+        networkOk: false,
+        thermalOk: false,
+        diskOk: false,
+      };
+
+      // Check network interface availability
+      try {
+        const procNetDev = Gio.File.new_for_path('/proc/net/dev');
+        results.networkOk = procNetDev.query_exists(null);
+      } catch (e) {
+        results.networkOk = false;
+      }
+
+      // Check thermal zone availability
+      try {
+        const thermalDir = Gio.File.new_for_path('/sys/class/thermal');
+        results.thermalOk = thermalDir.query_exists(null);
+      } catch (e) {
+        results.thermalOk = false;
+      }
+
+      // Check diskstats availability
+      try {
+        const diskStats = Gio.File.new_for_path('/proc/diskstats');
+        results.diskOk = diskStats.query_exists(null);
+      } catch (e) {
+        results.diskOk = false;
+      }
+
+      return results;
+    };
+
+    const readTextFile = (path) => {
+      try {
+        const [ok, bytes] = GLib.file_get_contents(path);
+        if (!ok) return null;
+        return new TextDecoder('utf-8').decode(bytes).trim();
+      } catch (e) {
+        return null;
+      }
+    };
+
+    const listDirectories = (path, prefix = '') => {
+      const out = [];
+      try {
+        const dir = Gio.File.new_for_path(path);
+        if (!dir.query_exists(null)) return out;
+
+        const en = dir.enumerate_children(
+          'standard::name,standard::type',
+          Gio.FileQueryInfoFlags.NONE,
+          null
+        );
+
+        let info;
+        while ((info = en.next_file(null)) !== null) {
+          if (info.get_file_type() !== Gio.FileType.DIRECTORY) continue;
+          const name = info.get_name();
+          if (!prefix || name.startsWith(prefix)) out.push(name);
+        }
+        en.close(null);
+      } catch (e) {
+        return out;
+      }
+      return out;
+    };
+
+    const detectActiveInterfaceNow = () => {
+      const text = readTextFile('/proc/net/dev');
+      if (!text) return null;
+
+      const availableIfaces = text
+        .split('\n')
+        .filter(line => line.includes(':'))
+        .map(line => line.split(':')[0].trim())
+        .filter(iface => iface && iface !== 'lo');
+
+      if (availableIfaces.length === 0) return null;
+
+      const interfaceModeStr = settings.get_string('interface-mode');
+      const pinnedIface = settings.get_string('pinned-interface').trim();
+      if (interfaceModeStr === 'manual' && pinnedIface && availableIfaces.includes(pinnedIface)) {
+        return pinnedIface;
+      }
+
+      const routeText = readTextFile('/proc/net/route');
+      if (routeText) {
+        const lines = routeText.split('\n').slice(1);
+        for (const line of lines) {
+          const parts = line.trim().split(/\s+/);
+          if (parts.length < 4) continue;
+          const iface = parts[0];
+          const destination = parts[1];
+          const flags = Number.parseInt(parts[3], 16);
+          const routeUp = Number.isFinite(flags) && (flags & 0x1) !== 0;
+          if (destination === '00000000' && routeUp && availableIfaces.includes(iface)) {
+            return iface;
+          }
+        }
+      }
+
+      return availableIfaces[0] || null;
+    };
+
+    const detectThermalZoneNow = () => {
+      const chosenZone = settings.get_string('temperature-zone').trim();
+      if (chosenZone) return chosenZone;
+
+      const thermalBase = '/sys/class/thermal';
+      const zones = listDirectories(thermalBase, 'thermal_zone');
+      for (const zoneDir of zones) {
+        const tempPath = `${thermalBase}/${zoneDir}/temp`;
+        const tempStr = readTextFile(tempPath);
+        if (!tempStr) continue;
+        const type = readTextFile(`${thermalBase}/${zoneDir}/type`);
+        return type || zoneDir;
+      }
+
+      const hwmonBase = '/sys/class/hwmon';
+      const hwmons = listDirectories(hwmonBase, 'hwmon');
+      for (const hwmon of hwmons) {
+        const chip = readTextFile(`${hwmonBase}/${hwmon}/name`) || hwmon;
+        for (let index = 1; index <= 10; index++) {
+          const inputPath = `${hwmonBase}/${hwmon}/temp${index}_input`;
+          const value = readTextFile(inputPath);
+          if (!value) continue;
+          const label = readTextFile(`${hwmonBase}/${hwmon}/temp${index}_label`);
+          return label ? `${chip} - ${label}` : `${chip} - temp${index}`;
+        }
+      }
+
+      return null;
+    };
+
+    const detectDiskDeviceNow = () => {
+      const selectedDevice = settings.get_string('disk-device').trim();
+      if (selectedDevice) return selectedDevice;
+
+      const text = readTextFile('/proc/diskstats');
+      if (!text) return null;
+
+      const mainDevicePatterns = [
+        /^sd[a-z]$/,
+        /^nvme\d+n\d+$/,
+        /^mmcblk\d+$/,
+        /^vd[a-z]$/,
+        /^hd[a-z]$/,
+      ];
+
+      const lines = text.split('\n');
+      for (const line of lines) {
+        const parts = line.trim().split(/\s+/);
+        if (parts.length < 14) continue;
+        const deviceName = parts[2];
+        if (mainDevicePatterns.some(pattern => pattern.test(deviceName))) {
+          return deviceName;
+        }
+      }
+
+      return null;
+    };
+
+    const diagnosticsHeaderGroup = new Adw.PreferencesGroup({
+      title: _('System Diagnostics'),
+      description: _('Check if the extension can access required system information'),
+    });
+    diagnosticsPage.add(diagnosticsHeaderGroup);
+
+    const refreshDiagnosticsRow = new Adw.ActionRow({
+      title: _('Refresh Diagnostics'),
+      subtitle: _('Re-run checks and update detected devices'),
+    });
+    refreshDiagnosticsRow.set_activatable(false);
+
+    const refreshDiagnosticsButton = new Gtk.Button({
+      label: _('Refresh'),
+      valign: Gtk.Align.CENTER,
+    });
+    refreshDiagnosticsButton.add_css_class('suggested-action');
+    refreshDiagnosticsRow.add_suffix(refreshDiagnosticsButton);
+    diagnosticsHeaderGroup.add(refreshDiagnosticsRow);
+
+    // Network diagnostics
+    const networkRow = new Adw.ActionRow({
+      title: _('Network Interface Monitor'),
+      subtitle: '',
+    });
+    networkRow.set_activatable(false);
+
+    const networkStatus = new Gtk.Label({
+      label: '',
+      halign: Gtk.Align.CENTER,
+      css_classes: ['success'],
+    });
+    networkRow.add_suffix(networkStatus);
+    diagnosticsHeaderGroup.add(networkRow);
+
+    // Get active interface
+    const activeIfaceRow = new Adw.ActionRow({
+      title: _('Active Interface'),
+      subtitle: '',
+    });
+    activeIfaceRow.set_activatable(false);
+    diagnosticsHeaderGroup.add(activeIfaceRow);
+
+    // Thermal zone diagnostics
+    const thermalRow = new Adw.ActionRow({
+      title: _('Temperature Monitoring'),
+      subtitle: '',
+    });
+    thermalRow.set_activatable(false);
+
+    const thermalStatus = new Gtk.Label({
+      label: '',
+      halign: Gtk.Align.CENTER,
+      css_classes: ['success'],
+    });
+    thermalRow.add_suffix(thermalStatus);
+    diagnosticsHeaderGroup.add(thermalRow);
+
+    // Get active thermal zone
+    const activeThermalRow = new Adw.ActionRow({
+      title: _('Thermal Zone'),
+      subtitle: '',
+    });
+    activeThermalRow.set_activatable(false);
+    diagnosticsHeaderGroup.add(activeThermalRow);
+
+    // Disk diagnostics
+    const diskRow = new Adw.ActionRow({
+      title: _('Disk I/O Monitor'),
+      subtitle: '',
+    });
+    diskRow.set_activatable(false);
+
+    const diskStatus = new Gtk.Label({
+      label: '',
+      halign: Gtk.Align.CENTER,
+      css_classes: ['success'],
+    });
+    diskRow.add_suffix(diskStatus);
+    diagnosticsHeaderGroup.add(diskRow);
+
+    // Get active disk device
+    const activeDiskRow = new Adw.ActionRow({
+      title: _('Disk Device'),
+      subtitle: '',
+    });
+    activeDiskRow.set_activatable(false);
+    diagnosticsHeaderGroup.add(activeDiskRow);
+
+    // Permissions check group
+    const permissionsGroup = new Adw.PreferencesGroup({
+      title: _('Permission Status'),
+      description: _('Files and directories required by the extension'),
+    });
+    diagnosticsPage.add(permissionsGroup);
+
+    const procNetDevRow = new Adw.ActionRow({
+      title: '/proc/net/dev',
+      subtitle: '',
+    });
+    procNetDevRow.set_activatable(false);
+    const procNetDevStatus = new Gtk.Label({ label: '' });
+    procNetDevRow.add_suffix(procNetDevStatus);
+    permissionsGroup.add(procNetDevRow);
+
+    const sysThermalRow = new Adw.ActionRow({
+      title: '/sys/class/thermal',
+      subtitle: '',
+    });
+    sysThermalRow.set_activatable(false);
+    const sysThermalStatus = new Gtk.Label({ label: '' });
+    sysThermalRow.add_suffix(sysThermalStatus);
+    permissionsGroup.add(sysThermalRow);
+
+    const procDiskStatsRow = new Adw.ActionRow({
+      title: '/proc/diskstats',
+      subtitle: '',
+    });
+    procDiskStatsRow.set_activatable(false);
+    const procDiskStatsStatus = new Gtk.Label({ label: '' });
+    procDiskStatsRow.add_suffix(procDiskStatsStatus);
+    permissionsGroup.add(procDiskStatsRow);
+
+    const setStatusLabel = (labelWidget, ok) => {
+      labelWidget.label = ok ? '✓' : '✗';
+      labelWidget.css_classes = [ok ? 'success' : 'error'];
+    };
+
+    const refreshDiagnostics = () => {
+      const systemHealth = diagnoseSystemHealth();
+
+      networkRow.subtitle = systemHealth.networkOk
+        ? _('✓ Ready to read network data')
+        : _('✗ Cannot access /proc/net/dev');
+      setStatusLabel(networkStatus, systemHealth.networkOk);
+
+      activeIfaceRow.subtitle = detectActiveInterfaceNow() || _('Auto-detected (will show on next refresh)');
+
+      thermalRow.subtitle = systemHealth.thermalOk
+        ? _('✓ Ready to read thermal zones')
+        : _('✗ Cannot access /sys/class/thermal');
+      setStatusLabel(thermalStatus, systemHealth.thermalOk);
+
+      activeThermalRow.subtitle = detectThermalZoneNow() || _('Auto-detected (will show on next refresh)');
+
+      diskRow.subtitle = systemHealth.diskOk
+        ? _('✓ Ready to read disk statistics')
+        : _('✗ Cannot access /proc/diskstats');
+      setStatusLabel(diskStatus, systemHealth.diskOk);
+
+      activeDiskRow.subtitle = detectDiskDeviceNow() || _('Auto-detected (will show on next refresh)');
+
+      const procNetDevOk = Gio.File.new_for_path('/proc/net/dev').query_exists(null);
+      procNetDevRow.subtitle = procNetDevOk ? _('Readable') : _('Not accessible');
+      setStatusLabel(procNetDevStatus, procNetDevOk);
+
+      const sysThermalOk = Gio.File.new_for_path('/sys/class/thermal').query_exists(null);
+      sysThermalRow.subtitle = sysThermalOk ? _('Readable') : _('Not accessible');
+      setStatusLabel(sysThermalStatus, sysThermalOk);
+
+      const procDiskStatsOk = Gio.File.new_for_path('/proc/diskstats').query_exists(null);
+      procDiskStatsRow.subtitle = procDiskStatsOk ? _('Readable') : _('Not accessible');
+      setStatusLabel(procDiskStatsStatus, procDiskStatsOk);
+    };
+
+    refreshDiagnosticsButton.connect('clicked', () => {
+      refreshDiagnostics();
+    });
+
+    refreshDiagnostics();
+
     // ========== About Page ==========
     const aboutPage = new Adw.PreferencesPage({
       title: _('About'),
@@ -1501,14 +2526,105 @@ export default class NetSpeedAnimalsPreferences extends ExtensionPreferences {
     bmacRow.add_suffix(makeLinkButton('Buy Me a Coffee', 'https://buymeacoffee.com/spiderdev'));
     bmacRow.set_activatable(false);
     donateGroup.add(bmacRow);
+
+    const reorderPreferencesGroups = (preferencesPage, groups) => {
+      for (const group of groups) {
+        try {
+          preferencesPage.remove(group);
+        } catch (e) {
+          // Ignore remove errors during reordering
+        }
+      }
+
+      for (const group of groups) {
+        preferencesPage.add(group);
+      }
+    };
+
+    reorderPreferencesGroups(page, [
+      quickProfileGroup,
+      interfaceGroup,
+      positionGroup,
+      clickActionsGroup,
+      animGroup,
+      statisticsGroup,
+      languageGroup,
+      backupGroup,
+      resetGroup,
+    ]);
+
+    reorderPreferencesGroups(displayPage, [
+      iconThemeGroup,
+      iconSizeGroup,
+      displayOtherGroup,
+      displaySpeedGroup,
+      displayCpuGroup,
+      displayMemoryGroup,
+      displayTempGroup,
+      displayDiskGroup,
+    ]);
+
+    reorderPreferencesGroups(thresholdsPage, [
+      thresholdModeGroup,
+      thresholdGroup,
+      cpuThresholdGroup,
+      memoryThresholdGroup,
+      temperatureThresholdGroup,
+      diskThresholdGroup,
+    ]);
+
+    reorderPreferencesGroups(notificationsPage, [
+      notificationsMasterGroup,
+      temporarySilenceGroup,
+      networkAlertsGroup,
+      systemAlertsGroup,
+      quotaAlertsGroup,
+    ]);
+
+    reorderPreferencesGroups(diagnosticsPage, [
+      diagnosticsHeaderGroup,
+      permissionsGroup,
+    ]);
+
+    reorderPreferencesGroups(aboutPage, [
+      aboutHeaderGroup,
+      descGroup,
+      authorGroup,
+      donateGroup,
+    ]);
+
+    const reorderPreferencesPages = (pages) => {
+      for (const preferencesPage of pages) {
+        try {
+          window.remove(preferencesPage);
+        } catch (e) {
+          // Ignore remove errors during reordering
+        }
+      }
+
+      for (const preferencesPage of pages) {
+        window.add(preferencesPage);
+      }
+    };
+
+    reorderPreferencesPages([
+      page,
+      displayPage,
+      thresholdsPage,
+      notificationsPage,
+      diagnosticsPage,
+      aboutPage,
+    ]);
     
     // Jump to requested page (one-shot)
     const startPage = settings.get_string('prefs-start-page');
 
     if (startPage === 'about') {
+      // User requested About page
       window.set_visible_page(aboutPage);
       settings.set_string('prefs-start-page', 'general');
     }
+    // Otherwise, stay on General page (default first page added)
 
   }
 }

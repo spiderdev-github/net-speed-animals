@@ -1,4 +1,5 @@
 import GLib from 'gi://GLib';
+import Gio from 'gi://Gio';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import {
   MICROSECONDS_PER_SECOND,
@@ -15,7 +16,7 @@ export class NetworkMonitor {
   constructor() {
     this._prevStats = this._readNetDev();
     this._prevTimeUs = GLib.get_monotonic_time();
-    this._iface = this._pickIface(this._prevStats);
+    this._iface = null;
   }
 
   /**
@@ -53,23 +54,151 @@ export class NetworkMonitor {
   /**
    * Get all available interfaces (excluding loopback)
    */
-  getAllInterfaces(stats) {
-    return Object.keys(stats || this._readNetDev()).filter(iface => iface !== 'lo');
+  getAllInterfaces(stats, settings = null) {
+    return this._getCandidateInterfaces(stats || this._readNetDev(), settings);
+  }
+
+  _getCandidateInterfaces(stats, settings = null) {
+    const all = Object.keys(stats || {}).filter(iface => iface !== 'lo');
+    if (!settings) return all;
+
+    const ignoreVirtual = settings.get_boolean('auto-ignore-virtual-ifaces');
+    const ignoreDocker = settings.get_boolean('auto-ignore-docker-ifaces');
+    const ignoreTailscale = settings.get_boolean('auto-ignore-tailscale-ifaces');
+
+    return all.filter((iface) => {
+      if (ignoreTailscale && this._isTailscaleIface(iface)) return false;
+      if (ignoreDocker && this._isDockerIface(iface)) return false;
+      if (ignoreVirtual && this._isVirtualIface(iface)) return false;
+      return true;
+    });
+  }
+
+  _isTailscaleIface(iface) {
+    return /^tailscale\d*$/.test(iface);
+  }
+
+  _isDockerIface(iface) {
+    const dockerLikePatterns = [
+      /^docker\d*$/,
+      /^veth[a-zA-Z0-9]+$/,
+      /^br-[a-f0-9]{6,}$/,
+      /^cni\d*$/,
+      /^flannel\d*$/,
+      /^podman\d*$/,
+    ];
+    return dockerLikePatterns.some((pattern) => pattern.test(iface));
+  }
+
+  _isVirtualIface(iface) {
+    const virtualPatterns = [
+      /^virbr\d*$/,
+      /^vnet\d+$/,
+      /^vmnet\d+$/,
+      /^vboxnet\d+$/,
+      /^zt[0-9a-f]+$/,
+      /^ifb\d+$/,
+      /^dummy\d*$/,
+      /^mac(vlan|vtap)\d*$/,
+      /^(tun|tap|wg)\d+$/,
+    ];
+    return virtualPatterns.some((pattern) => pattern.test(iface));
+  }
+
+  _isWifiIface(iface) {
+    if (/^wl[a-zA-Z0-9]/.test(iface)) return true;
+
+    try {
+      const wirelessPath = `/sys/class/net/${iface}/wireless`;
+      const file = Gio.File.new_for_path(wirelessPath);
+      return file.query_exists(null);
+    } catch {
+      return false;
+    }
+  }
+
+  _isEthernetIface(iface) {
+    return /^(en|eth)\w+/.test(iface);
+  }
+
+  _isInterfaceUp(iface) {
+    try {
+      const [ok, bytes] = GLib.file_get_contents(`/sys/class/net/${iface}/operstate`);
+      if (!ok) return false;
+      const state = new TextDecoder('utf-8').decode(bytes).trim();
+      return state === 'up' || state === 'unknown';
+    } catch {
+      return false;
+    }
+  }
+
+  _getDefaultRouteInterfaces() {
+    const ifaces = new Set();
+    const path = PROC_PATHS.NET_ROUTE;
+
+    try {
+      const [ok, bytes] = GLib.file_get_contents(path);
+      if (!ok) return ifaces;
+
+      const text = new TextDecoder('utf-8').decode(bytes);
+      const lines = text.split('\n').slice(1);
+
+      for (const line of lines) {
+        const parts = line.trim().split(/\s+/);
+        if (parts.length < 4) continue;
+
+        const iface = parts[0];
+        const destination = parts[1];
+        const flags = Number.parseInt(parts[3], 16);
+        const routeUp = Number.isFinite(flags) && (flags & 0x1) !== 0;
+
+        if (destination === '00000000' && routeUp) {
+          ifaces.add(iface);
+        }
+      }
+    } catch {
+      return ifaces;
+    }
+
+    return ifaces;
   }
 
   /**
    * Pick main iface (not lo) based on largest total traffic
    */
-  _pickIface(stats) {
-    let best = null;
-    let bestTotal = -1;
+  _pickIface(stats, settings = null) {
+    const candidates = this._getCandidateInterfaces(stats, settings);
+    if (candidates.length === 0) return null;
 
-    for (const [iface, v] of Object.entries(stats)) {
-      if (iface === 'lo') continue;
-      const total = v.rxBytes + v.txBytes;
-      if (total > bestTotal) {
-        bestTotal = total;
+    const defaultRouteIfaces = this._getDefaultRouteInterfaces();
+
+    let best = null;
+    let bestScore = null;
+
+    for (const iface of candidates) {
+      const v = stats[iface] || { rxBytes: 0, txBytes: 0 };
+      const traffic = v.rxBytes + v.txBytes;
+      const hasDefaultRoute = defaultRouteIfaces.has(iface) ? 1 : 0;
+      const isUp = this._isInterfaceUp(iface) ? 1 : 0;
+      const isPreferredKind = (this._isWifiIface(iface) || this._isEthernetIface(iface)) ? 1 : 0;
+
+      const score = [hasDefaultRoute, isUp, isPreferredKind, traffic];
+
+      if (!bestScore) {
         best = iface;
+        bestScore = score;
+        continue;
+      }
+
+      const isBetter =
+        score[0] > bestScore[0] ||
+        (score[0] === bestScore[0] && score[1] > bestScore[1]) ||
+        (score[0] === bestScore[0] && score[1] === bestScore[1] && score[2] > bestScore[2]) ||
+        (score[0] === bestScore[0] && score[1] === bestScore[1] && score[2] === bestScore[2] && score[3] > bestScore[3]);
+
+      if (isBetter) {
+        best = iface;
+        bestScore = score;
       }
     }
 
@@ -89,7 +218,7 @@ export class NetworkMonitor {
       }
     }
 
-    return this._pickIface(stats);
+    return this._pickIface(stats, settings);
   }
 
   /**
@@ -97,11 +226,11 @@ export class NetworkMonitor {
    */
   cycleInterface(direction, settings, gettext) {
     const stats = this._readNetDev();
-    const interfaces = this.getAllInterfaces(stats);
+    const interfaces = this.getAllInterfaces(stats, settings);
 
     if (interfaces.length <= 1) return;
 
-    const currentInterface = this._iface || this._pickIface(stats);
+    const currentInterface = this._iface || this._pickIface(stats, settings);
     const currentIndex = interfaces.indexOf(currentInterface);
 
     let nextIndex = currentIndex + direction;
@@ -130,15 +259,21 @@ export class NetworkMonitor {
 
     const cur = this._readNetDev();
 
-    if (!this._iface) this._iface = this.selectInterface(settings, cur);
+    const mode = settings.get_string('interface-mode');
+    if (mode === 'auto') {
+      this._iface = this.selectInterface(settings, cur);
+    } else if (!this._iface) {
+      this._iface = this.selectInterface(settings, cur);
+    }
 
     const prev = this._prevStats?.[this._iface];
     const curr = cur?.[this._iface];
+    const connected = Boolean(this._iface && curr && this._isInterfaceUp(this._iface));
 
     if (!prev || !curr) {
       this._prevStats = cur;
       this._iface = this.selectInterface(settings, cur);
-      return { bytesPerSec: null, rxBps: null, txBps: null, mbit: 0, iface: this._iface, dRx: 0, dTx: 0 };
+      return { bytesPerSec: null, rxBps: null, txBps: null, mbit: 0, iface: this._iface, dRx: 0, dTx: 0, connected: false };
     }
 
     const dRx = curr.rxBytes - prev.rxBytes;
@@ -150,7 +285,7 @@ export class NetworkMonitor {
 
     this._prevStats = cur;
 
-    return { bytesPerSec, rxBps, txBps, mbit, iface: this._iface, dRx, dTx };
+    return { bytesPerSec, rxBps, txBps, mbit, iface: this._iface, dRx, dTx, connected };
   }
 
   get iface() {

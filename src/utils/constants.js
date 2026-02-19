@@ -145,6 +145,7 @@ export const GRAPH_HEIGHT = 60;
  */
 export const PROC_PATHS = {
   NET_DEV: '/proc/net/dev',
+  NET_ROUTE: '/proc/net/route',
   STAT: '/proc/stat',
   MEMINFO: '/proc/meminfo',
   DISKSTATS: '/proc/diskstats',
